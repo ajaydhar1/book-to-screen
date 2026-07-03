@@ -1,9 +1,26 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRF3X9CMCT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-LRF3X9CMCT');
+    </script>
+
     <meta charset="utf-8">
     <title>Book to Screen</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
 
     <style>
         * {
@@ -50,7 +67,7 @@
             border: 1px solid #e3d8c8;
             border-radius: 16px;
             padding: 28px;
-            box-shadow: 0 10px 30px rgba(0,0,0,.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
         }
 
         .card h2 {
@@ -83,40 +100,41 @@
 
 <body>
 
-<main>
+    <main>
 
-    <p class="eyebrow">Prototype</p>
+        <p class="eyebrow">Prototype</p>
 
-    <h1>Book to Screen</h1>
+        <h1>Book to Screen</h1>
 
-    <p class="lede">
-        Discover upcoming book-to-screen adaptations through an editorial workflow
-        that combines automated news monitoring with human review.
-    </p>
+        <p class="lede">
+            Discover upcoming book-to-screen adaptations through an editorial workflow
+            that combines automated news monitoring with human review.
+        </p>
 
-    <section class="card">
+        <section class="card">
 
-        <h2>Current Progress</h2>
+            <h2>Current Progress</h2>
 
-        <ul>
-            <li>✓ SQLite database architecture</li>
-            <li>✓ Editorial leads workflow</li>
-            <li>✓ Admin dashboard prototype</li>
-            <li>⏳ Automated RSS ingestion</li>
-            <li>⏳ Public adaptations catalog</li>
-        </ul>
+            <ul>
+                <li>✓ SQLite database architecture</li>
+                <li>✓ Editorial leads workflow</li>
+                <li>✓ Admin dashboard prototype</li>
+                <li>⏳ Automated RSS ingestion</li>
+                <li>⏳ Public adaptations catalog</li>
+            </ul>
 
-        <a class="button" href="/admin/leads.php">
-            Open Admin Dashboard →
-        </a>
+            <a class="button" href="/admin/leads.php">
+                Open Admin Dashboard →
+            </a>
 
-    </section>
+        </section>
 
-    <footer>
-        Early development prototype.
-    </footer>
+        <footer>
+            Early development prototype.
+        </footer>
 
-</main>
+    </main>
 
 </body>
+
 </html>

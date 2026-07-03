@@ -89,10 +89,27 @@ function filter_url(string $status): string
 ?>
 <!doctype html>
 <html lang="en">
+
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRF3X9CMCT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-LRF3X9CMCT');
+    </script>
+
     <meta charset="utf-8">
     <title>Admin | Leads</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
 
     <style>
         body {
@@ -367,8 +384,7 @@ function filter_url(string $status): string
             <?php foreach (['all', 'pending', 'ignored', 'approved', 'rejected'] as $status): ?>
                 <a
                     class="filter-link <?= $currentStatus === $status ? 'active' : '' ?>"
-                    href="<?= h(filter_url($status)) ?>"
-                >
+                    href="<?= h(filter_url($status)) ?>">
                     <?= h(ucfirst($status)) ?>
                 </a>
             <?php endforeach; ?>
@@ -423,4 +439,5 @@ function filter_url(string $status): string
         <?php endif; ?>
     </main>
 </body>
+
 </html>
