@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/../includes/db.php';
 
 $db = get_db();
@@ -34,6 +36,7 @@ if ($currentStatus === 'all') {
     $stmt = $db->query("
         SELECT
             id,
+            source,
             article_title,
             article_url,
             article_excerpt,
@@ -176,7 +179,6 @@ function filter_url(string $status): string
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 24px;
         }
 
         .filter-link {
@@ -343,6 +345,28 @@ function filter_url(string $status): string
                 font-size: 32px;
             }
         }
+
+        .admin-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .button-secondary {
+            border: 1px solid #ccc;
+            background: #fff;
+            padding: 0.55rem 0.85rem;
+            border-radius: 999px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -380,15 +404,21 @@ function filter_url(string $status): string
             </div>
         </section>
 
-        <nav class="filter-bar" aria-label="Lead filters">
-            <?php foreach (['all', 'pending', 'ignored', 'approved', 'rejected'] as $status): ?>
-                <a
-                    class="filter-link <?= $currentStatus === $status ? 'active' : '' ?>"
-                    href="<?= h(filter_url($status)) ?>">
-                    <?= h(ucfirst($status)) ?>
-                </a>
-            <?php endforeach; ?>
-        </nav>
+        <div class="admin-toolbar">
+            <nav class="filter-bar" aria-label="Lead filters">
+                <?php foreach (['all', 'pending', 'ignored', 'approved', 'rejected'] as $status): ?>
+                    <a
+                        class="filter-link <?= $currentStatus === $status ? 'active' : '' ?>"
+                        href="<?= h(filter_url($status)) ?>">
+                        <?= h(ucfirst($status)) ?>
+                    </a>
+                <?php endforeach; ?>
+            </nav>
+
+            <form method="post" action="fetch-rss.php">
+                <button type="submit" class="button-secondary">Fetch RSS</button>
+            </form>
+        </div>
 
         <?php if (empty($leads)): ?>
             <div class="empty-state">
@@ -402,6 +432,8 @@ function filter_url(string $status): string
                             <span class="status-badge <?= h(status_class($lead['status'])) ?>">
                                 <?= h($lead['status']) ?>
                             </span>
+
+                            <span><?= h($lead['source']) ?></span>
 
                             <?php if (!empty($lead['published_at'])): ?>
                                 <span>Published: <?= h($lead['published_at']) ?></span>

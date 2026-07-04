@@ -8,6 +8,7 @@ $db->exec("
     CREATE TABLE IF NOT EXISTS leads (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         rss_guid TEXT NOT NULL UNIQUE,
+        source TEXT NOT NULL DEFAULT 'Deadline',
         article_title TEXT NOT NULL,
         article_url TEXT NOT NULL,
         article_excerpt TEXT,

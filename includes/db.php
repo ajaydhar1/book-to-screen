@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+require_once __DIR__ . '/config.php';
+
 function get_db(): PDO
 {
-    $dbPath = __DIR__ . '/../data/adaptations.sqlite';
-
-    if (!is_dir(dirname($dbPath))) {
-        mkdir(dirname($dbPath), 0777, true);
+    if (!is_dir(dirname(DB_PATH))) {
+        mkdir(dirname(DB_PATH), 0777, true);
     }
 
-    $pdo = new PDO('sqlite:' . $dbPath);
+    $pdo = new PDO('sqlite:' . DB_PATH);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     return $pdo;
