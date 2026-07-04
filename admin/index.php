@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 session_start();
 
+if (!empty($_SESSION['admin_logged_in'])) {
+    header('Location: /admin/leads.php?status=pending');
+    exit;
+}
+
 require_once __DIR__ . '/../includes/functions.php';
 
 $error = $_GET['error'] ?? '';

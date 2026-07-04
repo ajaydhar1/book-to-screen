@@ -448,6 +448,20 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
 
             .button-secondary {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 110px;
+                white-space: nowrap;
+                border: 1px solid #ccc;
+                background: #fff;
+                color: #2b2118;
+                padding: 0.55rem 0.85rem;
+                border-radius: 999px;
+                font: inherit;
+                font-weight: 700;
+                cursor: pointer;
+                flex-shrink: 0;
                 width: 100%;
             }
         }
