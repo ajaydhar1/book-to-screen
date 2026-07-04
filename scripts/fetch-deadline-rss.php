@@ -89,11 +89,10 @@ foreach ($rss->channel->item as $item) {
     $publishedAt = null;
 
     if ($pubDateRaw !== '') {
-        $timestamp = strtotime($pubDateRaw);
+        $date = new DateTimeImmutable($pubDateRaw);
+        $date = $date->setTimezone(new DateTimeZone(TIMEZONE));
 
-        if ($timestamp !== false) {
-            $publishedAt = date('Y-m-d H:i:s', $timestamp);
-        }
+        $publishedAt = $date->format('Y-m-d H:i:s');
     }
 
     $insert->execute([

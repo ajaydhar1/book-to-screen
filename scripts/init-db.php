@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/../includes/db.php';
 
 $db = get_db();
@@ -23,14 +25,18 @@ $db->exec("
 $db->exec("
     CREATE TABLE IF NOT EXISTS adaptations (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT NOT NULL,
-        author TEXT,
-        status TEXT NOT NULL DEFAULT 'upcoming',
-        release_info TEXT,
-        source_lead_id INTEGER,
-        created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (source_lead_id) REFERENCES leads(id)
+        lead_id INTEGER,
+        book_title TEXT NOT NULL,
+        book_author TEXT,
+        adaptation_title TEXT,
+        adaptation_type TEXT,
+        adaptation_status TEXT DEFAULT 'In Development',
+        short_note TEXT,
+        source_name TEXT,
+        source_url TEXT,
+        source_published_at TEXT,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        updated_at TEXT DEFAULT CURRENT_TIMESTAMP
     )
 ");
 

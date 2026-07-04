@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/functions.php';
 
 $db = get_db();
 
@@ -67,27 +68,6 @@ if ($currentStatus === 'all') {
 }
 
 $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-function h(string|null $value): string
-{
-    return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
-}
-
-function status_class(string $status): string
-{
-    return match ($status) {
-        'pending' => 'status-pending',
-        'approved' => 'status-approved',
-        'rejected' => 'status-rejected',
-        'ignored' => 'status-ignored',
-        default => 'status-default',
-    };
-}
-
-function filter_url(string $status): string
-{
-    return '?status=' . urlencode($status);
-}
 
 ?>
 <!doctype html>
@@ -367,6 +347,26 @@ function filter_url(string $status): string
             border-radius: 999px;
             cursor: pointer;
         }
+
+        .notice {
+            margin-bottom: 1.5rem;
+            padding: 0.9rem 1rem;
+            border-radius: 10px;
+            border: 1px solid;
+            font-size: 0.95rem;
+        }
+
+        .notice.success {
+            background: #edfdf3;
+            border-color: #8ad4a6;
+            color: #166534;
+        }
+
+        .notice.error {
+            background: #fef2f2;
+            border-color: #f5a5a5;
+            color: #991b1b;
+        }
     </style>
 </head>
 
@@ -420,6 +420,17 @@ function filter_url(string $status): string
             </form>
         </div>
 
+        <?php if (($_GET['fetch'] ?? '') === 'success'): ?>
+            <div class="notice success">
+                RSS fetched. Inserted <?= h((string) ($_GET['inserted'] ?? 0)) ?>,
+                skipped <?= h((string) ($_GET['skipped'] ?? 0)) ?>.
+            </div>
+        <?php elseif (($_GET['fetch'] ?? '') === 'error'): ?>
+            <div class="notice error">
+                RSS fetch failed.
+            </div>
+        <?php endif; ?>
+
         <?php if (empty($leads)): ?>
             <div class="empty-state">
                 No leads found for this filter.
@@ -436,7 +447,7 @@ function filter_url(string $status): string
                             <span><?= h($lead['source']) ?></span>
 
                             <?php if (!empty($lead['published_at'])): ?>
-                                <span>Published: <?= h($lead['published_at']) ?></span>
+                                <span>Published: <?= h(format_datetime($lead['published_at'])) ?></span>
                             <?php endif; ?>
 
                             <span>Lead #<?= h((string) $lead['id']) ?></span>
@@ -461,7 +472,9 @@ function filter_url(string $status): string
                                 View Article
                             </a>
 
-                            <span class="button button-muted">Approve</span>
+                            <a class="button button-muted" href="/admin/create-adaptation.php?lead_id=<?= (int) $lead['id'] ?>">
+                                Approve
+                            </a>
                             <span class="button button-muted">Reject</span>
                             <span class="button button-muted">Ignore</span>
                         </div>
