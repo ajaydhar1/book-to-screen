@@ -14,6 +14,17 @@ if (!in_array($currentStatus, $allowedStatuses, true)) {
     $currentStatus = 'all';
 }
 
+function pagination_url(int $page, string $status): string
+{
+    $params = ['page' => $page];
+
+    if ($status !== 'all') {
+        $params['status'] = $status;
+    }
+
+    return '/admin/leads.php?' . http_build_query($params);
+}
+
 $countStmt = $db->query("
     SELECT status, COUNT(*) AS total
     FROM leads
@@ -33,8 +44,23 @@ foreach ($countStmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
 
 $totalLeads = array_sum($statusCounts);
 
+$perPage = 10;
+$page = max(1, (int) ($_GET['page'] ?? 1));
+
+$totalForCurrentFilter = $currentStatus === 'all'
+    ? $totalLeads
+    : $statusCounts[$currentStatus];
+
+$totalPages = max(1, (int) ceil($totalForCurrentFilter / $perPage));
+
+if ($page > $totalPages) {
+    $page = $totalPages;
+}
+
+$offset = ($page - 1) * $perPage;
+
 if ($currentStatus === 'all') {
-    $stmt = $db->query("
+    $stmt = $db->prepare("
         SELECT
             id,
             source,
@@ -47,6 +73,7 @@ if ($currentStatus === 'all') {
             created_at
         FROM leads
         ORDER BY published_at DESC
+        LIMIT :limit OFFSET :offset
     ");
 } else {
     $stmt = $db->prepare("
@@ -63,10 +90,15 @@ if ($currentStatus === 'all') {
         FROM leads
         WHERE status = :status
         ORDER BY published_at DESC
+        LIMIT :limit OFFSET :offset
     ");
 
-    $stmt->execute(['status' => $currentStatus]);
+    $stmt->bindValue(':status', $currentStatus, PDO::PARAM_STR);
 }
+
+$stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+$stmt->execute();
 
 $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -368,6 +400,34 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             border-color: #f5a5a5;
             color: #991b1b;
         }
+
+
+        .pagination {
+            margin-top: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            font-weight: 700;
+        }
+
+        .pagination a {
+            padding: 9px 13px;
+            border: 1px solid #d7c7b2;
+            border-radius: 999px;
+            background: #fff;
+            color: #2b2118;
+            text-decoration: none;
+        }
+
+        .pagination a:hover {
+            background: #2b2118;
+            color: #fff;
+        }
+
+        .pagination span {
+            color: #756553;
+        }
     </style>
 </head>
 
@@ -488,6 +548,21 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </article>
                 <?php endforeach; ?>
             </section>
+
+            <?php if ($totalPages > 1): ?>
+                <nav class="pagination" aria-label="Lead pagination">
+                    <?php if ($page > 1): ?>
+                        <a href="<?= h(pagination_url($page - 1, $currentStatus)) ?>">← Newer</a>
+                    <?php endif; ?>
+
+                    <span>Page <?= h((string) $page) ?> of <?= h((string) $totalPages) ?></span>
+
+                    <?php if ($page < $totalPages): ?>
+                        <a href="<?= h(pagination_url($page + 1, $currentStatus)) ?>">Older →</a>
+                    <?php endif; ?>
+                </nav>
+            <?php endif; ?>
+
         <?php endif; ?>
     </main>
 </body>
