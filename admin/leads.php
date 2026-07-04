@@ -5,6 +5,8 @@ declare(strict_types=1);
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
 
+$notice = $_GET['notice'] ?? '';
+
 $db = get_db();
 
 $allowedStatuses = ['all', 'pending', 'ignored', 'approved', 'rejected'];
@@ -467,11 +469,11 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="admin-toolbar">
             <nav class="filter-bar" aria-label="Lead filters">
-                <?php foreach (['all', 'pending', 'ignored', 'approved', 'rejected'] as $status): ?>
+                <?php foreach (['all', 'pending', 'ignored', 'approved', 'rejected'] as $filterStatus): ?>
                     <a
-                        class="filter-link <?= $currentStatus === $status ? 'active' : '' ?>"
-                        href="<?= h(filter_url($status)) ?>">
-                        <?= h(ucfirst($status)) ?>
+                        class="filter-link <?= $currentStatus === $filterStatus ? 'active' : '' ?>"
+                        href="<?= h(filter_url($filterStatus)) ?>">
+                        <?= h(ucfirst($filterStatus)) ?>
                     </a>
                 <?php endforeach; ?>
             </nav>
@@ -480,6 +482,14 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <button type="submit" class="button-secondary">Fetch RSS</button>
             </form>
         </div>
+
+        <?php if ($notice === 'ignored'): ?>
+            <div class="notice success">Lead marked as ignored.</div>
+        <?php elseif ($notice === 'rejected'): ?>
+            <div class="notice success">Lead marked as rejected.</div>
+        <?php elseif ($notice === 'invalid'): ?>
+            <div class="notice error">Invalid lead status update.</div>
+        <?php endif; ?>
 
         <?php if (($_GET['created'] ?? '') === '1'): ?>
             <div class="notice success">Adaptation created successfully.</div>
@@ -542,8 +552,18 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <a class="button button-muted" href="/admin/create-adaptation.php?lead_id=<?= (int) $lead['id'] ?>">
                                 Approve
                             </a>
-                            <span class="button button-muted">Reject</span>
-                            <span class="button button-muted">Ignore</span>
+
+                            <a
+                                class="button button-muted"
+                                href="update-lead-status.php?id=<?= (int) $lead['id'] ?>&status=ignored&return_status=<?= urlencode($currentStatus) ?>&page=<?= (int) $page ?>">
+                                Ignore
+                            </a>
+
+                            <a
+                                class="button button-muted"
+                                href="update-lead-status.php?id=<?= (int) $lead['id'] ?>&status=rejected&return_status=<?= urlencode($currentStatus) ?>&page=<?= (int) $page ?>">
+                                Reject
+                            </a>
                         </div>
                     </article>
                 <?php endforeach; ?>

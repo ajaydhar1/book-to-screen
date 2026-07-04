@@ -60,9 +60,36 @@ function formatDate(?string $value): string
 <html lang="en">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRF3X9CMCT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-LRF3X9CMCT');
+    </script>
+
     <meta charset="UTF-8">
-    <title>Book to Screen</title>
+
+    <title>Book to Screen | Books, Articles & Podcasts Becoming Movies and TV</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta
+        name="description"
+        content="Discover books, articles, podcasts, comics, and true stories being adapted into movies and television. Follow the latest adaptation announcements from across the entertainment industry.">
+
+    <meta
+        name="robots"
+        content="index,follow">
+
+    <link rel="canonical" href="https://your-domain.com/">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
 
     <style>
         body {
