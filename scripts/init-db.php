@@ -17,6 +17,7 @@ $db->exec("
         published_at TEXT,
         status TEXT NOT NULL DEFAULT 'pending',
         notes TEXT,
+        reviewed_at TEXT,
         created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
         updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
     )
@@ -35,6 +36,8 @@ $db->exec("
         source_name TEXT,
         source_url TEXT,
         source_published_at TEXT,
+        article_title TEXT,
+        article_excerpt TEXT,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
         updated_at TEXT DEFAULT CURRENT_TIMESTAMP
     )

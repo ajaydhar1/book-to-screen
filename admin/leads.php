@@ -52,6 +52,7 @@ if ($currentStatus === 'all') {
     $stmt = $db->prepare("
         SELECT
             id,
+            source,
             article_title,
             article_url,
             article_excerpt,
@@ -419,6 +420,12 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <button type="submit" class="button-secondary">Fetch RSS</button>
             </form>
         </div>
+
+        <?php if (($_GET['created'] ?? '') === '1'): ?>
+            <div class="notice success">Adaptation created successfully.</div>
+        <?php elseif (($_GET['created'] ?? '') === '0'): ?>
+            <div class="notice error">Could not create adaptation.</div>
+        <?php endif; ?>
 
         <?php if (($_GET['fetch'] ?? '') === 'success'): ?>
             <div class="notice success">
