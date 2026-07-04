@@ -308,6 +308,15 @@ function formatDate(?string $value): string
         .pagination span {
             color: #75685b;
         }
+
+        .site-footer a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -434,7 +443,8 @@ function formatDate(?string $value): string
     </main>
 
     <footer class="site-footer">
-        &copy; <?= date('Y') ?> Book to Screen
+        &copy; <?= date('Y') ?> Book to Screen ·
+        <a href="/admin/">Editorial Administration</a>
     </footer>
 
 </body>

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
 
@@ -429,6 +430,26 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         .pagination span {
             color: #756553;
+        }
+
+        .button-secondary {
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 700px) {
+            .admin-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+
+            .filter-bar {
+                justify-content: center;
+            }
+
+            .button-secondary {
+                width: 100%;
+            }
         }
     </style>
 </head>
