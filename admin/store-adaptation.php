@@ -37,7 +37,7 @@ $stmt->execute([':id' => $leadId]);
 $lead = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$lead) {
-    header('Location: /admin/leads.php?created=0');
+    header('Location: /admin/leads.php?status=pending&created=0');
     exit;
 }
 
@@ -57,7 +57,8 @@ try {
             source_url,
             source_published_at,
             article_title,
-            article_excerpt
+            article_excerpt,
+            featured_image_url
         )
         VALUES (
             :lead_id,
@@ -71,7 +72,8 @@ try {
             :source_url,
             :source_published_at,
             :article_title,
-            :article_excerpt
+            :article_excerpt,
+            :featured_image_url
         )'
     );
 
@@ -88,6 +90,7 @@ try {
         ':source_published_at' => $lead['published_at'] ?? null,
         ':article_title' => $lead['article_title'] ?? null,
         ':article_excerpt' => $lead['article_excerpt'] ?? null,
+        ':featured_image_url' => $lead['featured_image_url'] ?? null,
     ]);
 
     $update = $db->prepare(
@@ -102,11 +105,11 @@ try {
 
     $db->commit();
 
-    header('Location: /admin/leads.php?created=1');
+    header('Location: /admin/leads.php?status=pending&created=1');
     exit;
 } catch (Throwable $e) {
     $db->rollBack();
 
-    header('Location: /admin/leads.php?created=0');
+    header('Location: /admin/leads.php?status=pending&created=0');
     exit;
 }

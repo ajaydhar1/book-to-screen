@@ -30,6 +30,7 @@ $stmt = $db->prepare("
         source_published_at,
         article_title,
         article_excerpt,
+        featured_image_url,
         created_at
     FROM adaptations
     ORDER BY created_at DESC
@@ -87,7 +88,7 @@ function formatDate(?string $value): string
         name="robots"
         content="index,follow">
 
-    <link rel="canonical" href="https://your-domain.com/">
+    <link rel="canonical" href="https://booktoscreen.org/">
 
     <link rel="icon" type="image/png" href="/favicon.png">
 
@@ -317,6 +318,22 @@ function formatDate(?string $value): string
         .site-footer a:hover {
             text-decoration: underline;
         }
+
+        .card-image {
+            width: calc(100% + 44px);
+            margin: -22px -22px 18px;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 18px 18px 0 0;
+            background: #f2ece3;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
     </style>
 </head>
 
@@ -358,6 +375,15 @@ function formatDate(?string $value): string
                 <div class="grid">
                     <?php foreach ($adaptations as $adaptation): ?>
                         <article class="card">
+
+                            <?php if (!empty($adaptation['featured_image_url'])): ?>
+                                <div class="card-image">
+                                    <img
+                                        src="<?= e($adaptation['featured_image_url']) ?>"
+                                        alt="<?= e($adaptation['book_title']) ?>"
+                                        loading="lazy">
+                                </div>
+                            <?php endif; ?>
 
                             <div class="card-meta">
                                 <span><?= e($adaptation['adaptation_type']) ?></span>

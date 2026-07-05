@@ -70,6 +70,7 @@ if ($currentStatus === 'all') {
             article_title,
             article_url,
             article_excerpt,
+            featured_image_url,
             published_at,
             status,
             notes,
@@ -86,6 +87,7 @@ if ($currentStatus === 'all') {
             article_title,
             article_url,
             article_excerpt,
+            featured_image_url,
             published_at,
             status,
             notes,
@@ -465,6 +467,33 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 width: 100%;
             }
         }
+
+        .lead-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f1ece4;
+            border: 1px solid #e3d8c8;
+        }
+
+        .lead-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .lead-image-placeholder {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8a7a68;
+            font-size: 14px;
+            font-weight: 700;
+        }
     </style>
 </head>
 
@@ -563,6 +592,19 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <?php endif; ?>
 
                             <span>Lead #<?= h((string) $lead['id']) ?></span>
+                        </div>
+
+                        <div class="lead-image">
+                            <?php if (!empty($lead['featured_image_url'])): ?>
+                                <img
+                                    src="<?= h($lead['featured_image_url']) ?>"
+                                    alt=""
+                                    loading="lazy">
+                            <?php else: ?>
+                                <div class="lead-image-placeholder">
+                                    No image available
+                                </div>
+                            <?php endif; ?>
                         </div>
 
                         <h2>

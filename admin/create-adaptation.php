@@ -58,7 +58,7 @@ $pageTitle = 'Create Adaptation';
     <main class="admin-page">
 
         <p>
-            <a href="/admin/leads.php">← Back to Leads</a>
+            <a href="/admin/leads.php?status=pending">← Back to Leads</a>
         </p>
 
         <h1>Create Adaptation</h1>
@@ -133,8 +133,8 @@ $pageTitle = 'Create Adaptation';
                     <label for="adaptation_type">Adaptation Type</label>
                     <select id="adaptation_type" name="adaptation_type">
                         <option value="">Unknown</option>
-                        <option value="Movie">Movie</option>
-                        <option value="TV Series">TV Series</option>
+                        <option value="Film">Film</option>
+                        <option value="Television Series">Television Series</option>
                         <option value="Limited Series">Limited Series</option>
                         <option value="Streaming">Streaming</option>
                     </select>
@@ -146,7 +146,7 @@ $pageTitle = 'Create Adaptation';
                         <option value="In Development">In Development</option>
                         <option value="Optioned">Optioned</option>
                         <option value="Announced">Announced</option>
-                        <option value="Filming">Filming</option>
+                        <option value="In Production">In Production</option>
                         <option value="Released">Released</option>
                         <option value="Unknown">Unknown</option>
                     </select>
@@ -160,7 +160,7 @@ $pageTitle = 'Create Adaptation';
                 <div class="form-actions">
                     <button type="submit">Create Adaptation</button>
 
-                    <a href="/admin/leads.php" class="button-secondary">
+                    <a href="/admin/leads.php?status=pending" class="button-secondary">
                         Keep Pending
                     </a>
                 </div>

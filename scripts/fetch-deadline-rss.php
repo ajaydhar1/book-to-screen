@@ -6,7 +6,6 @@ require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/db.php';
 
 $feedUrl = DEADLINE_RSS_URL;
-
 $source = 'Deadline';
 
 $db = get_db();
@@ -45,21 +44,17 @@ if ($rss === false) {
     exit(1);
 }
 
-if ($rss === false) {
-    fwrite(STDERR, "Could not load RSS feed: {$feedUrl}" . PHP_EOL);
-    exit(1);
-}
-
 $inserted = 0;
 $skipped = 0;
 
 $insert = $db->prepare("
-        INSERT OR IGNORE INTO leads (
+    INSERT OR IGNORE INTO leads (
         rss_guid,
         source,
         article_title,
         article_url,
         article_excerpt,
+        featured_image_url,
         published_at
     ) VALUES (
         :rss_guid,
@@ -67,6 +62,7 @@ $insert = $db->prepare("
         :article_title,
         :article_url,
         :article_excerpt,
+        :featured_image_url,
         :published_at
     )
 ");
@@ -77,6 +73,23 @@ foreach ($rss->channel->item as $item) {
     $url = trim((string) $item->link);
     $excerpt = trim(html_entity_decode(strip_tags((string) $item->description), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
     $pubDateRaw = trim((string) $item->pubDate);
+    $featuredImageUrl = null;
+
+    $media = $item->children('media', true);
+
+    if (isset($media->content)) {
+        $attributes = $media->content->attributes();
+        $featuredImageUrl = isset($attributes['url']) ? trim((string) $attributes['url']) : null;
+    }
+
+    if ($featuredImageUrl === null && isset($media->thumbnail)) {
+        $attributes = $media->thumbnail->attributes();
+        $featuredImageUrl = isset($attributes['url']) ? trim((string) $attributes['url']) : null;
+    }
+
+    if ($featuredImageUrl === '') {
+        $featuredImageUrl = null;
+    }
 
     if ($guid === '') {
         $guid = $url;
@@ -91,7 +104,6 @@ foreach ($rss->channel->item as $item) {
     if ($pubDateRaw !== '') {
         $date = new DateTimeImmutable($pubDateRaw);
         $date = $date->setTimezone(new DateTimeZone(TIMEZONE));
-
         $publishedAt = $date->format('Y-m-d H:i:s');
     }
 
@@ -101,6 +113,7 @@ foreach ($rss->channel->item as $item) {
         ':article_title' => $title,
         ':article_url' => $url,
         ':article_excerpt' => $excerpt,
+        ':featured_image_url' => $featuredImageUrl,
         ':published_at' => $publishedAt,
     ]);
 
