@@ -14,6 +14,7 @@ $db->exec("
         article_title TEXT NOT NULL,
         article_url TEXT NOT NULL,
         article_excerpt TEXT,
+        featured_image_url TEXT,
         published_at TEXT,
         status TEXT NOT NULL DEFAULT 'pending',
         notes TEXT,
@@ -38,6 +39,7 @@ $db->exec("
         source_published_at TEXT,
         article_title TEXT,
         article_excerpt TEXT,
+        featured_image_url TEXT,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
         updated_at TEXT DEFAULT CURRENT_TIMESTAMP
     )

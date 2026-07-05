@@ -27,6 +27,7 @@ foreach ($output as $line) {
 }
 
 $query = http_build_query([
+    'status' => 'pending',
     'fetch' => $status === 0 ? 'success' : 'error',
     'inserted' => $inserted,
     'skipped' => $skipped,
