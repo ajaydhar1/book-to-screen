@@ -1,1 +1,11 @@
+# Local database
 /data/adaptations.sqlite
+/data/*.sqlite-journal
+/data/*.sqlite-wal
+/data/*.sqlite-shm
+
+# Local configuration
+/includes/config.local.php
+
+# Logs
+*.log

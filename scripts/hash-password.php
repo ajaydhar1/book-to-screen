@@ -1,3 +1,3 @@
 <?php
 
-echo password_hash('shakeitup!', PASSWORD_DEFAULT);
+echo password_hash('replace-with-password', PASSWORD_DEFAULT);
