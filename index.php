@@ -33,7 +33,7 @@ $stmt = $db->prepare("
         featured_image_url,
         created_at
     FROM adaptations
-    ORDER BY created_at DESC
+    ORDER BY source_published_at DESC, created_at DESC
     LIMIT :limit OFFSET :offset
 ");
 
