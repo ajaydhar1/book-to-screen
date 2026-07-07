@@ -136,7 +136,6 @@ $pageTitle = 'Create Adaptation';
                         <option value="Film">Film</option>
                         <option value="Television Series">Television Series</option>
                         <option value="Limited Series">Limited Series</option>
-                        <option value="Streaming">Streaming</option>
                     </select>
                 </div>
 
