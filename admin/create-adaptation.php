@@ -146,6 +146,7 @@ $pageTitle = 'Create Adaptation';
                         <option value="Optioned">Optioned</option>
                         <option value="Announced">Announced</option>
                         <option value="In Production">In Production</option>
+                        <option value="Upcoming">Upcoming</option>
                         <option value="Released">Released</option>
                         <option value="Unknown">Unknown</option>
                     </select>

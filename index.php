@@ -22,6 +22,7 @@ $stmt = $db->prepare("
     SELECT
         id,
         book_title,
+        adaptation_title,
         book_author,
         adaptation_type,
         adaptation_status,
@@ -393,7 +394,13 @@ function formatDate(?string $value): string
                                 <?php endif; ?>
                             </div>
 
-                            <h3><?= e($adaptation['book_title']) ?></h3>
+                            <h3>
+                                <?= e($adaptation['adaptation_title'] ?: $adaptation['book_title']) ?>
+                            </h3>
+
+                            <p class="based-on">
+                                Based on <em><?= e($adaptation['book_title']) ?></em>
+                            </p>
 
                             <?php if (!empty($adaptation['book_author'])): ?>
                                 <p class="book-author">
