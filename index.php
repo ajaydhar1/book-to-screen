@@ -467,9 +467,20 @@ function formatDate(?string $value): string
 
                 <p>
                     Every adaptation starts somewhere: a novel, a memoir, a magazine article,
-                    a podcast, a comic, a short story, or a real-life event. This site collects
-                    those signals so readers and viewers can discover the stories behind future
-                    film and television projects.
+                    a podcast, a comic, a short story, or a real-life event. Book to Screen
+                    tracks those signals so readers and viewers can discover the stories behind
+                    future film and television projects.
+                </p>
+
+                <p>
+                    Learn more about our mission, editorial process, and the team behind
+                    Book to Screen.
+                </p>
+
+                <p>
+                    <a class="button button-primary" href="/about/">
+                        About Book to Screen →
+                    </a>
                 </p>
             </div>
         </section>
