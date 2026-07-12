@@ -494,6 +494,41 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             font-size: 14px;
             font-weight: 700;
         }
+
+
+        .lead-card {
+            position: relative;
+        }
+
+        .lead-card.potential-high {
+            border: 2px solid #2f855a;
+            box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.1);
+        }
+
+        .lead-card.potential-possible {
+            border-left: 4px solid #d69e2e;
+        }
+
+        .potential-badge {
+            display: inline-block;
+            margin-bottom: 0.75rem;
+            padding: 0.3rem 0.65rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .potential-badge-high {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .potential-badge-possible {
+            background: #fefcbf;
+            color: #744210;
+        }
     </style>
 </head>
 
@@ -579,7 +614,44 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php else: ?>
             <section class="lead-list">
                 <?php foreach ($leads as $lead): ?>
-                    <article class="lead-card">
+
+                    <?php
+                    $potentialText = strtolower(
+                        ($lead['article_title'] ?? '') . ' ' .
+                            ($lead['article_excerpt'] ?? '')
+                    );
+
+                    $potentialKeywords = [
+                        'adaptation'    => 5,
+                        'based on'      => 5,
+                        'optioned'      => 5,
+                        'novel'         => 4,
+                        'book'          => 3,
+                        'memoir'        => 3,
+                        'graphic novel' => 4,
+                        'short story'   => 4,
+                        'bestseller'    => 2,
+                        'author'        => 2,
+                    ];
+
+                    $potentialScore = 0;
+
+                    foreach ($potentialKeywords as $keyword => $points) {
+                        if (str_contains($potentialText, $keyword)) {
+                            $potentialScore += $points;
+                        }
+                    }
+
+                    $potentialLevel = '';
+
+                    if ($potentialScore >= 7) {
+                        $potentialLevel = 'high';
+                    } elseif ($potentialScore >= 3) {
+                        $potentialLevel = 'possible';
+                    }
+                    ?>
+
+                    <article class="lead-card <?= $potentialLevel ? 'potential-' . $potentialLevel : '' ?>">
                         <div class="lead-meta">
                             <span class="status-badge <?= h(status_class($lead['status'])) ?>">
                                 <?= h($lead['status']) ?>
@@ -593,6 +665,16 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                             <span>Lead #<?= h((string) $lead['id']) ?></span>
                         </div>
+
+                        <?php if ($potentialLevel === 'high'): ?>
+                            <div class="potential-badge potential-badge-high">
+                                ⭐ High Adaptation Potential
+                            </div>
+                        <?php elseif ($potentialLevel === 'possible'): ?>
+                            <div class="potential-badge potential-badge-possible">
+                                📚 Possible Adaptation Lead
+                            </div>
+                        <?php endif; ?>
 
                         <div class="lead-image">
                             <?php if (!empty($lead['featured_image_url'])): ?>
