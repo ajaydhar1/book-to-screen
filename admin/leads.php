@@ -147,6 +147,10 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .admin-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
             margin-bottom: 28px;
         }
 
@@ -162,6 +166,20 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
         .admin-header h1 {
             margin: 0;
             font-size: 38px;
+        }
+
+        .view-site-link {
+            flex-shrink: 0;
+            margin-bottom: 4px;
+            color: #7a5c3e;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .view-site-link:hover {
+            color: #2b2118;
+            text-decoration: underline;
         }
 
         .stats-grid {
@@ -362,6 +380,14 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             .admin-header h1 {
                 font-size: 32px;
             }
+
+            .admin-header {
+                align-items: flex-start;
+            }
+
+            .view-site-link {
+                margin-top: 8px;
+            }
         }
 
         .admin-toolbar {
@@ -535,8 +561,14 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <main class="admin-shell">
         <header class="admin-header">
-            <p>Book-to-Screen Admin</p>
-            <h1>Article Leads</h1>
+            <div>
+                <p>Book-to-Screen Admin</p>
+                <h1>Article Leads</h1>
+            </div>
+
+            <a class="view-site-link" href="/" target="_blank" rel="noopener">
+                View Site ↗
+            </a>
         </header>
 
         <section class="stats-grid" aria-label="Lead summary">

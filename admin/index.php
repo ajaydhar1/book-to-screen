@@ -70,7 +70,7 @@ $error = $_GET['error'] ?? '';
             border: 1px solid #e3d8c8;
             border-radius: 16px;
             padding: 28px;
-            box-shadow: 0 10px 30px rgba(0,0,0,.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
         }
 
         .card h2 {
@@ -132,46 +132,61 @@ $error = $_GET['error'] ?? '';
                 font-size: 18px;
             }
         }
+
+        footer a {
+            color: #7a5c3e;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
 <body>
 
-<main>
+    <main>
 
-    <p class="eyebrow">Editorial Administration</p>
+        <p class="eyebrow">Editorial Administration</p>
 
-    <h1>Book to Screen</h1>
+        <h1>Book to Screen</h1>
 
-    <p class="lede">
-        Sign in to review article leads, approve adaptations, and manage the editorial workflow.
-    </p>
+        <p class="lede">
+            Sign in to review article leads, approve adaptations, and manage the editorial workflow.
+        </p>
 
-    <section class="card">
+        <section class="card">
 
-        <h2>Administrator Login</h2>
+            <h2>Administrator Login</h2>
 
-        <?php if ($error === 'invalid'): ?>
-            <div class="notice">Invalid username or password.</div>
-        <?php endif; ?>
+            <?php if ($error === 'invalid'): ?>
+                <div class="notice">Invalid username or password.</div>
+            <?php endif; ?>
 
-        <form method="post" action="/admin/login.php">
-            <label for="username">Username</label>
-            <input id="username" name="username" type="text" autocomplete="username" required>
+            <form method="post" action="/admin/login.php">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" autocomplete="username" required>
 
-            <label for="password">Password</label>
-            <input id="password" name="password" type="password" autocomplete="current-password" required>
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required>
 
-            <button class="button" type="submit">Sign In →</button>
-        </form>
+                <button class="button" type="submit">Sign In →</button>
+            </form>
 
-    </section>
+        </section>
 
-    <footer>
-        Authorized editorial access only.
-    </footer>
+        <footer>
+            <p>
+                <a href="/">← Return to Book to Screen</a>
+            </p>
 
-</main>
+            <p>Authorized editorial access only.</p>
+        </footer>
+
+    </main>
 
 </body>
+
 </html>
