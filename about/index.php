@@ -436,8 +436,21 @@ declare(strict_types=1);
                     <p class="team-role">Founder &amp; Editor</p>
 
                     <p class="team-description">
-                        Ajay founded Book to Screen and oversees adaptation research,
-                        editorial review, classification, and development of the site.
+                        Ajay founded Book to Screen and oversees its editorial direction,
+                        adaptation research, contributor workflow, classification standards,
+                        and ongoing development.
+                    </p>
+                </div>
+
+                <div class="team-member">
+                    <h3>Sarah C.</h3>
+
+                    <p class="team-role">Research Contributor</p>
+
+                    <p class="team-description">
+                        Sarah reviews potential adaptation leads, verifies source material,
+                        and supports the editorial research process behind the Book to Screen
+                        archive.
                     </p>
                 </div>
 
@@ -470,9 +483,9 @@ declare(strict_types=1);
                     <p class="team-role">Contributor</p>
 
                     <p class="team-description">
-                        Helped inspire the original concept for Book to Screen and
-                        encouraged the idea of creating dedicated websites that
-                        celebrate books, adaptations, and storytelling.
+                        Nick helped inspire the original concept for Book to Screen and
+                        encouraged the creation of dedicated websites celebrating books,
+                        adaptations, and storytelling.
                     </p>
                 </div>
 
