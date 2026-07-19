@@ -96,9 +96,22 @@ https://booktoscreen.com
 
 ---
 
-## Status
+## Development Status
 
-Active development.
+### Users Page
+**Completed**
+- SQLite-backed users table
+- Display users from database
+- Add User functionality
+- Permission checks
+- Temporary password validation
+
+**Next**
+- Connect dashboard statistics cards
+- Edit User
+- Reset Password
+- Deactivate User
+- Audit trail
 
 ---
 
