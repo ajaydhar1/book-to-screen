@@ -6,6 +6,8 @@ require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
 
+$notice = $_GET['notice'] ?? '';
+
 $db = get_db();
 
 $userStmt = $db->query("
@@ -68,6 +70,7 @@ $editorUsers = count(array_filter(
 ?>
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Admin | Users</title>
@@ -450,6 +453,7 @@ $editorUsers = count(array_filter(
         }
 
         @media (max-width: 850px) {
+
             .stats-grid,
             .user-details {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -457,6 +461,7 @@ $editorUsers = count(array_filter(
         }
 
         @media (max-width: 650px) {
+
             .admin-header,
             .panel-heading,
             .user-card-header,
@@ -487,8 +492,30 @@ $editorUsers = count(array_filter(
                 width: 100%;
             }
         }
+
+        .notice {
+            margin: 0 0 24px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .notice.success {
+            background: #edfdf3;
+            border-color: #8ad4a6;
+            color: #166534;
+        }
+
+        .notice.error {
+            background: #fef2f2;
+            border-color: #f5a5a5;
+            color: #991b1b;
+        }
     </style>
 </head>
+
 <body>
     <main class="admin-shell">
         <header class="admin-header">
@@ -541,7 +568,7 @@ $editorUsers = count(array_filter(
                 </div>
             </summary>
 
-            <form action="#" method="post">
+            <form method="post" action="/admin/create-user.php">
                 <div class="form-grid">
                     <div class="field">
                         <label for="display_name">Display name</label>
@@ -575,8 +602,8 @@ $editorUsers = count(array_filter(
                     </div>
 
                     <div class="field">
-                        <label for="password_confirm">Confirm temporary password</label>
-                        <input id="password_confirm" name="password_confirm" type="password" autocomplete="new-password">
+                        <label for="password_confirmation">Confirm temporary password</label>
+                        <input id="password_confirmation" name="password_confirmation" type="password" autocomplete="new-password">
                     </div>
 
                     <label class="checkbox-field">
@@ -591,8 +618,8 @@ $editorUsers = count(array_filter(
                 </div>
 
                 <div class="form-actions">
-                    <button class="button button-primary button-muted" type="button" aria-disabled="true">
-                        Create User (prototype)
+                    <button class="button button-primary" type="submit">
+                        Create User
                     </button>
                 </div>
 
@@ -602,6 +629,26 @@ $editorUsers = count(array_filter(
                 </p>
             </form>
         </details>
+
+        <?php if ($notice === 'created'): ?>
+            <div class="notice success">User created successfully.</div>
+        <?php elseif ($notice === 'username_exists'): ?>
+            <div class="notice error">That username is already in use.</div>
+        <?php elseif ($notice === 'invalid_username'): ?>
+            <div class="notice error">
+                Usernames may contain letters, numbers, periods, underscores, and hyphens.
+            </div>
+        <?php elseif ($notice === 'invalid_email'): ?>
+            <div class="notice error">Please enter a valid email address.</div>
+        <?php elseif ($notice === 'weak_password'): ?>
+            <div class="notice error">The temporary password must be at least 8 characters.</div>
+        <?php elseif ($notice === 'password_mismatch'): ?>
+            <div class="notice error">
+                The passwords do not match.
+            </div>
+        <?php elseif ($notice === 'invalid'): ?>
+            <div class="notice error">Please complete all required fields.</div>
+        <?php endif; ?>
 
         <div class="section-heading">
             <h2>Current Users</h2>
@@ -677,4 +724,5 @@ $editorUsers = count(array_filter(
         </section>
     </main>
 </body>
+
 </html>
