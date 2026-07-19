@@ -6,40 +6,29 @@ require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
 
-/*
- * USER MANAGEMENT PROTOTYPE
- * -------------------------
- * This first iteration intentionally uses sample records so the interface can
- * be reviewed before the users table and write handlers are finalized.
- *
- * No password is ever displayed. The future database will store only a
- * password_hash created with password_hash().
- */
+$db = get_db();
 
-$users = [
-    [
-        'id' => 1,
-        'display_name' => 'Ajay Dhar',
-        'username' => 'ajay',
-        'email' => '',
-        'role' => 'admin',
-        'is_active' => true,
-        'must_change_password' => false,
-        'last_login_at' => '2026-07-18 22:43:00',
-        'created_at' => '2026-07-18 22:30:00',
-    ],
-    [
-        'id' => 2,
-        'display_name' => 'Sarah C.',
-        'username' => 'sarah',
-        'email' => '',
-        'role' => 'editor',
-        'is_active' => true,
-        'must_change_password' => true,
-        'last_login_at' => null,
-        'created_at' => '2026-07-18 22:35:00',
-    ],
-];
+$userStmt = $db->query("
+    SELECT
+        id,
+        display_name,
+        username,
+        email,
+        role,
+        is_active,
+        must_change_password,
+        last_login_at,
+        created_at
+    FROM users
+    ORDER BY
+        CASE role
+            WHEN 'admin' THEN 0
+            ELSE 1
+        END,
+        display_name COLLATE NOCASE ASC
+");
+
+$users = $userStmt->fetchAll(PDO::FETCH_ASSOC);
 
 function user_datetime(?string $datetime): string
 {
