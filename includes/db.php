@@ -11,7 +11,11 @@ function get_db(): PDO
     }
 
     $pdo = new PDO('sqlite:' . DB_PATH);
+
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Enable SQLite foreign key constraints.
+    $pdo->exec('PRAGMA foreign_keys = ON;');
 
     return $pdo;
 }
