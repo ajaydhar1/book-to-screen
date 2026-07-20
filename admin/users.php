@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
@@ -702,7 +705,7 @@ $editorUsers = count(array_filter(
                     </div>
 
                     <div class="user-actions">
-                        <button class="button button-muted" type="button" aria-disabled="true">Edit User</button>
+                        <a class="button button-muted" href="edit-user.php?id=<?= urlencode((string) $user['id']) ?>">Edit User</a>
                         <button class="button button-muted" type="button" aria-disabled="true">Reset Password</button>
 
                         <?php if ($user['role'] === 'admin' && $adminUsers === 1): ?>
