@@ -437,67 +437,22 @@ declare(strict_types=1);
 
                     <p class="team-description">
                         Ajay founded Book to Screen and oversees its editorial direction,
-                        adaptation research, contributor workflow, classification standards,
-                        and ongoing development.
+                        adaptation research, classification standards, contributor
+                        program, and ongoing product development.
                     </p>
                 </div>
 
                 <div class="team-member">
-                    <h3>Sarah C.</h3>
+                    <h3>Product Lead</h3>
 
-                    <p class="team-role">Research Contributor</p>
-
-                    <p class="team-description">
-                        Sarah reviews potential adaptation leads, verifies source material,
-                        and supports the editorial research process behind the Book to Screen
-                        archive.
-                    </p>
-                </div>
-
-                <div class="team-member">
-                    <h3>Kieara F.</h3>
-
-                    <p class="team-role">Contributor</p>
+                    <p class="team-role">Coming Soon</p>
 
                     <p class="team-description">
-                        Kieara helps identify interesting adaptation announcements and
-                        contributes ideas that support the discovery of new books,
-                        films, and television projects.
-                    </p>
-                </div>
-
-                <div class="team-member">
-                    <h3>Bethy W.</h3>
-
-                    <p class="team-role">Contributor</p>
-
-                    <p class="team-description">
-                        Bethy contributes community perspectives and helps surface
-                        noteworthy adaptation leads for editorial review.
-                    </p>
-                </div>
-
-                <div class="team-member">
-                    <h3>Nick H.</h3>
-
-                    <p class="team-role">Contributor</p>
-
-                    <p class="team-description">
-                        Nick helped inspire the original concept for Book to Screen and
-                        encouraged the creation of dedicated websites celebrating books,
-                        adaptations, and storytelling.
-                    </p>
-                </div>
-
-                <div class="team-member">
-                    <h3>Sean Fletcher</h3>
-
-                    <p class="team-role">Editorial Advisor</p>
-
-                    <p class="team-description">
-                        Sean provides editorial insight and thoughtful feedback that
-                        helps shape the site's writing, organization, and long-term
-                        direction.
+                        The Product Lead will oversee the day-to-day operation of
+                        Book to Screen, including editorial workflows, quality
+                        assurance, contributor support, and continuous product
+                        improvement while helping Neurochip build the company behind
+                        the platform.
                     </p>
                 </div>
             </div>
