@@ -335,6 +335,18 @@ function formatDate(?string $value): string
             object-fit: cover;
             display: block;
         }
+
+        .card-image {
+            aspect-ratio: 450 / 253;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     </style>
 </head>
 
@@ -378,11 +390,27 @@ function formatDate(?string $value): string
                         <article class="card">
 
                             <?php if (!empty($adaptation['featured_image_url'])): ?>
+
+                                <?php
+                                $imageUrl = $adaptation['featured_image_url'];
+
+                                if (
+                                    str_contains($imageUrl, 'deadline.com/wp-content/uploads/')
+                                    && !str_contains($imageUrl, 'w=')
+                                ) {
+                                    $separator = str_contains($imageUrl, '?') ? '&' : '?';
+                                    $imageUrl .= $separator . 'w=450&h=253&crop=1';
+                                }
+                                ?>
+
                                 <div class="card-image">
                                     <img
-                                        src="<?= e($adaptation['featured_image_url']) ?>"
+                                        src="<?= e($imageUrl) ?>"
                                         alt="<?= e($adaptation['book_title']) ?>"
-                                        loading="lazy">
+                                        width="450"
+                                        height="253"
+                                        loading="lazy"
+                                        decoding="async">
                                 </div>
                             <?php endif; ?>
 
