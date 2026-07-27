@@ -448,11 +448,13 @@ declare(strict_types=1);
                     <p class="team-role">Coming Soon</p>
 
                     <p class="team-description">
-                        The Product Lead will oversee the day-to-day operation of
-                        Book to Screen, including editorial workflows, quality
-                        assurance, contributor support, and continuous product
-                        improvement while helping Neurochip build the company behind
-                        the platform.
+                        The Product Lead will oversee the long-term success of Book 
+                        to Screen by planning new features, managing the product 
+                        roadmap and backlog, coordinating projects, maintaining 
+                        documentation, monitoring site health and analytics, 
+                        supporting marketing efforts, and continuously improving 
+                        the experience for readers, contributors, and publishers 
+                        while helping Neurochip build the company behind the platform.
                     </p>
                 </div>
             </div>
