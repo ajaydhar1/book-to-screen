@@ -582,11 +582,25 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .button-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            white-space: nowrap;
+
             border: 1px solid #ccc;
             background: #fff;
+            color: #2b2118;
+
             padding: 0.55rem 0.85rem;
             border-radius: 999px;
+
+            font: inherit;
+            /* font-weight: 700; */
             cursor: pointer;
+
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .notice {
@@ -637,10 +651,6 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             color: #756553;
         }
 
-        .button-secondary {
-            flex-shrink: 0;
-        }
-
         @media (max-width: 700px) {
             .admin-toolbar {
                 flex-direction: column;
@@ -653,20 +663,7 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
 
             .button-secondary {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
                 min-width: 110px;
-                white-space: nowrap;
-                border: 1px solid #ccc;
-                background: #fff;
-                color: #2b2118;
-                padding: 0.55rem 0.85rem;
-                border-radius: 999px;
-                font: inherit;
-                font-weight: 700;
-                cursor: pointer;
-                flex-shrink: 0;
                 width: 100%;
             }
         }

@@ -1,1 +1,7 @@
 Options -Indexes
+
+RewriteEngine On
+
+# Redirect www to non-www
+RewriteCond %{HTTP_HOST} ^www\.booktoscreen\.org$ [NC]
+RewriteRule ^(.*)$ https://booktoscreen.org/$1 [R=301,L]
