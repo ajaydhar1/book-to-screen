@@ -318,7 +318,7 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .admin-shell {
-            max-width: 1120px;
+            max-width: 1320px;
             margin: 0 auto;
             padding: 40px 20px;
         }
@@ -417,7 +417,14 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         .lead-list {
             display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 18px;
+        }
+
+        @media (max-width: 850px) {
+            .lead-list {
+                grid-template-columns: 1fr;
+            }
         }
 
         .lead-card {
