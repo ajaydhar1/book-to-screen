@@ -3,6 +3,10 @@
 /data/*.sqlite-journal
 /data/*.sqlite-wal
 /data/*.sqlite-shm
+*.sqlite
+*.sqlite3
+*.db
+
 
 # Local configuration
 /includes/config.local.php

@@ -1,0 +1,4 @@
+# Book to Screen database backups
+# Block all web access to this directory.
+
+Require all denied
