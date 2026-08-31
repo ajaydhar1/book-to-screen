@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 // Keep credentials private in this file for the test.
 // Remove this file after testing.
-$dbUrl = 'postgresql://neondb_owner:npg_E4CvJWfM5QbB@ep-curly-mode-awekn99n-pooler.c-12.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
+$dbUrl = '';
 
 $parts = parse_url($dbUrl);
 
