@@ -44,6 +44,28 @@ $stmt->execute();
 
 $adaptations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+$discoverStmt = $db->query("
+    SELECT
+        id,
+        book_title,
+        adaptation_title,
+        book_author,
+        adaptation_type,
+        adaptation_status,
+        source_name,
+        source_url,
+        source_published_at,
+        article_title,
+        article_excerpt,
+        featured_image_url,
+        created_at
+    FROM adaptations
+    ORDER BY RANDOM()
+    LIMIT 5
+");
+
+$discoveries = $discoverStmt->fetchAll(PDO::FETCH_ASSOC);
+
 function e(?string $value): string
 {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
@@ -347,6 +369,162 @@ function formatDate(?string $value): string
             height: 100%;
             object-fit: cover;
         }
+
+
+        /* ========================================
+   DISCOVER
+======================================== */
+
+        .discover-section {
+            padding-top: 10px;
+            padding-bottom: 48px;
+        }
+
+
+        /* ---------- Featured Story ---------- */
+
+        .discover-feature {
+            background: #fffaf3;
+            border: 1px solid #ded2c2;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 22px;
+            box-shadow: 0 14px 38px rgba(36, 28, 21, 0.07);
+        }
+
+        .discover-feature-image {
+            width: 100%;
+            aspect-ratio: 16 / 7;
+            overflow: hidden;
+            background: #f2ece3;
+        }
+
+        .discover-feature-image img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .discover-feature-content {
+            padding: 30px 32px 32px;
+        }
+
+        .discover-feature-content h3 {
+            margin: 0;
+            max-width: 850px;
+            font-size: clamp(1.9rem, 4vw, 2.8rem);
+            line-height: 1.08;
+        }
+
+        .discover-feature-content .based-on {
+            margin: 14px 0 0;
+            font-size: 1.05rem;
+            color: #5d5146;
+        }
+
+        .discover-feature-content .book-author {
+            margin: 7px 0 18px;
+        }
+
+        .discover-feature-content .card-summary {
+            max-width: 780px;
+            font-size: 1.05rem;
+            line-height: 1.65;
+        }
+
+
+        /* ---------- Four Smaller Stories ---------- */
+
+        .discover-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .discover-card {
+            display: flex;
+            flex-direction: column;
+            background: #fffaf3;
+            border: 1px solid #ded2c2;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(36, 28, 21, 0.05);
+        }
+
+        .discover-card-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #f2ece3;
+        }
+
+        .discover-card-image img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .discover-card-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 24px;
+        }
+
+        .discover-card-content h3 {
+            margin: 0;
+            font-size: 1.55rem;
+            line-height: 1.18;
+        }
+
+        .discover-card-content .based-on {
+            margin: 12px 0 0;
+            color: #5d5146;
+        }
+
+        .discover-card-content .book-author {
+            margin: 7px 0 16px;
+        }
+
+        .discover-card-content .card-summary {
+            margin-top: 0;
+            line-height: 1.6;
+        }
+
+
+        /* Keeps footer aligned toward bottom of cards */
+
+        .discover-card-content .card-footer {
+            margin-top: auto;
+        }
+
+
+        /* ---------- Responsive ---------- */
+
+        @media (max-width: 700px) {
+
+            .discover-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .discover-feature-image {
+                aspect-ratio: 16 / 9;
+            }
+
+            .discover-feature-content {
+                padding: 24px;
+            }
+
+            .discover-feature-content h3 {
+                font-size: 1.9rem;
+            }
+
+            .discover-card-content {
+                padding: 22px;
+            }
+        }
     </style>
 </head>
 
@@ -367,6 +545,198 @@ function formatDate(?string $value): string
                 being adapted for movies and TV.
             </p>
         </section>
+
+        <?php if (!empty($discoveries)): ?>
+            <section class="section discover-section">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Discover</p>
+                        <h2>Stories worth discovering</h2>
+                    </div>
+                </div>
+
+                <?php $featured = $discoveries[0]; ?>
+
+                <article class="discover-feature">
+
+                    <?php if (!empty($featured['featured_image_url'])): ?>
+
+                        <?php
+                        $imageUrl = $featured['featured_image_url'];
+
+                        if (
+                            str_contains($imageUrl, 'deadline.com/wp-content/uploads/')
+                            && !str_contains($imageUrl, 'w=')
+                        ) {
+                            $separator = str_contains($imageUrl, '?') ? '&' : '?';
+                            $imageUrl .= $separator . 'w=900&h=506&crop=1';
+                        }
+                        ?>
+
+                        <div class="discover-feature-image">
+                            <img
+                                src="<?= e($imageUrl) ?>"
+                                alt="<?= e($featured['book_title']) ?>"
+                                width="900"
+                                height="506"
+                                loading="eager"
+                                decoding="async">
+                        </div>
+
+                    <?php endif; ?>
+
+                    <div class="discover-feature-content">
+
+                        <div class="card-meta">
+                            <span><?= e($featured['adaptation_type']) ?></span>
+
+                            <?php if (!empty($featured['adaptation_status'])): ?>
+                                <span><?= e($featured['adaptation_status']) ?></span>
+                            <?php endif; ?>
+                        </div>
+
+                        <h3>
+                            <?= e($featured['adaptation_title'] ?: $featured['book_title']) ?>
+                        </h3>
+
+                        <p class="based-on">
+                            Based on <em><?= e($featured['book_title']) ?></em>
+                        </p>
+
+                        <?php if (!empty($featured['book_author'])): ?>
+                            <p class="book-author">
+                                by <?= e($featured['book_author']) ?>
+                            </p>
+                        <?php endif; ?>
+
+                        <?php if (!empty($featured['article_excerpt'])): ?>
+                            <p class="card-summary">
+                                <?= e($featured['article_excerpt']) ?>
+                            </p>
+                        <?php endif; ?>
+
+                        <div class="card-footer">
+
+                            <span class="source-name">
+                                <?= e($featured['source_name']) ?>
+
+                                <?php if (!empty($featured['source_published_at'])): ?>
+                                    • <?= e(date('M j, Y', strtotime($featured['source_published_at']))) ?>
+                                <?php endif; ?>
+                            </span>
+
+                            <a
+                                class="card-link"
+                                href="<?= e($featured['source_url']) ?>"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                Read article →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <?php if (count($discoveries) > 1): ?>
+
+                    <div class="discover-grid">
+
+                        <?php foreach (array_slice($discoveries, 1) as $adaptation): ?>
+
+                            <article class="discover-card">
+
+                                <?php if (!empty($adaptation['featured_image_url'])): ?>
+
+                                    <?php
+                                    $imageUrl = $adaptation['featured_image_url'];
+
+                                    if (
+                                        str_contains($imageUrl, 'deadline.com/wp-content/uploads/')
+                                        && !str_contains($imageUrl, 'w=')
+                                    ) {
+                                        $separator = str_contains($imageUrl, '?') ? '&' : '?';
+                                        $imageUrl .= $separator . 'w=600&h=338&crop=1';
+                                    }
+                                    ?>
+
+                                    <div class="discover-card-image">
+                                        <img
+                                            src="<?= e($imageUrl) ?>"
+                                            alt="<?= e($adaptation['book_title']) ?>"
+                                            width="600"
+                                            height="338"
+                                            loading="lazy"
+                                            decoding="async">
+                                    </div>
+
+                                <?php endif; ?>
+
+                                <div class="discover-card-content">
+
+                                    <div class="card-meta">
+                                        <span><?= e($adaptation['adaptation_type']) ?></span>
+
+                                        <?php if (!empty($adaptation['adaptation_status'])): ?>
+                                            <span><?= e($adaptation['adaptation_status']) ?></span>
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <h3>
+                                        <?= e($adaptation['adaptation_title'] ?: $adaptation['book_title']) ?>
+                                    </h3>
+
+                                    <p class="based-on">
+                                        Based on <em><?= e($adaptation['book_title']) ?></em>
+                                    </p>
+
+                                    <?php if (!empty($adaptation['book_author'])): ?>
+                                        <p class="book-author">
+                                            by <?= e($adaptation['book_author']) ?>
+                                        </p>
+                                    <?php endif; ?>
+
+                                    <?php if (!empty($adaptation['article_excerpt'])): ?>
+                                        <p class="card-summary">
+                                            <?= e($adaptation['article_excerpt']) ?>
+                                        </p>
+                                    <?php endif; ?>
+
+                                    <div class="card-footer">
+
+                                        <span class="source-name">
+                                            <?= e($adaptation['source_name']) ?>
+
+                                            <?php if (!empty($adaptation['source_published_at'])): ?>
+                                                • <?= e(date('M j, Y', strtotime($adaptation['source_published_at']))) ?>
+                                            <?php endif; ?>
+                                        </span>
+
+                                        <a
+                                            class="card-link"
+                                            href="<?= e($adaptation['source_url']) ?>"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+                                            Read article →
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </article>
+
+                        <?php endforeach; ?>
+
+                    </div>
+
+                <?php endif; ?>
+
+            </section>
+        <?php endif; ?>
 
         <section class="section">
             <div class="section-heading">
