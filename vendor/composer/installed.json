@@ -1,0 +1,56 @@
+{
+    "packages": [
+        {
+            "name": "sqlitecloud/sqlitecloud",
+            "version": "0.2.0",
+            "version_normalized": "0.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sqlitecloud/sqlitecloud-php.git",
+                "reference": "3a6a4ff8a662ee197e6612a0227a2d66efe2a8ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sqlitecloud/sqlitecloud-php/zipball/3a6a4ff8a662ee197e6612a0227a2d66efe2a8ff",
+                "reference": "3a6a4ff8a662ee197e6612a0227a2d66efe2a8ff",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": ">=2.19",
+                "phpmd/phpmd": "^2.15",
+                "phpunit/phpunit": "^6.5|^7.5|^8.5",
+                "squizlabs/php_codesniffer": "^3.10",
+                "vlucas/phpdotenv": ">=4.3"
+            },
+            "time": "2024-06-07T07:37:49+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "SQLiteCloud\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A PHP package for working with SQLite databases in the cloud.",
+            "homepage": "https://sqlitecloud.io/",
+            "keywords": [
+                "database",
+                "sqlite",
+                "sqlitecloud"
+            ],
+            "support": {
+                "issues": "https://github.com/sqlitecloud/sqlitecloud-php/issues",
+                "source": "https://github.com/sqlitecloud/sqlitecloud-php/tree/0.2.0"
+            },
+            "install-path": "../sqlitecloud/sqlitecloud"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

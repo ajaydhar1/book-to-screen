@@ -443,17 +443,28 @@ declare(strict_types=1);
                 </div>
 
                 <div class="team-member">
+                    <h3>Sarah Beth Couvillion</h3>
+
+                    <p class="team-role">Editorial Contributor</p>
+
+                    <p class="team-description">
+                        Sarah contributes to Book to Screen's editorial research and review process,
+                        helping identify and evaluate adaptation leads for inclusion in the archive.
+                    </p>
+                </div>
+
+                <div class="team-member">
                     <h3>Product Lead</h3>
 
                     <p class="team-role">Coming Soon</p>
 
                     <p class="team-description">
-                        The Product Lead will oversee the long-term success of Book 
-                        to Screen by planning new features, managing the product 
-                        roadmap and backlog, coordinating projects, maintaining 
-                        documentation, monitoring site health and analytics, 
-                        supporting marketing efforts, and continuously improving 
-                        the experience for readers, contributors, and publishers 
+                        The Product Lead will oversee the long-term success of Book
+                        to Screen by planning new features, managing the product
+                        roadmap and backlog, coordinating projects, maintaining
+                        documentation, monitoring site health and analytics,
+                        supporting marketing efforts, and continuously improving
+                        the experience for readers, contributors, and publishers
                         while helping Neurochip build the company behind the platform.
                     </p>
                 </div>

@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/db.php';
 
-$db = new PDO('sqlite:' . DB_PATH);
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$db = get_db();
 
 $perPage = 12;
 $page = max(1, (int) ($_GET['page'] ?? 1));
@@ -538,7 +537,7 @@ function formatDate(?string $value): string
         <section class="hero">
             <p class="eyebrow">Adaptation Tracker</p>
 
-            <h2>Stories on their way to film and television.</h2>
+            <h2>Stories on their way to film and/or television.</h2>
 
             <p>
                 Book to Screen tracks books, articles, podcasts, comics, and true stories

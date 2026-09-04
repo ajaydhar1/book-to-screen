@@ -108,7 +108,9 @@ try {
     header('Location: /admin/leads.php?status=pending&created=1');
     exit;
 } catch (Throwable $e) {
-    $db->rollBack();
+    if ($db->inTransaction()) {
+        $db->rollBack();
+    }
 
     header('Location: /admin/leads.php?status=pending&created=0');
     exit;
