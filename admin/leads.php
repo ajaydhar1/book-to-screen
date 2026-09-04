@@ -598,6 +598,7 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             border: 1px solid #ccc;
             background: #fff;
             color: #2b2118;
+            text-decoration: none;
 
             padding: 0.55rem 0.85rem;
             border-radius: 999px;
@@ -671,6 +672,20 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             .button-secondary {
                 min-width: 110px;
+                width: 100%;
+            }
+
+            .admin-toolbar-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .admin-toolbar-actions .button-secondary,
+            .admin-toolbar-actions form {
+                width: 100%;
+            }
+
+            .admin-toolbar-actions form button {
                 width: 100%;
             }
         }
@@ -866,6 +881,13 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             font-size: 13px;
             line-height: 1.4;
         }
+
+        .admin-toolbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 
@@ -1005,9 +1027,21 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </nav>
 
-            <form method="post" action="fetch-rss.php">
-                <button type="submit" class="button-secondary">Fetch RSS</button>
-            </form>
+            <div class="admin-toolbar-actions">
+
+                <a
+                    class="button-secondary"
+                    href="/admin/tmdb-818-poc.php">
+                    TMDB Book Adaptations
+                </a>
+
+                <form method="post" action="fetch-rss.php">
+                    <button type="submit" class="button-secondary">
+                        Fetch RSS
+                    </button>
+                </form>
+
+            </div>
         </div>
 
         <?php if ($notice === 'ignored'): ?>
