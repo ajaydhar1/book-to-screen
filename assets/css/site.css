@@ -1,0 +1,721 @@
+/* ========================================
+   BOOK TO SCREEN — SHARED PUBLIC STYLES
+======================================== */
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    background: #f7f2ea;
+    color: #241c15;
+}
+
+a {
+    color: inherit;
+}
+
+
+/* ========================================
+   HEADER / NAVIGATION
+======================================== */
+
+.site-header {
+    width: 100%;
+    border-bottom: 1px solid #e8e8e8;
+    background: #fff;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.site-header__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+.site-brand {
+    color: #111;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+.site-nav__link {
+    position: relative;
+    padding: 4px 0;
+
+    color: #555;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+
+    transition: color 0.15s ease;
+}
+
+.site-nav__link:hover {
+    color: #111;
+}
+
+.site-nav__link.is-active {
+    color: #111;
+}
+
+.site-nav__link.is-active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -7px;
+
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+}
+
+@media (max-width: 600px) {
+    .site-header__inner {
+        padding: 15px 18px;
+    }
+
+    .site-nav {
+        gap: 18px;
+    }
+
+    .site-nav__link {
+        font-size: 0.9rem;
+    }
+}
+
+
+/* ========================================
+   SHARED TYPOGRAPHY
+======================================== */
+
+.eyebrow {
+    margin: 0 0 12px;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8a5a32;
+    font-weight: bold;
+}
+
+.book-author {
+    margin: 8px 0 18px;
+    font-style: italic;
+    color: #75685b;
+}
+
+.card-summary {
+    line-height: 1.6;
+    color: #5d5146;
+}
+
+
+/* ========================================
+   SHARED PAGE LAYOUT
+======================================== */
+
+.hero {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 72px 24px 56px;
+}
+
+.section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: end;
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+
+/* ========================================
+   SHARED CARDS
+======================================== */
+
+.card {
+    background: #fffaf3;
+    border: 1px solid #ded2c2;
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 10px 30px rgba(36, 28, 21, 0.05);
+}
+
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8a5a32;
+    font-weight: bold;
+}
+
+.card h3 {
+    margin: 0;
+    font-size: 1.35rem;
+    line-height: 1.2;
+}
+
+.card p {
+    margin: 14px 0 18px;
+    line-height: 1.55;
+    color: #5d5146;
+}
+
+.card-link {
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+.card-footer {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid #e5d8c8;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.source-name {
+    font-size: 0.9rem;
+    color: #75685b;
+}
+
+.card-image {
+    width: calc(100% + 44px);
+    margin: -22px -22px 18px;
+    aspect-ratio: 450 / 253;
+    overflow: hidden;
+    border-radius: 18px 18px 0 0;
+    background: #f2ece3;
+}
+
+.card-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.empty-state {
+    background: #fffaf3;
+    border: 1px dashed #c9b8a4;
+    border-radius: 18px;
+    padding: 28px;
+    color: #5d5146;
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.button {
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.button-primary {
+    background: #2b2118;
+    color: #fffaf3;
+}
+
+.button-primary:hover {
+    background: #443326;
+}
+
+
+/* ========================================
+   PAGINATION
+======================================== */
+
+.pagination {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    font-weight: 600;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 10px 14px;
+    border: 1px solid #ded2c2;
+    border-radius: 999px;
+    background: #fffaf3;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
+}
+
+.pagination span {
+    color: #75685b;
+}
+
+
+/* ========================================
+   HOMEPAGE HERO
+======================================== */
+
+.home-hero h2 {
+    margin: 0;
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    line-height: 0.95;
+    max-width: 820px;
+}
+
+.home-hero p {
+    margin-top: 24px;
+    max-width: 620px;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #5d5146;
+}
+
+/* ========================================
+   HOMEPAGE LATEST GRID
+======================================== */
+
+.latest-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+@media (max-width: 1000px) {
+    .latest-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .latest-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================
+   HOMEPAGE ABOUT PANEL
+======================================== */
+
+.about {
+    margin-top: 40px;
+    background: #2b2118;
+    color: #fffaf3;
+    border-radius: 24px;
+    padding: 34px;
+}
+
+.about p {
+    max-width: 720px;
+    line-height: 1.65;
+    color: #eadfce;
+}
+
+
+/* ========================================
+   DISCOVER
+======================================== */
+
+.discover-section {
+    padding-top: 10px;
+    padding-bottom: 48px;
+}
+
+.discover-feature {
+    background: #fffaf3;
+    border: 1px solid #ded2c2;
+    border-radius: 24px;
+    overflow: hidden;
+    margin-bottom: 22px;
+    box-shadow: 0 14px 38px rgba(36, 28, 21, 0.07);
+}
+
+.discover-feature-image {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+    background: #f2ece3;
+}
+
+.discover-feature-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.discover-feature-content {
+    padding: 30px 32px 32px;
+}
+
+.discover-feature-content h3 {
+    margin: 0;
+    max-width: 850px;
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    line-height: 1.08;
+}
+
+.discover-feature-content .based-on {
+    margin: 14px 0 0;
+    font-size: 1.05rem;
+    color: #5d5146;
+}
+
+.discover-feature-content .book-author {
+    margin: 7px 0 18px;
+}
+
+.discover-feature-content .card-summary {
+    max-width: 780px;
+    font-size: 1.05rem;
+    line-height: 1.65;
+}
+
+.discover-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.discover-card {
+    display: flex;
+    flex-direction: column;
+    background: #fffaf3;
+    border: 1px solid #ded2c2;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(36, 28, 21, 0.05);
+}
+
+.discover-card-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #f2ece3;
+}
+
+.discover-card-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.discover-card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 24px;
+}
+
+.discover-card-content h3 {
+    margin: 0;
+    font-size: 1.55rem;
+    line-height: 1.18;
+}
+
+.discover-card-content .based-on {
+    margin: 12px 0 0;
+    color: #5d5146;
+}
+
+.discover-card-content .book-author {
+    margin: 7px 0 16px;
+}
+
+.discover-card-content .card-summary {
+    margin-top: 0;
+    line-height: 1.6;
+}
+
+.discover-card-content .card-footer {
+    margin-top: auto;
+}
+
+
+/* ========================================
+   ABOUT PAGE
+======================================== */
+
+.about-hero {
+    padding-bottom: 48px;
+}
+
+.about-hero h1 {
+    margin: 0;
+    max-width: 850px;
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    line-height: 0.98;
+}
+
+.hero-intro {
+    max-width: 680px;
+    margin: 24px 0 0;
+    font-size: 1.2rem;
+    line-height: 1.65;
+    color: #5d5146;
+}
+
+.content-card {
+    background: #fffaf3;
+    border: 1px solid #ded2c2;
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 10px 30px rgba(36, 28, 21, 0.05);
+}
+
+.content-card h2 {
+    margin: 0 0 16px;
+    font-size: 2rem;
+}
+
+.content-card p {
+    max-width: 760px;
+    margin: 0 0 18px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #5d5146;
+}
+
+.content-card p:last-child {
+    margin-bottom: 0;
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 26px;
+}
+
+.process-step {
+    padding: 24px;
+    border: 1px solid #e5d8c8;
+    border-radius: 18px;
+    background: #fdf8f1;
+}
+
+.process-number {
+    display: inline-flex;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 14px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #8a5a32;
+    color: #fffaf3;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.process-step h3 {
+    margin: 0 0 10px;
+    font-size: 1.2rem;
+}
+
+.process-step p {
+    margin: 0;
+    font-size: 0.98rem;
+}
+
+.team-card {
+    background: #2b2118;
+    color: #fffaf3;
+    border-radius: 24px;
+    padding: 36px;
+}
+
+.team-card .eyebrow {
+    color: #d7aa7a;
+}
+
+.team-card h2 {
+    margin: 0 0 24px;
+    font-size: 2rem;
+}
+
+.team-member {
+    padding: 32px 0;
+    border-top: 1px solid rgba(255, 250, 243, 0.18);
+}
+
+.team-member:first-of-type {
+    padding-top: 0;
+    border-top: none;
+}
+
+.team-member:last-of-type {
+    padding-bottom: 0;
+}
+
+.team-member h3 {
+    margin: 0 0 6px;
+    font-size: 1.45rem;
+}
+
+.team-role {
+    margin: 0 0 14px;
+    color: #d7aa7a;
+    font-weight: bold;
+    letter-spacing: 0.03em;
+}
+
+.team-description {
+    margin: 0;
+    max-width: 720px;
+    line-height: 1.7;
+    color: #eadfce;
+}
+
+.contribute-card {
+    text-align: center;
+    padding: 44px 36px;
+    background: #eadfce;
+    border-radius: 24px;
+}
+
+.contribute-card h2 {
+    margin: 0 0 14px;
+    font-size: 2rem;
+}
+
+.contribute-card p {
+    max-width: 650px;
+    margin: 0 auto 24px;
+    line-height: 1.65;
+    color: #5d5146;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.site-footer {
+    padding: 36px 24px;
+    text-align: center;
+    color: #7b6d5e;
+    font-size: 0.9rem;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.site-footer a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+footer a {
+    color: #7a5c3e;
+    text-decoration: none;
+}
+
+footer a {
+    color: #7a5c3e;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 700px) {
+    .section-heading {
+        display: block;
+    }
+
+    .hero {
+        padding-top: 48px;
+    }
+
+    .discover-grid,
+    .process-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .discover-feature-image {
+        aspect-ratio: 16 / 9;
+    }
+
+    .discover-feature-content {
+        padding: 24px;
+    }
+
+    .discover-feature-content h3 {
+        font-size: 1.9rem;
+    }
+
+    .discover-card-content {
+        padding: 22px;
+    }
+
+    .content-card,
+    .team-card,
+    .contribute-card {
+        padding: 28px 24px;
+    }
+}
+
+@media (max-width: 640px) {
+    .site-header-inner {
+        align-items: flex-start;
+    }
+}

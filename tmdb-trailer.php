@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../includes/config.local.php';
+require_once __DIR__ . '/includes/config.local.php';
 
 $tmdbToken = TMDB_READ_TOKEN;
 
