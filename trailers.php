@@ -17,7 +17,27 @@ require_once __DIR__ . '/includes/db.php';
 
 $db = get_db();
 
-$limit = 50;
+$perPage = 24;
+
+$page = filter_input(
+    INPUT_GET,
+    'page',
+    FILTER_VALIDATE_INT,
+    [
+        'options' => [
+            'default' => 1,
+            'min_range' => 1,
+        ],
+    ]
+);
+
+$page = $page ?: 1;
+$offset = ($page - 1) * $perPage;
+
+$isShuffle = isset($_GET['shuffle']);
+
+$totalMovies = 0;
+$totalPages = 1;
 
 
 // --------------------------------------------------
@@ -26,7 +46,7 @@ $limit = 50;
 
 try {
 
-    if (isset($_GET['shuffle'])) {
+    if ($isShuffle) {
 
         $stmt = $db->prepare("
             SELECT
@@ -46,7 +66,32 @@ try {
             LIMIT :limit
         ");
 
+        $stmt->bindValue(
+            ':limit',
+            $perPage,
+            PDO::PARAM_INT
+        );
+
     } else {
+
+        // Count total rows so we can calculate pagination.
+        $countStmt = $db->query("
+            SELECT COUNT(*)
+            FROM tmdb_adaptations
+        ");
+
+        $totalMovies = (int) $countStmt->fetchColumn();
+
+        $totalPages = max(
+            1,
+            (int) ceil($totalMovies / $perPage)
+        );
+
+        // Prevent page numbers beyond the final page.
+        if ($page > $totalPages) {
+            $page = $totalPages;
+            $offset = ($page - 1) * $perPage;
+        }
 
         $stmt = $db->prepare("
             SELECT
@@ -62,12 +107,23 @@ try {
                 vote_count,
                 popularity
             FROM tmdb_adaptations
-            ORDER BY release_date DESC
+            ORDER BY release_date DESC, tmdb_id DESC
             LIMIT :limit
+            OFFSET :offset
         ");
-    }
 
-    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(
+            ':limit',
+            $perPage,
+            PDO::PARAM_INT
+        );
+
+        $stmt->bindValue(
+            ':offset',
+            $offset,
+            PDO::PARAM_INT
+        );
+    }
 
     $stmt->execute();
 
@@ -160,13 +216,32 @@ function posterUrl(?string $posterPath): ?string
         </div>
 
         <div class="stats">
-            Showing <strong><?= count($movies) ?></strong>
-            <?= isset($_GET['shuffle']) ? 'random' : 'newest' ?>
-            TMDB movie results.
+
+            <?php if ($isShuffle): ?>
+
+                Showing <strong><?= count($movies) ?></strong>
+                random TMDB movie results.
+
+            <?php else: ?>
+
+                Showing
+                <strong>
+                    <?= $totalMovies > 0 ? $offset + 1 : 0 ?>
+                    –
+                    <?= min($offset + count($movies), $totalMovies) ?>
+                </strong>
+                of
+                <strong><?= $totalMovies ?></strong>
+                TMDB movie results.
+
+            <?php endif; ?>
+
         </div>
 
-        <a class="shuffle-link" href="?shuffle=1">
-            🔀 Shuffle
+        <a
+            class="shuffle-link"
+            href="<?= $isShuffle ? 'trailers.php' : '?shuffle=1' ?>">
+            <?= $isShuffle ? '↩ Newest' : '🔀 Shuffle' ?>
         </a>
 
         <div class="trailer-grid">
@@ -258,6 +333,36 @@ function posterUrl(?string $posterPath): ?string
             <?php endforeach; ?>
 
         </div>
+
+        <?php if (!$isShuffle && $totalPages > 1): ?>
+
+            <nav
+                class="pagination"
+                aria-label="Movie results pagination">
+
+                <?php if ($page > 1): ?>
+
+                    <a href="?page=<?= $page - 1 ?>">
+                        ← Previous
+                    </a>
+
+                <?php endif; ?>
+
+                <span>
+                    Page <?= $page ?> of <?= $totalPages ?>
+                </span>
+
+                <?php if ($page < $totalPages): ?>
+
+                    <a href="?page=<?= $page + 1 ?>">
+                        Next →
+                    </a>
+
+                <?php endif; ?>
+
+            </nav>
+
+        <?php endif; ?>
 
     </div>
 
