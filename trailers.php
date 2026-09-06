@@ -384,10 +384,24 @@ function barnesAndNobleSearchUrl(
 
                     <?php if ($poster): ?>
 
-                        <img
-                            class="poster"
-                            src="<?= e($poster) ?>"
-                            alt="<?= e($movie['title'] ?? '') ?>">
+                        <a
+                            class="poster-link"
+                            href="tmdb-trailer.php?id=<?= urlencode(
+                                                            (string) $movie['tmdb_id']
+                                                        ) ?>"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="Watch trailer for <?= e(
+                                                                $movie['title']
+                                                                    ?? 'Untitled'
+                                                            ) ?>">
+
+                            <img
+                                class="poster"
+                                src="<?= e($poster) ?>"
+                                alt="<?= e($movie['title'] ?? '') ?>">
+
+                        </a>
 
                     <?php else: ?>
 

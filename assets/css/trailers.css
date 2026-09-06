@@ -38,6 +38,26 @@ body {
     gap: 20px;
 }
 
+.trailer-grid .card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.trailer-grid .poster-link {
+    display: block;
+}
+
+.trailer-grid .poster {
+    display: block;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+}
+
+.trailer-grid .card-body {
+    padding: 22px;
+}
+
 .trailer-card {
     background: #fff;
     border: 1px solid #ddd;
@@ -60,6 +80,18 @@ body {
     justify-content: center;
     align-items: center;
     color: #888;
+}
+
+.poster-link {
+    display: block;
+}
+
+.poster-link .poster {
+    transition: opacity 0.15s ease;
+}
+
+.poster-link:hover .poster {
+    opacity: 0.9;
 }
 
 .trailer-card-body {
