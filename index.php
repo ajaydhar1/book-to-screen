@@ -78,6 +78,22 @@ function formatDate(?string $value): string
 
     return date('M j, Y', strtotime($value));
 }
+
+function barnesAndNobleSearchUrl(
+    ?string $bookTitle,
+    ?string $bookAuthor
+): ?string {
+    $query = trim(
+        ($bookTitle ?? '') . ' ' . ($bookAuthor ?? '')
+    );
+
+    if ($query === '') {
+        return null;
+    }
+
+    return 'https://www.barnesandnoble.com/search?q='
+        . urlencode($query);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -213,13 +229,34 @@ function formatDate(?string $value): string
                                 <?php endif; ?>
                             </span>
 
-                            <a
-                                class="card-link"
-                                href="<?= e($featured['source_url']) ?>"
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                Read article →
-                            </a>
+                            <div class="card-actions">
+
+                                <?php
+                                $bookUrl = barnesAndNobleSearchUrl(
+                                    $featured['book_title'] ?? null,
+                                    $featured['book_author'] ?? null
+                                );
+                                ?>
+
+                                <?php if ($bookUrl): ?>
+                                    <a
+                                        class="card-link"
+                                        href="<?= e($bookUrl) ?>"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+                                        Find the book →
+                                    </a>
+                                <?php endif; ?>
+
+                                <a
+                                    class="card-link"
+                                    href="<?= e($featured['source_url']) ?>"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    Read article →
+                                </a>
+
+                            </div>
 
                         </div>
 
@@ -302,13 +339,34 @@ function formatDate(?string $value): string
                                             <?php endif; ?>
                                         </span>
 
-                                        <a
-                                            class="card-link"
-                                            href="<?= e($adaptation['source_url']) ?>"
-                                            target="_blank"
-                                            rel="noopener noreferrer">
-                                            Read article →
-                                        </a>
+                                        <div class="card-actions">
+
+                                            <?php
+                                            $bookUrl = barnesAndNobleSearchUrl(
+                                                $adaptation['book_title'] ?? null,
+                                                $adaptation['book_author'] ?? null
+                                            );
+                                            ?>
+
+                                            <?php if ($bookUrl): ?>
+                                                <a
+                                                    class="card-link"
+                                                    href="<?= e($bookUrl) ?>"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer">
+                                                    Find the book →
+                                                </a>
+                                            <?php endif; ?>
+
+                                            <a
+                                                class="card-link"
+                                                href="<?= e($adaptation['source_url']) ?>"
+                                                target="_blank"
+                                                rel="noopener noreferrer">
+                                                Read article →
+                                            </a>
+
+                                        </div>
 
                                     </div>
 
@@ -409,13 +467,34 @@ function formatDate(?string $value): string
                                     <?php endif; ?>
                                 </span>
 
-                                <a
-                                    class="card-link"
-                                    href="<?= e($adaptation['source_url']) ?>"
-                                    target="_blank"
-                                    rel="noopener noreferrer">
-                                    Read article →
-                                </a>
+                                <div class="card-actions">
+
+                                    <?php
+                                    $bookUrl = barnesAndNobleSearchUrl(
+                                        $adaptation['book_title'] ?? null,
+                                        $adaptation['book_author'] ?? null
+                                    );
+                                    ?>
+
+                                    <?php if ($bookUrl): ?>
+                                        <a
+                                            class="card-link"
+                                            href="<?= e($bookUrl) ?>"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+                                            Find the book →
+                                        </a>
+                                    <?php endif; ?>
+
+                                    <a
+                                        class="card-link"
+                                        href="<?= e($adaptation['source_url']) ?>"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+                                        Read article →
+                                    </a>
+
+                                </div>
 
                             </div>
 

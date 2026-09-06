@@ -50,7 +50,7 @@ $pageTitle = 'Create Adaptation';
 
     <meta charset="UTF-8">
     <title><?= h($pageTitle) ?></title>
-    <link rel="stylesheet" href="/assets/css/create-adaptation.css?v=<?= filemtime(__DIR__ . '/assets/css/create-adaptation.css') ?>">
+    <link rel="stylesheet" href="/assets/css/create-adaptation.css?v=<?= filemtime(__DIR__ . '/../assets/css/create-adaptation.css') ?>">
 </head>
 
 <body>

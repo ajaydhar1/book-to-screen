@@ -248,6 +248,12 @@ a {
     color: #5d5146;
 }
 
+.card-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
 
 /* ========================================
    BUTTONS
