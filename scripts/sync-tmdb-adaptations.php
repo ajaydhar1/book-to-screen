@@ -8,6 +8,9 @@ declare(strict_types=1);
  * Syncs released U.S. movies tagged by TMDB with:
  * Keyword 818 = "based on novel or book"
  *
+ * Also checks TMDB movie credits for source-material
+ * writing credits such as Novel or Book.
+ *
  * Normal mode:
  *   Fetches the newest TMDB pages for daily cron use.
  *
@@ -100,6 +103,59 @@ function tmdbRequest(string $url, string $token): array
 
 
 // --------------------------------------------------
+// SOURCE BOOK CREDIT
+// --------------------------------------------------
+
+function findSourceBookCredit(array $credits): ?array
+{
+    $sourceJobs = [
+        'Novel',
+        'Book',
+    ];
+
+    $authors = [];
+    $jobs = [];
+
+    foreach ($credits['crew'] ?? [] as $credit) {
+
+        $job = trim(
+            (string) ($credit['job'] ?? '')
+        );
+
+        if (!in_array($job, $sourceJobs, true)) {
+            continue;
+        }
+
+        $name = trim(
+            (string) ($credit['name'] ?? '')
+        );
+
+        if ($name === '') {
+            continue;
+        }
+
+        $authors[$name] = true;
+        $jobs[$job] = true;
+    }
+
+    if (empty($authors)) {
+        return null;
+    }
+
+    return [
+        'author' => implode(
+            ', ',
+            array_keys($authors)
+        ),
+        'job' => implode(
+            ', ',
+            array_keys($jobs)
+        ),
+    ];
+}
+
+
+// --------------------------------------------------
 // SYNC
 // --------------------------------------------------
 
@@ -130,8 +186,11 @@ try {
     // PREPARED STATEMENTS
     // --------------------------------------------------
 
-    $existsStmt = $db->prepare("
-        SELECT 1
+    $existingStmt = $db->prepare("
+        SELECT
+            source_author,
+            source_credit_job,
+            source_checked_at
         FROM tmdb_adaptations
         WHERE tmdb_id = :tmdb_id
         LIMIT 1
@@ -151,6 +210,9 @@ try {
             vote_average,
             vote_count,
             popularity,
+            source_author,
+            source_credit_job,
+            source_checked_at,
             last_seen_at
         )
         VALUES (
@@ -166,6 +228,9 @@ try {
             :vote_average,
             :vote_count,
             :popularity,
+            :source_author,
+            :source_credit_job,
+            :source_checked_at,
             CURRENT_TIMESTAMP
         )
 
@@ -182,6 +247,9 @@ try {
             vote_average = excluded.vote_average,
             vote_count = excluded.vote_count,
             popularity = excluded.popularity,
+            source_author = excluded.source_author,
+            source_credit_job = excluded.source_credit_job,
+            source_checked_at = excluded.source_checked_at,
             updated_at = CURRENT_TIMESTAMP,
             last_seen_at = CURRENT_TIMESTAMP
     ");
@@ -197,6 +265,10 @@ try {
     $processedCount = 0;
     $insertedCount = 0;
     $updatedCount = 0;
+
+    $sourceLookups = 0;
+    $sourceMatches = 0;
+    $sourceLookupErrors = 0;
 
     do {
 
@@ -232,11 +304,99 @@ try {
 
             $tmdbId = (int) $movie['id'];
 
-            $existsStmt->execute([
+            $existingStmt->execute([
                 ':tmdb_id' => $tmdbId,
             ]);
 
-            $exists = (bool) $existsStmt->fetchColumn();
+            $existing = $existingStmt->fetch(
+                PDO::FETCH_ASSOC
+            );
+
+            $exists = is_array($existing);
+
+            $sourceAuthor =
+                $existing['source_author']
+                ?? null;
+
+            $sourceCreditJob =
+                $existing['source_credit_job']
+                ?? null;
+
+            $sourceCheckedAt =
+                $existing['source_checked_at']
+                ?? null;
+
+
+            // --------------------------------------------------
+            // FETCH SOURCE BOOK CREDIT IF NOT YET CHECKED
+            // --------------------------------------------------
+
+            if (!$sourceCheckedAt) {
+
+                try {
+
+                    $creditsUrl =
+                        'https://api.themoviedb.org/3/movie/'
+                        . $tmdbId
+                        . '/credits?language=en-US';
+
+                    $credits = tmdbRequest(
+                        $creditsUrl,
+                        $tmdbToken
+                    );
+
+                    $sourceLookups++;
+
+                    $sourceCredit =
+                        findSourceBookCredit($credits);
+
+                    if ($sourceCredit !== null) {
+
+                        $sourceAuthor =
+                            $sourceCredit['author'];
+
+                        $sourceCreditJob =
+                            $sourceCredit['job'];
+
+                        $sourceMatches++;
+                    }
+
+                    /*
+                     * Mark the movie as checked even if no
+                     * Novel/Book credit was found. This prevents
+                     * repeatedly requesting the same credits
+                     * during every daily sync.
+                     */
+                    $sourceCheckedAt = gmdate(
+                        'Y-m-d H:i:s'
+                    );
+
+                    /*
+                     * Small courtesy delay between source-credit
+                     * API requests.
+                     */
+                    usleep(100000);
+
+                } catch (Throwable $sourceError) {
+
+                    $sourceLookupErrors++;
+
+                    /*
+                     * Leave source_checked_at NULL so the movie
+                     * can be retried on a future sync.
+                     */
+                    echo 'Source credit lookup failed for TMDB ID '
+                        . $tmdbId
+                        . ': '
+                        . $sourceError->getMessage()
+                        . PHP_EOL;
+                }
+            }
+
+
+            // --------------------------------------------------
+            // UPSERT MOVIE
+            // --------------------------------------------------
 
             $releaseDate =
                 isset($movie['release_date'])
@@ -273,6 +433,12 @@ try {
                     isset($movie['popularity'])
                         ? (float) $movie['popularity']
                         : null,
+                ':source_author' =>
+                    $sourceAuthor,
+                ':source_credit_job' =>
+                    $sourceCreditJob,
+                ':source_checked_at' =>
+                    $sourceCheckedAt,
             ]);
 
             $processedCount++;
@@ -347,6 +513,9 @@ try {
     echo "Movies processed: {$processedCount}" . PHP_EOL;
     echo "Inserted: {$insertedCount}" . PHP_EOL;
     echo "Updated: {$updatedCount}" . PHP_EOL;
+    echo "Source credit lookups: {$sourceLookups}" . PHP_EOL;
+    echo "Source matches: {$sourceMatches}" . PHP_EOL;
+    echo "Source lookup errors: {$sourceLookupErrors}" . PHP_EOL;
 
 } catch (Throwable $e) {
 

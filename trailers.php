@@ -60,7 +60,8 @@ try {
                 original_language,
                 vote_average,
                 vote_count,
-                popularity
+                popularity,
+                source_author
             FROM tmdb_adaptations
             ORDER BY RANDOM()
             LIMIT :limit
@@ -104,7 +105,8 @@ try {
                 original_language,
                 vote_average,
                 vote_count,
-                popularity
+                popularity,
+                source_author
             FROM tmdb_adaptations
             ORDER BY release_date DESC, tmdb_id DESC
             LIMIT :limit
@@ -160,6 +162,24 @@ function posterUrl(?string $posterPath): ?string
     }
 
     return 'https://image.tmdb.org/t/p/w342' . $posterPath;
+}
+
+function barnesAndNobleSearchUrl(
+    ?string $movieTitle,
+    ?string $sourceAuthor
+): ?string {
+    $query = trim(
+        ($movieTitle ?? '')
+            . ' '
+            . ($sourceAuthor ?? '')
+    );
+
+    if ($query === '') {
+        return null;
+    }
+
+    return 'https://www.barnesandnoble.com/search?q='
+        . urlencode($query);
 }
 
 ?>
@@ -258,6 +278,11 @@ function posterUrl(?string $posterPath): ?string
                 $poster = posterUrl(
                     $movie['poster_path'] ?? null
                 );
+
+                $bookUrl = barnesAndNobleSearchUrl(
+                    $movie['title'] ?? null,
+                    $movie['source_author'] ?? null
+                );
                 ?>
 
                 <div class="card">
@@ -305,6 +330,17 @@ function posterUrl(?string $posterPath): ?string
 
                         </div>
 
+                        <?php if (!empty($movie['source_author'])): ?>
+
+                            <div class="book-source">
+                                Based on the book by
+                                <strong>
+                                    <?= e($movie['source_author']) ?>
+                                </strong>
+                            </div>
+
+                        <?php endif; ?>
+
                         <div class="overview">
                             <?= e(
                                 $movie['overview']
@@ -313,6 +349,17 @@ function posterUrl(?string $posterPath): ?string
                         </div>
 
                         <div class="actions">
+
+                            <?php if ($bookUrl): ?>
+
+                                <a
+                                    href="<?= e($bookUrl) ?>"
+                                    target="_blank"
+                                    rel="noopener">
+                                    📖 Find the Book
+                                </a>
+
+                            <?php endif; ?>
 
                             <a
                                 href="tmdb-trailer.php?id=<?= urlencode(

@@ -12,7 +12,7 @@ function navActive(string $page, string $currentPage): string
 <header class="site-header">
     <div class="site-header__inner">
 
-        <a href="/index.php" class="site-brand">
+        <a href="/" class="site-brand">
             Book to Screen
         </a>
 
