@@ -333,6 +333,13 @@ function barnesAndNobleSearchUrl(
 
         <div class="trailer-controls">
 
+            <button
+                class="shuffle-link vibe-button"
+                id="vibe-trailer-button"
+                type="button">
+                🎲 Vibe right now
+            </button>
+
             <a
                 class="shuffle-link"
                 href="?<?= http_build_query(
@@ -634,11 +641,7 @@ function barnesAndNobleSearchUrl(
                 return;
             }
 
-            const openTheater = (button) => {
-
-                const key = button.dataset.trailerKey;
-                const movieTitle =
-                    button.dataset.trailerTitle || 'Trailer';
+            const openTheater = (key, movieTitle = 'Trailer') => {
 
                 if (!key) {
                     return;
@@ -676,7 +679,12 @@ function barnesAndNobleSearchUrl(
                 .forEach(button => {
 
                     button.addEventListener('click', () => {
-                        openTheater(button);
+
+                        openTheater(
+                            button.dataset.trailerKey,
+                            button.dataset.trailerTitle || 'Trailer'
+                        );
+
                     });
 
                 });
@@ -699,6 +707,67 @@ function barnesAndNobleSearchUrl(
                 }
 
             });
+
+            const vibeButton =
+                document.getElementById('vibe-trailer-button');
+
+            if (vibeButton) {
+
+                vibeButton.addEventListener('click', async () => {
+
+                    const originalText = vibeButton.textContent;
+
+                    try {
+
+                        vibeButton.disabled = true;
+                        vibeButton.textContent = 'Finding a trailer…';
+
+                        const response = await fetch(
+                            '/random-trailer.php', {
+                                cache: 'no-store'
+                            }
+                        );
+
+                        if (!response.ok) {
+                            throw new Error(
+                                'Random trailer request failed.'
+                            );
+                        }
+
+                        const movie = await response.json();
+
+                        const youtubeKey =
+                            String(movie.youtube_key || '').trim();
+
+                        if (!youtubeKey) {
+                            throw new Error(
+                                'No trailer was returned.'
+                            );
+                        }
+
+                        openTheater(
+                            youtubeKey,
+                            movie.title || 'Trailer'
+                        );
+
+                    } catch (error) {
+
+                        console.error(error);
+
+                        alert(
+                            'Could not find a trailer right now.'
+                        );
+
+                    } finally {
+
+                        vibeButton.disabled = false;
+                        vibeButton.textContent = originalText;
+
+                    }
+
+                });
+
+            }
 
         });
     </script>

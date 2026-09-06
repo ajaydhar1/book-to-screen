@@ -181,7 +181,7 @@ body {
 .trailer-controls {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
 }
 
 .shuffle-link {
@@ -203,6 +203,10 @@ body {
     background: #2b2118;
     border-color: #2b2118;
     color: #fff;
+}
+
+.vibe-button {
+    cursor: pointer;
 }
 
 .back-link {
