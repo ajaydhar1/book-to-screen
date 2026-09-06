@@ -38,7 +38,7 @@ declare(strict_types=1);
 
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <link rel="stylesheet" href="/assets/css/site.css">
+    <link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(__DIR__ . '/../assets/css/site.css') ?>">
 </head>
 
 <body>

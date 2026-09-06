@@ -71,7 +71,6 @@ try {
             $perPage,
             PDO::PARAM_INT
         );
-
     } else {
 
         // Count total rows so we can calculate pagination.
@@ -128,19 +127,16 @@ try {
     $stmt->execute();
 
     $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 } catch (Throwable $e) {
 
-    die(
-        '<h2>Database Error</h2>' .
+    die('<h2>Database Error</h2>' .
         '<pre>' .
         htmlspecialchars(
             $e->getMessage(),
             ENT_QUOTES,
             'UTF-8'
         ) .
-        '</pre>'
-    );
+        '</pre>');
 }
 
 
@@ -195,8 +191,8 @@ function posterUrl(?string $posterPath): ?string
 
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <link rel="stylesheet" href="/assets/css/site.css">
-    <link rel="stylesheet" href="/assets/css/trailers.css">
+    <link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(__DIR__ . '/assets/css/site.css') ?>">
+    <link rel="stylesheet" href="/assets/css/trailers.css?v=<?= filemtime(__DIR__ . '/assets/css/trailers.css') ?>">
 </head>
 
 <body>
@@ -238,11 +234,21 @@ function posterUrl(?string $posterPath): ?string
 
         </div>
 
-        <a
-            class="shuffle-link"
-            href="<?= $isShuffle ? 'trailers.php' : '?shuffle=1' ?>">
-            <?= $isShuffle ? '↩ Newest' : '🔀 Shuffle' ?>
-        </a>
+        <div class="trailer-controls">
+
+            <a class="shuffle-link" href="?shuffle=1">
+                🔀 Shuffle
+            </a>
+
+            <?php if ($isShuffle): ?>
+
+                <a class="shuffle-link" href="trailers.php">
+                    ↩ Newest
+                </a>
+
+            <?php endif; ?>
+
+        </div>
 
         <div class="trailer-grid">
 
@@ -310,8 +316,8 @@ function posterUrl(?string $posterPath): ?string
 
                             <a
                                 href="tmdb-trailer.php?id=<?= urlencode(
-                                    (string) $movie['tmdb_id']
-                                ) ?>"
+                                                                (string) $movie['tmdb_id']
+                                                            ) ?>"
                                 target="_blank"
                                 rel="noopener">
                                 ▶ Watch Trailer

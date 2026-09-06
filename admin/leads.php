@@ -309,8 +309,8 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <link rel="stylesheet" href="/assets/css/admin.css">
-    <link rel="stylesheet" href="/assets/css/leads.css">
+    <link rel="stylesheet" href="/assets/css/admin.css?v=<?= filemtime(__DIR__ . '/../assets/css/admin.css') ?>">
+    <link rel="stylesheet" href="/assets/css/leads.css?v=<?= filemtime(__DIR__ . '/../assets/css/leads.css') ?>">
 </head>
 
 <body>

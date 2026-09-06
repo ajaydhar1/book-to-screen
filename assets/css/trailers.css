@@ -107,6 +107,12 @@ body {
     color: #999;
 }
 
+.trailer-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .shuffle-link {
     display: inline-flex;
     align-items: center;
