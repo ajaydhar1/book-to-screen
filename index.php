@@ -65,6 +65,23 @@ $discoverStmt = $db->query("
 
 $discoveries = $discoverStmt->fetchAll(PDO::FETCH_ASSOC);
 
+$releasedStmt = $db->query("
+    SELECT
+        tmdb_id,
+        title,
+        release_date,
+        poster_path,
+        source_author
+    FROM tmdb_adaptations
+    WHERE release_date IS NOT NULL
+      AND release_date <> ''
+      AND date(release_date) <= date('now')
+    ORDER BY release_date DESC, tmdb_id DESC
+    LIMIT 4
+");
+
+$releasedMovies = $releasedStmt->fetchAll(PDO::FETCH_ASSOC);
+
 function e(?string $value): string
 {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
@@ -148,6 +165,124 @@ function barnesAndNobleSearchUrl(
                 being adapted for movies and TV.
             </p>
         </section>
+
+        <?php if (!empty($releasedMovies)): ?>
+            <section class="section released-section">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Now Playing</p>
+                        <h2>Recently released adaptations</h2>
+                    </div>
+                </div>
+
+                <div class="released-grid">
+
+                    <?php foreach ($releasedMovies as $movie): ?>
+
+                        <?php
+                        $posterUrl = !empty($movie['poster_path'])
+                            ? 'https://image.tmdb.org/t/p/w342' . $movie['poster_path']
+                            : null;
+
+                        $trailerUrl = '/tmdb-trailer.php?id='
+                            . urlencode((string) $movie['tmdb_id']);
+
+                        $bookUrl = barnesAndNobleSearchUrl(
+                            $movie['title'] ?? null,
+                            $movie['source_author'] ?? null
+                        );
+
+                        $authorUrl = !empty($movie['source_author'])
+                            ? '/trailers.php?author='
+                            . urlencode($movie['source_author'])
+                            : null;
+                        ?>
+
+                        <article class="released-card">
+
+                            <?php if ($posterUrl): ?>
+                                <a
+                                    class="released-poster-link"
+                                    href="<?= e($trailerUrl) ?>"
+                                    target="_blank"
+                                    rel="noopener">
+
+                                    <img
+                                        class="released-poster"
+                                        src="<?= e($posterUrl) ?>"
+                                        alt="<?= e($movie['title'] ?? '') ?>"
+                                        loading="lazy"
+                                        decoding="async">
+
+                                </a>
+                            <?php endif; ?>
+
+                            <div class="released-card-body">
+
+                                <h3>
+                                    <a
+                                        href="<?= e($trailerUrl) ?>"
+                                        target="_blank"
+                                        rel="noopener">
+                                        <?= e($movie['title'] ?? 'Untitled') ?>
+                                    </a>
+                                </h3>
+
+                                <?php if (!empty($movie['release_date'])): ?>
+                                    <p class="released-date">
+                                        <?= e(date(
+                                            'M j, Y',
+                                            strtotime($movie['release_date'])
+                                        )) ?>
+                                    </p>
+                                <?php endif; ?>
+
+                                <?php if ($authorUrl): ?>
+                                    <p class="released-author">
+                                        Based on the book by
+                                        <a href="<?= e($authorUrl) ?>">
+                                            <?= e($movie['source_author']) ?>
+                                        </a>
+                                    </p>
+                                <?php endif; ?>
+
+                                <div class="released-actions">
+
+                                    <a
+                                        href="<?= e($trailerUrl) ?>"
+                                        target="_blank"
+                                        rel="noopener">
+                                        Watch trailer →
+                                    </a>
+
+                                    <?php if ($bookUrl): ?>
+                                        <a
+                                            href="<?= e($bookUrl) ?>"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+                                            Find the book →
+                                        </a>
+                                    <?php endif; ?>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    <?php endforeach; ?>
+
+                </div>
+
+                <div class="released-more">
+                    <a href="/trailers.php">
+                        Browse all released adaptations →
+                    </a>
+                </div>
+
+            </section>
+        <?php endif; ?>
 
         <?php if (!empty($discoveries)): ?>
             <section class="section discover-section">
@@ -383,11 +518,11 @@ function barnesAndNobleSearchUrl(
             </section>
         <?php endif; ?>
 
-        <section class="section">
+        <section class="section" id="latest-announcements">
             <div class="section-heading">
                 <div>
                     <p class="eyebrow">Recently Added</p>
-                    <h2>Latest adaptations</h2>
+                    <h2>Latest announcements</h2>
                 </div>
             </div>
 
@@ -507,13 +642,13 @@ function barnesAndNobleSearchUrl(
                     <nav class="pagination">
 
                         <?php if ($page > 1): ?>
-                            <a href="/?page=<?= $page - 1 ?>">← Newer</a>
+                            <a href="/?page=<?= $page - 1 ?>#latest-announcements">← Newer</a>
                         <?php endif; ?>
 
                         <span>Page <?= $page ?> of <?= $totalPages ?></span>
 
                         <?php if ($page < $totalPages): ?>
-                            <a href="/?page=<?= $page + 1 ?>">Older →</a>
+                            <a href="/?page=<?= $page + 1 ?>#latest-announcements">Older →</a>
                         <?php endif; ?>
 
                     </nav>

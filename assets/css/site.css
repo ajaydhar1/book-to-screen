@@ -327,6 +327,108 @@ a {
 }
 
 /* ========================================
+   RECENTLY RELEASED ADAPTATIONS
+======================================== */
+
+.released-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.released-card {
+    min-width: 0;
+}
+
+.released-poster-link {
+    display: block;
+    margin-bottom: 14px;
+}
+
+.released-poster {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.released-card-body h3 {
+    margin: 0 0 6px;
+    font-size: 1.05rem;
+    line-height: 1.3;
+}
+
+.released-card-body h3 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.released-card-body h3 a:hover {
+    text-decoration: underline;
+}
+
+.released-date {
+    margin: 0 0 8px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.released-author {
+    margin: 0 0 12px;
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.45;
+}
+
+.released-author a {
+    color: #7a5c3e;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    font-weight: 600;
+}
+
+.released-author a:hover {
+    text-decoration: underline;
+}
+
+.released-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.released-actions a,
+.released-more a {
+    color: #7a5c3e;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.released-actions a:hover,
+.released-more a:hover {
+    text-decoration: underline;
+}
+
+.released-more {
+    margin-top: 22px;
+}
+
+@media (max-width: 900px) {
+    .released-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 520px) {
+    .released-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================
    HOMEPAGE LATEST GRID
 ======================================== */
 
