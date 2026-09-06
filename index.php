@@ -149,6 +149,7 @@ function barnesAndNobleSearchUrl(
 
     <link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(__DIR__ . '/assets/css/site.css') ?>">
     <link rel="stylesheet" href="/assets/css/header-footer.css?v=<?= filemtime(__DIR__ . '/assets/css/header-footer.css') ?>">
+    <link rel="stylesheet" href="/assets/css/trailer-theater.css?v=<?= filemtime(__DIR__ . '/assets/css/trailer-theater.css') ?>">
 </head>
 
 <body>
@@ -165,6 +166,22 @@ function barnesAndNobleSearchUrl(
                 Book to Screen tracks books, articles, podcasts, comics, and true stories
                 being adapted for movies and TV.
             </p>
+
+            <div class="hero-actions">
+                <button
+                    class="hero-button hero-button--primary"
+                    type="button"
+                    data-random-trailer>
+                    🎲 Watch a Trailer
+                </button>
+
+                <a
+                    class="hero-button hero-button--secondary"
+                    href="/trailers.php">
+                    Browse Trailers
+                </a>
+            </div>
+
         </section>
 
         <?php if (!empty($releasedMovies)): ?>
@@ -686,8 +703,11 @@ function barnesAndNobleSearchUrl(
         </section>
     </main>
 
+    <?php require_once __DIR__ . '/includes/trailer-theater.php'; ?>
+
     <?php require_once __DIR__ . '/includes/footer.php'; ?>
 
+    <script src="/assets/js/trailer-theater.js?v=<?= filemtime(__DIR__ . '/assets/js/trailer-theater.js') ?>"></script>
 </body>
 
 </html>
