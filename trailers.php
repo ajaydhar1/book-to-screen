@@ -36,6 +36,12 @@ $offset = ($page - 1) * $perPage;
 
 $isShuffle = isset($_GET['shuffle']);
 
+$author = trim(
+    (string) ($_GET['author'] ?? '')
+);
+
+$hasAuthorFilter = $author !== '';
+
 $totalMovies = 0;
 $totalPages = 1;
 
@@ -46,7 +52,53 @@ $totalPages = 1;
 
 try {
 
-    if ($isShuffle) {
+    // --------------------------------------------------
+    // AUTHOR VIEW
+    // --------------------------------------------------
+
+    if ($hasAuthorFilter) {
+
+        $sql = "
+            SELECT
+                tmdb_id,
+                title,
+                original_title,
+                overview,
+                release_date,
+                poster_path,
+                backdrop_path,
+                original_language,
+                vote_average,
+                vote_count,
+                popularity,
+                source_author
+            FROM tmdb_adaptations
+            WHERE source_author = :author
+        ";
+
+        if ($isShuffle) {
+            $sql .= "
+                ORDER BY RANDOM()
+            ";
+        } else {
+            $sql .= "
+                ORDER BY release_date DESC, tmdb_id DESC
+            ";
+        }
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(
+            ':author',
+            $author,
+            PDO::PARAM_STR
+        );
+
+        // --------------------------------------------------
+        // GLOBAL SHUFFLE
+        // --------------------------------------------------
+
+    } elseif ($isShuffle) {
 
         $stmt = $db->prepare("
             SELECT
@@ -72,9 +124,13 @@ try {
             $perPage,
             PDO::PARAM_INT
         );
+
+        // --------------------------------------------------
+        // GLOBAL NEWEST / PAGINATED VIEW
+        // --------------------------------------------------
+
     } else {
 
-        // Count total rows so we can calculate pagination.
         $countStmt = $db->query("
             SELECT COUNT(*)
             FROM tmdb_adaptations
@@ -87,7 +143,6 @@ try {
             (int) ceil($totalMovies / $perPage)
         );
 
-        // Prevent page numbers beyond the final page.
         if ($page > $totalPages) {
             $page = $totalPages;
             $offset = ($page - 1) * $perPage;
@@ -228,12 +283,31 @@ function barnesAndNobleSearchUrl(
         <h1>TMDB Book Adaptations POC</h1>
 
         <div class="subtitle">
-            Keyword 818 — “Based on novel or book”
+
+            <?php if ($hasAuthorFilter): ?>
+
+                Movies based on books by
+                <strong><?= e($author) ?></strong>
+
+            <?php else: ?>
+
+                Keyword 818 — “Based on novel or book”
+
+            <?php endif; ?>
+
         </div>
 
         <div class="stats">
 
-            <?php if ($isShuffle): ?>
+            <?php if ($hasAuthorFilter): ?>
+
+                Showing
+                <strong><?= count($movies) ?></strong>
+                movie<?= count($movies) === 1 ? '' : 's' ?>
+                based on books by
+                <strong><?= e($author) ?></strong>.
+
+            <?php elseif ($isShuffle): ?>
 
                 Showing <strong><?= count($movies) ?></strong>
                 random TMDB movie results.
@@ -256,14 +330,35 @@ function barnesAndNobleSearchUrl(
 
         <div class="trailer-controls">
 
-            <a class="shuffle-link" href="?shuffle=1">
+            <a
+                class="shuffle-link"
+                href="?<?= http_build_query(
+                            array_filter([
+                                'author' => $hasAuthorFilter
+                                    ? $author
+                                    : null,
+                                'shuffle' => 1,
+                            ])
+                        ) ?>">
                 🔀 Shuffle
             </a>
 
             <?php if ($isShuffle): ?>
 
-                <a class="shuffle-link" href="trailers.php">
+                <a
+                    class="shuffle-link"
+                    href="<?= $hasAuthorFilter
+                                ? '?author=' . urlencode($author)
+                                : 'trailers.php' ?>">
                     ↩ Newest
+                </a>
+
+            <?php endif; ?>
+
+            <?php if ($hasAuthorFilter): ?>
+
+                <a class="shuffle-link" href="trailers.php">
+                    ✕ All Authors
                 </a>
 
             <?php endif; ?>
@@ -334,9 +429,13 @@ function barnesAndNobleSearchUrl(
 
                             <div class="book-source">
                                 Based on the book by
-                                <strong>
+                                <a
+                                    class="author-link"
+                                    href="?author=<?= urlencode(
+                                                        $movie['source_author']
+                                                    ) ?>">
                                     <?= e($movie['source_author']) ?>
-                                </strong>
+                                </a>
                             </div>
 
                         <?php endif; ?>
@@ -387,7 +486,11 @@ function barnesAndNobleSearchUrl(
 
         </div>
 
-        <?php if (!$isShuffle && $totalPages > 1): ?>
+        <?php if (
+            !$isShuffle
+            && !$hasAuthorFilter
+            && $totalPages > 1
+        ): ?>
 
             <nav
                 class="pagination"
@@ -395,7 +498,14 @@ function barnesAndNobleSearchUrl(
 
                 <?php if ($page > 1): ?>
 
-                    <a href="?page=<?= $page - 1 ?>">
+                    <a href="?<?= http_build_query(
+                                    array_filter([
+                                        'author' => $hasAuthorFilter
+                                            ? $author
+                                            : null,
+                                        'page' => $page - 1,
+                                    ])
+                                ) ?>">
                         ← Previous
                     </a>
 
@@ -407,7 +517,14 @@ function barnesAndNobleSearchUrl(
 
                 <?php if ($page < $totalPages): ?>
 
-                    <a href="?page=<?= $page + 1 ?>">
+                    <a href="?<?= http_build_query(
+                                    array_filter([
+                                        'author' => $hasAuthorFilter
+                                            ? $author
+                                            : null,
+                                        'page' => $page + 1,
+                                    ])
+                                ) ?>">
                         Next →
                     </a>
 

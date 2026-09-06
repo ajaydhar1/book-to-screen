@@ -84,6 +84,17 @@ body {
     line-height: 1.5;
 }
 
+.author-link {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.author-link:hover {
+    text-decoration-thickness: 2px;
+}
+
 .overview {
     font-size: 14px;
     line-height: 1.45;
