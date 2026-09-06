@@ -26,7 +26,8 @@ function navActive(string $page, string $currentPage): string
             <a
                 href="/trailers.php"
                 class="site-nav__link<?= navActive('trailers.php', $currentPage); ?>">
-                Adaptation Trailers
+                <span class="nav-label-desktop">Adaptation Trailers</span>
+                <span class="nav-label-mobile">Trailers</span>
             </a>
         </nav>
 

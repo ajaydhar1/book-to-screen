@@ -148,6 +148,7 @@ function barnesAndNobleSearchUrl(
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(__DIR__ . '/assets/css/site.css') ?>">
+    <link rel="stylesheet" href="/assets/css/header-footer.css?v=<?= filemtime(__DIR__ . '/assets/css/header-footer.css') ?>">
 </head>
 
 <body>
