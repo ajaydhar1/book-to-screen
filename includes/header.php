@@ -20,13 +20,13 @@ function navActive(string $page, string $currentPage): string
             <a
                 href="/#"
                 class="site-nav__link<?= navActive('explore.php', $currentPage); ?>">
-                Explore
+                Dashboard
             </a>
 
             <a
                 href="/trailers.php"
                 class="site-nav__link<?= navActive('trailers.php', $currentPage); ?>">
-                Trailers
+                Adaptation Trailers
             </a>
         </nav>
 

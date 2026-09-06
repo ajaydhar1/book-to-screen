@@ -71,7 +71,8 @@ try {
                 vote_average,
                 vote_count,
                 popularity,
-                source_author
+                source_author,
+                trailer_youtube_key
             FROM tmdb_adaptations
             WHERE source_author = :author
         ";
@@ -113,7 +114,8 @@ try {
                 vote_average,
                 vote_count,
                 popularity,
-                source_author
+                source_author,
+                trailer_youtube_key
             FROM tmdb_adaptations
             ORDER BY RANDOM()
             LIMIT :limit
@@ -161,7 +163,8 @@ try {
                 vote_average,
                 vote_count,
                 popularity,
-                source_author
+                source_author,
+                trailer_youtube_key
             FROM tmdb_adaptations
             ORDER BY release_date DESC, tmdb_id DESC
             LIMIT :limit
@@ -378,30 +381,44 @@ function barnesAndNobleSearchUrl(
                     $movie['title'] ?? null,
                     $movie['source_author'] ?? null
                 );
+
+                $trailerKey = trim(
+                    (string) ($movie['trailer_youtube_key'] ?? '')
+                );
                 ?>
 
                 <div class="card">
 
                     <?php if ($poster): ?>
 
-                        <a
-                            class="poster-link"
-                            href="tmdb-trailer.php?id=<?= urlencode(
-                                                            (string) $movie['tmdb_id']
-                                                        ) ?>"
-                            target="_blank"
-                            rel="noopener"
-                            aria-label="Watch trailer for <?= e(
-                                                                $movie['title']
-                                                                    ?? 'Untitled'
-                                                            ) ?>">
+                        <?php if ($trailerKey !== ''): ?>
+
+                            <button
+                                class="poster-link trailer-theater-trigger"
+                                type="button"
+                                data-trailer-key="<?= e($trailerKey) ?>"
+                                data-trailer-title="<?= e(
+                                                        $movie['title'] ?? 'Untitled'
+                                                    ) ?>"
+                                aria-label="Watch trailer for <?= e(
+                                                                    $movie['title'] ?? 'Untitled'
+                                                                ) ?>">
+
+                                <img
+                                    class="poster"
+                                    src="<?= e($poster) ?>"
+                                    alt="<?= e($movie['title'] ?? '') ?>">
+
+                            </button>
+
+                        <?php else: ?>
 
                             <img
                                 class="poster"
                                 src="<?= e($poster) ?>"
                                 alt="<?= e($movie['title'] ?? '') ?>">
 
-                        </a>
+                        <?php endif; ?>
 
                     <?php else: ?>
 
@@ -474,14 +491,19 @@ function barnesAndNobleSearchUrl(
 
                             <?php endif; ?>
 
-                            <a
-                                href="tmdb-trailer.php?id=<?= urlencode(
-                                                                (string) $movie['tmdb_id']
-                                                            ) ?>"
-                                target="_blank"
-                                rel="noopener">
-                                ▶ Watch Trailer
-                            </a>
+                            <?php if ($trailerKey !== ''): ?>
+
+                                <button
+                                    class="trailer-button trailer-theater-trigger"
+                                    type="button"
+                                    data-trailer-key="<?= e($trailerKey) ?>"
+                                    data-trailer-title="<?= e(
+                                                            $movie['title'] ?? 'Untitled'
+                                                        ) ?>">
+                                    ▶ Watch Trailer
+                                </button>
+
+                            <?php endif; ?>
 
                         </div>
 
@@ -550,8 +572,136 @@ function barnesAndNobleSearchUrl(
 
     </div>
 
+    <div
+        class="trailer-theater"
+        id="trailer-theater"
+        aria-hidden="true">
+
+        <div
+            class="trailer-theater-backdrop"
+            data-theater-close>
+        </div>
+
+        <div
+            class="trailer-theater-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="trailer-theater-title">
+
+            <div class="trailer-theater-header">
+
+                <h2 id="trailer-theater-title">
+                    Trailer Theater
+                </h2>
+
+                <button
+                    class="trailer-theater-close"
+                    type="button"
+                    data-theater-close
+                    aria-label="Close trailer">
+                    ×
+                </button>
+
+            </div>
+
+            <div class="trailer-theater-screen">
+
+                <iframe
+                    id="trailer-theater-iframe"
+                    src=""
+                    title="Movie trailer"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+        </div>
+
+    </div>
+
     <?php require_once __DIR__ . '/includes/footer.php'; ?>
 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const theater = document.getElementById('trailer-theater');
+            const iframe = document.getElementById('trailer-theater-iframe');
+            const title = document.getElementById('trailer-theater-title');
+
+            if (!theater || !iframe || !title) {
+                return;
+            }
+
+            const openTheater = (button) => {
+
+                const key = button.dataset.trailerKey;
+                const movieTitle =
+                    button.dataset.trailerTitle || 'Trailer';
+
+                if (!key) {
+                    return;
+                }
+
+                title.textContent = movieTitle;
+
+                iframe.src =
+                    'https://www.youtube.com/embed/' +
+                    encodeURIComponent(key) +
+                    '?autoplay=1&rel=0';
+
+                theater.classList.add('is-open');
+                theater.setAttribute('aria-hidden', 'false');
+
+                document.body.classList.add(
+                    'trailer-theater-open'
+                );
+            };
+
+            const closeTheater = () => {
+
+                iframe.src = '';
+
+                theater.classList.remove('is-open');
+                theater.setAttribute('aria-hidden', 'true');
+
+                document.body.classList.remove(
+                    'trailer-theater-open'
+                );
+            };
+
+            document
+                .querySelectorAll('.trailer-theater-trigger')
+                .forEach(button => {
+
+                    button.addEventListener('click', () => {
+                        openTheater(button);
+                    });
+
+                });
+
+            document
+                .querySelectorAll('[data-theater-close]')
+                .forEach(button => {
+
+                    button.addEventListener('click', closeTheater);
+
+                });
+
+            document.addEventListener('keydown', event => {
+
+                if (
+                    event.key === 'Escape' &&
+                    theater.classList.contains('is-open')
+                ) {
+                    closeTheater();
+                }
+
+            });
+
+        });
+    </script>
 </body>
 
 </html>

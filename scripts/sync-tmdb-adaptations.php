@@ -38,6 +38,7 @@ $isFullSync = in_array('--full', $argv ?? [], true);
 // Normal daily sync: newest 5 pages.
 // Full sync: all available pages.
 $dailyPageLimit = 5;
+$trailerRetryDays = 7;
 
 if (!$tmdbToken) {
     throw new RuntimeException(
@@ -156,6 +157,68 @@ function findSourceBookCredit(array $credits): ?array
 
 
 // --------------------------------------------------
+// TRAILER VIDEO
+// --------------------------------------------------
+
+function findTrailerYouTubeKey(array $videos): ?string
+{
+    $results = $videos['results'] ?? [];
+
+    if (!is_array($results)) {
+        return null;
+    }
+
+    $isYouTubeTrailer = static function (array $video): bool {
+        return ($video['site'] ?? '') === 'YouTube'
+            && ($video['type'] ?? '') === 'Trailer'
+            && !empty($video['key']);
+    };
+
+    // Prefer an official U.S. English YouTube trailer.
+    foreach ($results as $video) {
+        if (
+            $isYouTubeTrailer($video)
+            && !empty($video['official'])
+            && ($video['iso_639_1'] ?? '') === 'en'
+            && ($video['iso_3166_1'] ?? '') === 'US'
+        ) {
+            return (string) $video['key'];
+        }
+    }
+
+    // Then any official English YouTube trailer.
+    foreach ($results as $video) {
+        if (
+            $isYouTubeTrailer($video)
+            && !empty($video['official'])
+            && ($video['iso_639_1'] ?? '') === 'en'
+        ) {
+            return (string) $video['key'];
+        }
+    }
+
+    // Then any official YouTube trailer.
+    foreach ($results as $video) {
+        if (
+            $isYouTubeTrailer($video)
+            && !empty($video['official'])
+        ) {
+            return (string) $video['key'];
+        }
+    }
+
+    // Final fallback: any YouTube trailer.
+    foreach ($results as $video) {
+        if ($isYouTubeTrailer($video)) {
+            return (string) $video['key'];
+        }
+    }
+
+    return null;
+}
+
+
+// --------------------------------------------------
 // SYNC
 // --------------------------------------------------
 
@@ -190,7 +253,9 @@ try {
         SELECT
             source_author,
             source_credit_job,
-            source_checked_at
+            source_checked_at,
+            trailer_youtube_key,
+            trailer_checked_at
         FROM tmdb_adaptations
         WHERE tmdb_id = :tmdb_id
         LIMIT 1
@@ -213,6 +278,8 @@ try {
             source_author,
             source_credit_job,
             source_checked_at,
+            trailer_youtube_key,
+            trailer_checked_at,
             last_seen_at
         )
         VALUES (
@@ -231,6 +298,8 @@ try {
             :source_author,
             :source_credit_job,
             :source_checked_at,
+            :trailer_youtube_key,
+            :trailer_checked_at,
             CURRENT_TIMESTAMP
         )
 
@@ -250,6 +319,8 @@ try {
             source_author = excluded.source_author,
             source_credit_job = excluded.source_credit_job,
             source_checked_at = excluded.source_checked_at,
+            trailer_youtube_key = excluded.trailer_youtube_key,
+            trailer_checked_at = excluded.trailer_checked_at,
             updated_at = CURRENT_TIMESTAMP,
             last_seen_at = CURRENT_TIMESTAMP
     ");
@@ -269,6 +340,10 @@ try {
     $sourceLookups = 0;
     $sourceMatches = 0;
     $sourceLookupErrors = 0;
+
+    $trailerLookups = 0;
+    $trailerMatches = 0;
+    $trailerLookupErrors = 0;
 
     do {
 
@@ -324,6 +399,14 @@ try {
 
             $sourceCheckedAt =
                 $existing['source_checked_at']
+                ?? null;
+
+            $trailerYouTubeKey =
+                $existing['trailer_youtube_key']
+                ?? null;
+
+            $trailerCheckedAt =
+                $existing['trailer_checked_at']
                 ?? null;
 
 
@@ -395,6 +478,80 @@ try {
 
 
             // --------------------------------------------------
+            // FETCH TRAILER IF NEEDED
+            // --------------------------------------------------
+
+            $shouldCheckTrailer = !$trailerCheckedAt;
+
+            if (
+                !$shouldCheckTrailer
+                && !$trailerYouTubeKey
+                && $trailerCheckedAt
+            ) {
+                $lastTrailerCheck = strtotime(
+                    $trailerCheckedAt . ' UTC'
+                );
+
+                if ($lastTrailerCheck !== false) {
+                    $retryAfter = $lastTrailerCheck
+                        + ($trailerRetryDays * 86400);
+
+                    $shouldCheckTrailer = time() >= $retryAfter;
+                }
+            }
+
+            if ($shouldCheckTrailer) {
+
+                try {
+
+                    $videosUrl =
+                        'https://api.themoviedb.org/3/movie/'
+                        . $tmdbId
+                        . '/videos?language=en-US';
+
+                    $videos = tmdbRequest(
+                        $videosUrl,
+                        $tmdbToken
+                    );
+
+                    $trailerLookups++;
+
+                    $trailerYouTubeKey =
+                        findTrailerYouTubeKey($videos);
+
+                    if ($trailerYouTubeKey !== null) {
+                        $trailerMatches++;
+                    }
+
+                    /*
+                     * Record the check even when no trailer exists.
+                     * Movies without a trailer are retried after the
+                     * configured interval instead of on every daily sync.
+                     */
+                    $trailerCheckedAt = gmdate(
+                        'Y-m-d H:i:s'
+                    );
+
+                    usleep(100000);
+
+                } catch (Throwable $trailerError) {
+
+                    $trailerLookupErrors++;
+
+                    /*
+                     * Leave trailer_checked_at unchanged so a failed
+                     * request can be retried on a future sync.
+                     */
+                    echo 'Trailer lookup failed for TMDB ID '
+                        . $tmdbId
+                        . ': '
+                        . $trailerError->getMessage()
+                        . PHP_EOL;
+                }
+            }
+
+
+            // --------------------------------------------------
             // UPSERT MOVIE
             // --------------------------------------------------
 
@@ -439,6 +596,10 @@ try {
                     $sourceCreditJob,
                 ':source_checked_at' =>
                     $sourceCheckedAt,
+                ':trailer_youtube_key' =>
+                    $trailerYouTubeKey,
+                ':trailer_checked_at' =>
+                    $trailerCheckedAt,
             ]);
 
             $processedCount++;
@@ -516,6 +677,9 @@ try {
     echo "Source credit lookups: {$sourceLookups}" . PHP_EOL;
     echo "Source matches: {$sourceMatches}" . PHP_EOL;
     echo "Source lookup errors: {$sourceLookupErrors}" . PHP_EOL;
+    echo "Trailer lookups: {$trailerLookups}" . PHP_EOL;
+    echo "Trailer matches: {$trailerMatches}" . PHP_EOL;
+    echo "Trailer lookup errors: {$trailerLookupErrors}" . PHP_EOL;
 
 } catch (Throwable $e) {
 
