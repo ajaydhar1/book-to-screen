@@ -318,6 +318,14 @@ a {
     border-radius: 8px;
 }
 
+.released-poster {
+    transition: opacity 0.15s ease;
+}
+
+.released-poster:hover {
+    opacity: 0.9;
+}
+
 .released-card-body h3 {
     margin: 0 0 6px;
     font-size: 1.05rem;
