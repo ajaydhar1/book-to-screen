@@ -169,7 +169,7 @@ function barnesAndNobleSearchUrl(
 
             <div class="hero-actions">
                 <button
-                    class="hero-button hero-button--primary"
+                    class="hero-button hero-button--primary shimmer-button"
                     type="button"
                     data-random-trailer>
                     🎲 Watch a Trailer

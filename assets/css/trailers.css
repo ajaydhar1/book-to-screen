@@ -353,6 +353,15 @@ body {
     -webkit-appearance: none;
 }
 
+.vibe-button.shimmer-button::after {
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(122, 92, 62, 0.12),
+        transparent
+    );
+}
+
 .back-link {
     display: inline-block;
     margin-bottom: 18px;

@@ -192,6 +192,44 @@ a {
     background: #443326;
 }
 
+.shimmer-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+
+    width: 50%;
+    height: 100%;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.45),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+    animation: button-shimmer 5s ease-in-out infinite;
+}
+
+@keyframes button-shimmer {
+    0% {
+        left: -75%;
+    }
+
+    55% {
+        left: 125%;
+    }
+
+    100% {
+        left: 125%;
+    }
+}
 
 /* ========================================
    PAGINATION

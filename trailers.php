@@ -478,7 +478,7 @@ function barnesAndNobleSearchUrl(
         <div class="trailer-controls">
 
             <button
-                class="shuffle-link vibe-button"
+                class="shuffle-link vibe-button shimmer-button"
                 type="button"
                 data-random-trailer>
                 🎲 Vibe right now
