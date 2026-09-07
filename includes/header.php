@@ -18,15 +18,21 @@ function navActive(string $page, string $currentPage): string
 
         <nav class="site-nav" aria-label="Main navigation">
             <a
-                href="/#"
-                class="site-nav__link<?= navActive('explore.php', $currentPage); ?>">
-                Dashboard
+                href="/adaptation-announcements.php"
+                class="site-nav__link<?= navActive('adaptation-announcements.php', $currentPage); ?>">
+                Announcements
             </a>
 
             <a
                 href="/trailers.php"
                 class="site-nav__link<?= navActive('trailers.php', $currentPage); ?>">
                 Adaptation Trailers
+            </a>
+
+            <a
+                href="/about/"
+                class="site-nav__link<?= str_starts_with($_SERVER['REQUEST_URI'], '/about/') ? ' is-active' : ''; ?>">
+                About
             </a>
         </nav>
 

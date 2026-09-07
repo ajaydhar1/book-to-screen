@@ -177,8 +177,8 @@ function barnesAndNobleSearchUrl(
 
                 <a
                     class="hero-button hero-button--secondary"
-                    href="/trailers.php">
-                    Browse Trailers
+                    href="/adaptation-announcements.php">
+                    Latest Announcements →
                 </a>
             </div>
 
