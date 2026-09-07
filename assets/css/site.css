@@ -4,6 +4,13 @@
 
 html {
     box-sizing: border-box;
+    scroll-padding-top: 62px;
+}
+
+@media (max-width: 640px) {
+    html {
+        scroll-padding-top: 88px;
+    }
 }
 
 *,
@@ -605,7 +612,7 @@ a {
 ======================================== */
 
 .about-hero {
-    padding-bottom: 48px;
+    padding-bottom: 32px;
 }
 
 .about-hero h1 {
