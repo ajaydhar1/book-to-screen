@@ -42,7 +42,7 @@ declare(strict_types=1);
     <link rel="stylesheet" href="/assets/css/header-footer.css?v=<?= filemtime(__DIR__ . '/../assets/css/header-footer.css') ?>">
 </head>
 
-<body>
+<body class="about-page">
 
     <?php require_once __DIR__ . '/../includes/header.php'; ?>
 
