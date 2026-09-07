@@ -42,6 +42,12 @@ $author = trim(
 
 $hasAuthorFilter = $author !== '';
 
+$search = trim(
+    (string) ($_GET['q'] ?? '')
+);
+
+$hasSearch = $search !== '';
+
 $totalMovies = 0;
 $totalPages = 1;
 
@@ -59,32 +65,42 @@ try {
     if ($hasAuthorFilter) {
 
         $sql = "
-            SELECT
-                tmdb_id,
-                title,
-                original_title,
-                overview,
-                release_date,
-                poster_path,
-                backdrop_path,
-                original_language,
-                vote_average,
-                vote_count,
-                popularity,
-                source_author,
-                trailer_youtube_key
-            FROM tmdb_adaptations
-            WHERE source_author = :author
+        SELECT
+            tmdb_id,
+            title,
+            original_title,
+            overview,
+            release_date,
+            poster_path,
+            backdrop_path,
+            original_language,
+            vote_average,
+            vote_count,
+            popularity,
+            source_author,
+            trailer_youtube_key
+        FROM tmdb_adaptations
+        WHERE source_author = :author
+    ";
+
+        if ($hasSearch) {
+            $sql .= "
+            AND (
+                title LIKE :search
+                OR original_title LIKE :search
+                OR source_author LIKE :search
+            )
         ";
+        }
 
         if ($isShuffle) {
             $sql .= "
-                ORDER BY RANDOM()
-            ";
+            ORDER BY RANDOM()
+        ";
         } else {
             $sql .= "
-                ORDER BY release_date DESC, tmdb_id DESC
-            ";
+            ORDER BY release_date DESC, tmdb_id DESC
+        ";
         }
 
         $stmt = $db->prepare($sql);
@@ -95,31 +111,61 @@ try {
             PDO::PARAM_STR
         );
 
+        if ($hasSearch) {
+            $stmt->bindValue(
+                ':search',
+                '%' . $search . '%',
+                PDO::PARAM_STR
+            );
+        }
+
         // --------------------------------------------------
         // GLOBAL SHUFFLE
         // --------------------------------------------------
 
     } elseif ($isShuffle) {
 
-        $stmt = $db->prepare("
-            SELECT
-                tmdb_id,
-                title,
-                original_title,
-                overview,
-                release_date,
-                poster_path,
-                backdrop_path,
-                original_language,
-                vote_average,
-                vote_count,
-                popularity,
-                source_author,
-                trailer_youtube_key
-            FROM tmdb_adaptations
-            ORDER BY RANDOM()
-            LIMIT :limit
-        ");
+        $sql = "
+        SELECT
+            tmdb_id,
+            title,
+            original_title,
+            overview,
+            release_date,
+            poster_path,
+            backdrop_path,
+            original_language,
+            vote_average,
+            vote_count,
+            popularity,
+            source_author,
+            trailer_youtube_key
+        FROM tmdb_adaptations
+    ";
+
+        if ($hasSearch) {
+            $sql .= "
+            WHERE
+                title LIKE :search
+                OR original_title LIKE :search
+                OR source_author LIKE :search
+        ";
+        }
+
+        $sql .= "
+        ORDER BY RANDOM()
+        LIMIT :limit
+    ";
+
+        $stmt = $db->prepare($sql);
+
+        if ($hasSearch) {
+            $stmt->bindValue(
+                ':search',
+                '%' . $search . '%',
+                PDO::PARAM_STR
+            );
+        }
 
         $stmt->bindValue(
             ':limit',
@@ -133,10 +179,31 @@ try {
 
     } else {
 
-        $countStmt = $db->query("
-            SELECT COUNT(*)
-            FROM tmdb_adaptations
-        ");
+        $countSql = "
+        SELECT COUNT(*)
+        FROM tmdb_adaptations
+    ";
+
+        if ($hasSearch) {
+            $countSql .= "
+            WHERE
+                title LIKE :search
+                OR original_title LIKE :search
+                OR source_author LIKE :search
+        ";
+        }
+
+        $countStmt = $db->prepare($countSql);
+
+        if ($hasSearch) {
+            $countStmt->bindValue(
+                ':search',
+                '%' . $search . '%',
+                PDO::PARAM_STR
+            );
+        }
+
+        $countStmt->execute();
 
         $totalMovies = (int) $countStmt->fetchColumn();
 
@@ -150,26 +217,48 @@ try {
             $offset = ($page - 1) * $perPage;
         }
 
-        $stmt = $db->prepare("
-            SELECT
-                tmdb_id,
-                title,
-                original_title,
-                overview,
-                release_date,
-                poster_path,
-                backdrop_path,
-                original_language,
-                vote_average,
-                vote_count,
-                popularity,
-                source_author,
-                trailer_youtube_key
-            FROM tmdb_adaptations
-            ORDER BY release_date DESC, tmdb_id DESC
-            LIMIT :limit
-            OFFSET :offset
-        ");
+        $sql = "
+        SELECT
+            tmdb_id,
+            title,
+            original_title,
+            overview,
+            release_date,
+            poster_path,
+            backdrop_path,
+            original_language,
+            vote_average,
+            vote_count,
+            popularity,
+            source_author,
+            trailer_youtube_key
+        FROM tmdb_adaptations
+    ";
+
+        if ($hasSearch) {
+            $sql .= "
+            WHERE
+                title LIKE :search
+                OR original_title LIKE :search
+                OR source_author LIKE :search
+        ";
+        }
+
+        $sql .= "
+        ORDER BY release_date DESC, tmdb_id DESC
+        LIMIT :limit
+        OFFSET :offset
+    ";
+
+        $stmt = $db->prepare($sql);
+
+        if ($hasSearch) {
+            $stmt->bindValue(
+                ':search',
+                '%' . $search . '%',
+                PDO::PARAM_STR
+            );
+        }
 
         $stmt->bindValue(
             ':limit',
@@ -313,6 +402,27 @@ function barnesAndNobleSearchUrl(
                 based on books by
                 <strong><?= e($author) ?></strong>.
 
+            <?php elseif ($hasSearch && $isShuffle): ?>
+
+                Showing
+                <strong><?= count($movies) ?></strong>
+                random result<?= count($movies) === 1 ? '' : 's' ?>
+                for
+                <strong>“<?= e($search) ?>”</strong>.
+
+            <?php elseif ($hasSearch): ?>
+
+                Showing
+                <strong>
+                    <?= $totalMovies > 0 ? $offset + 1 : 0 ?>
+                    –
+                    <?= min($offset + count($movies), $totalMovies) ?>
+                </strong>
+                of
+                <strong><?= $totalMovies ?></strong>
+                results for
+                <strong>“<?= e($search) ?>”</strong>.
+
             <?php elseif ($isShuffle): ?>
 
                 Showing <strong><?= count($movies) ?></strong>
@@ -334,6 +444,37 @@ function barnesAndNobleSearchUrl(
 
         </div>
 
+        <form
+            class="trailer-search"
+            method="get"
+            action="trailers.php">
+
+            <input
+                class="trailer-search__input"
+                type="search"
+                name="q"
+                value="<?= e($search) ?>"
+                placeholder="Search movies or authors..."
+                aria-label="Search movies or authors">
+
+            <button
+                class="trailer-search__button"
+                type="submit">
+                Search
+            </button>
+
+            <?php if ($hasSearch): ?>
+
+                <a
+                    class="trailer-search__clear"
+                    href="trailers.php">
+                    Clear
+                </a>
+
+            <?php endif; ?>
+
+        </form>
+
         <div class="trailer-controls">
 
             <button
@@ -350,6 +491,9 @@ function barnesAndNobleSearchUrl(
                                 'author' => $hasAuthorFilter
                                     ? $author
                                     : null,
+                                'q' => $hasSearch
+                                    ? $search
+                                    : null,
                                 'shuffle' => 1,
                             ])
                         ) ?>">
@@ -360,9 +504,16 @@ function barnesAndNobleSearchUrl(
 
                 <a
                     class="shuffle-link"
-                    href="<?= $hasAuthorFilter
-                                ? '?author=' . urlencode($author)
-                                : 'trailers.php' ?>">
+                    href="?<?= http_build_query(
+                                array_filter([
+                                    'author' => $hasAuthorFilter
+                                        ? $author
+                                        : null,
+                                    'q' => $hasSearch
+                                        ? $search
+                                        : null,
+                                ])
+                            ) ?>">
                     ▼ Newest
                 </a>
 
@@ -378,205 +529,226 @@ function barnesAndNobleSearchUrl(
 
         </div>
 
-        <div class="trailer-grid">
+        <?php if ($hasSearch && empty($movies)): ?>
 
-            <?php foreach ($movies as $movie): ?>
+            <div class="no-results">
+                <h2>No trailers found</h2>
 
-                <?php
-                $poster = posterUrl(
-                    $movie['poster_path'] ?? null
-                );
+                <p>
+                    We couldn't find any movies or authors matching
+                    <strong>“<?= e($search) ?>”</strong>.
+                </p>
 
-                $bookUrl = barnesAndNobleSearchUrl(
-                    $movie['title'] ?? null,
-                    $movie['source_author'] ?? null
-                );
+                <a
+                    class="no-results__clear"
+                    href="trailers.php">
+                    View all trailers
+                </a>
+            </div>
 
-                $trailerKey = trim(
-                    (string) ($movie['trailer_youtube_key'] ?? '')
-                );
-                ?>
+        <?php else: ?>
 
-                <div class="card">
+            <div class="trailer-grid">
 
-                    <?php if ($poster): ?>
+                <?php foreach ($movies as $movie): ?>
 
-                        <?php if ($trailerKey !== ''): ?>
+                    <?php
+                    $poster = posterUrl(
+                        $movie['poster_path'] ?? null
+                    );
 
-                            <button
-                                class="poster-link trailer-theater-trigger"
-                                type="button"
-                                data-trailer-key="<?= e($trailerKey) ?>"
-                                data-trailer-title="<?= e(
-                                                        $movie['title'] ?? 'Untitled'
-                                                    ) ?>"
-                                aria-label="Watch trailer for <?= e(
-                                                                    $movie['title'] ?? 'Untitled'
-                                                                ) ?>">
+                    $bookUrl = barnesAndNobleSearchUrl(
+                        $movie['title'] ?? null,
+                        $movie['source_author'] ?? null
+                    );
+
+                    $trailerKey = trim(
+                        (string) ($movie['trailer_youtube_key'] ?? '')
+                    );
+                    ?>
+
+                    <div class="card">
+
+                        <?php if ($poster): ?>
+
+                            <?php if ($trailerKey !== ''): ?>
+
+                                <button
+                                    class="poster-link trailer-theater-trigger"
+                                    type="button"
+                                    data-trailer-key="<?= e($trailerKey) ?>"
+                                    data-trailer-title="<?= e(
+                                                            $movie['title'] ?? 'Untitled'
+                                                        ) ?>"
+                                    aria-label="Watch trailer for <?= e(
+                                                                        $movie['title'] ?? 'Untitled'
+                                                                    ) ?>">
+
+                                    <img
+                                        class="poster"
+                                        src="<?= e($poster) ?>"
+                                        alt="<?= e($movie['title'] ?? '') ?>">
+
+                                </button>
+
+                            <?php else: ?>
 
                                 <img
                                     class="poster"
                                     src="<?= e($poster) ?>"
                                     alt="<?= e($movie['title'] ?? '') ?>">
 
-                            </button>
+                            <?php endif; ?>
 
                         <?php else: ?>
 
-                            <img
-                                class="poster"
-                                src="<?= e($poster) ?>"
-                                alt="<?= e($movie['title'] ?? '') ?>">
-
-                        <?php endif; ?>
-
-                    <?php else: ?>
-
-                        <div class="no-poster">
-                            No poster
-                        </div>
-
-                    <?php endif; ?>
-
-                    <div class="card-body">
-
-                        <div class="title">
-                            <?= e($movie['title'] ?? 'Untitled') ?>
-                        </div>
-
-                        <div class="meta">
-
-                            Release:
-                            <?= e(
-                                $movie['release_date']
-                                    ?? 'Unknown'
-                            ) ?>
-
-                            <br>
-
-                            TMDB rating:
-                            <?= e(
-                                isset($movie['vote_average'])
-                                    ? number_format(
-                                        (float) $movie['vote_average'],
-                                        1
-                                    )
-                                    : 'N/A'
-                            ) ?>
-
-                        </div>
-
-                        <?php if (!empty($movie['source_author'])): ?>
-
-                            <div class="book-source">
-                                Based on the book by
-                                <a
-                                    class="author-link"
-                                    href="?author=<?= urlencode(
-                                                        $movie['source_author']
-                                                    ) ?>">
-                                    <?= e($movie['source_author']) ?>
-                                </a>
+                            <div class="no-poster">
+                                No poster
                             </div>
 
                         <?php endif; ?>
 
-                        <div class="overview">
-                            <?= e(
-                                $movie['overview']
-                                    ?? 'No overview available.'
-                            ) ?>
-                        </div>
+                        <div class="card-body">
 
-                        <div class="actions">
+                            <div class="title">
+                                <?= e($movie['title'] ?? 'Untitled') ?>
+                            </div>
 
-                            <?php if ($bookUrl): ?>
+                            <div class="meta">
 
-                                <a
-                                    href="<?= e($bookUrl) ?>"
-                                    target="_blank"
-                                    rel="noopener">
-                                    📖 Find the Book
-                                </a>
+                                Release:
+                                <?= e(
+                                    $movie['release_date']
+                                        ?? 'Unknown'
+                                ) ?>
 
-                            <?php endif; ?>
+                                <br>
 
-                            <?php if ($trailerKey !== ''): ?>
+                                TMDB rating:
+                                <?= e(
+                                    isset($movie['vote_average'])
+                                        ? number_format(
+                                            (float) $movie['vote_average'],
+                                            1
+                                        )
+                                        : 'N/A'
+                                ) ?>
 
-                                <button
-                                    class="trailer-button trailer-theater-trigger"
-                                    type="button"
-                                    data-trailer-key="<?= e($trailerKey) ?>"
-                                    data-trailer-title="<?= e(
-                                                            $movie['title'] ?? 'Untitled'
+                            </div>
+
+                            <?php if (!empty($movie['source_author'])): ?>
+
+                                <div class="book-source">
+                                    Based on the book by
+                                    <a
+                                        class="author-link"
+                                        href="?author=<?= urlencode(
+                                                            $movie['source_author']
                                                         ) ?>">
-                                    ▶ Watch Trailer
-                                </button>
+                                        <?= e($movie['source_author']) ?>
+                                    </a>
+                                </div>
 
                             <?php endif; ?>
 
-                        </div>
+                            <div class="overview">
+                                <?= e(
+                                    $movie['overview']
+                                        ?? 'No overview available.'
+                                ) ?>
+                            </div>
 
-                        <div class="tmdb-id">
-                            TMDB ID:
-                            <?= e(
-                                (string) $movie['tmdb_id']
-                            ) ?>
+                            <div class="actions">
+
+                                <?php if ($bookUrl): ?>
+
+                                    <a
+                                        href="<?= e($bookUrl) ?>"
+                                        target="_blank"
+                                        rel="noopener">
+                                        📖 Find the Book
+                                    </a>
+
+                                <?php endif; ?>
+
+                                <?php if ($trailerKey !== ''): ?>
+
+                                    <button
+                                        class="trailer-button trailer-theater-trigger"
+                                        type="button"
+                                        data-trailer-key="<?= e($trailerKey) ?>"
+                                        data-trailer-title="<?= e(
+                                                                $movie['title'] ?? 'Untitled'
+                                                            ) ?>">
+                                        ▶ Watch Trailer
+                                    </button>
+
+                                <?php endif; ?>
+
+                            </div>
+
+                            <div class="tmdb-id">
+                                TMDB ID:
+                                <?= e(
+                                    (string) $movie['tmdb_id']
+                                ) ?>
+                            </div>
+
                         </div>
 
                     </div>
 
-                </div>
+                <?php endforeach; ?>
 
-            <?php endforeach; ?>
+            </div>
 
-        </div>
+            <?php if (
+                !$isShuffle
+                && !$hasAuthorFilter
+                && $totalPages > 1
+            ): ?>
 
-        <?php if (
-            !$isShuffle
-            && !$hasAuthorFilter
-            && $totalPages > 1
-        ): ?>
+                <nav
+                    class="pagination"
+                    aria-label="Movie results pagination">
 
-            <nav
-                class="pagination"
-                aria-label="Movie results pagination">
+                    <?php if ($page > 1): ?>
 
-                <?php if ($page > 1): ?>
+                        <a href="?<?= http_build_query(
+                                        array_filter([
+                                            'q' => $hasSearch
+                                                ? $search
+                                                : null,
+                                            'page' => $page - 1,
+                                        ])
+                                    ) ?>">
+                            ← Previous
+                        </a>
 
-                    <a href="?<?= http_build_query(
-                                    array_filter([
-                                        'author' => $hasAuthorFilter
-                                            ? $author
-                                            : null,
-                                        'page' => $page - 1,
-                                    ])
-                                ) ?>">
-                        ← Previous
-                    </a>
+                    <?php endif; ?>
 
-                <?php endif; ?>
+                    <span>
+                        Page <?= $page ?> of <?= $totalPages ?>
+                    </span>
 
-                <span>
-                    Page <?= $page ?> of <?= $totalPages ?>
-                </span>
+                    <?php if ($page < $totalPages): ?>
 
-                <?php if ($page < $totalPages): ?>
+                        <a href="?<?= http_build_query(
+                                        array_filter([
+                                            'q' => $hasSearch
+                                                ? $search
+                                                : null,
+                                            'page' => $page + 1,
+                                        ])
+                                    ) ?>">
+                            Next →
+                        </a>
 
-                    <a href="?<?= http_build_query(
-                                    array_filter([
-                                        'author' => $hasAuthorFilter
-                                            ? $author
-                                            : null,
-                                        'page' => $page + 1,
-                                    ])
-                                ) ?>">
-                        Next →
-                    </a>
+                    <?php endif; ?>
 
-                <?php endif; ?>
+                </nav>
 
-            </nav>
+            <?php endif; ?>
 
         <?php endif; ?>
 

@@ -178,6 +178,120 @@ body {
     color: #999;
 }
 
+.trailer-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.trailer-search__input {
+    flex: 1;
+    min-width: 0;
+    max-width: 520px;
+    padding: 10px 13px;
+
+    border: 1px solid #d7c7b2;
+    border-radius: 8px;
+
+    background: #fff;
+    color: #222;
+
+    font: inherit;
+    font-size: 14px;
+
+    outline: none;
+}
+
+.trailer-search__input:focus {
+    border-color: #7a5c3e;
+    box-shadow: 0 0 0 2px rgba(122, 92, 62, 0.12);
+}
+
+.trailer-search__button,
+.trailer-search__clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 14px;
+    border: 1px solid #d7c7b2;
+    border-radius: 8px;
+
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+
+    text-decoration: none;
+}
+
+.trailer-search__button {
+    background: #2b2118;
+    border-color: #2b2118;
+    color: #fff;
+    cursor: pointer;
+
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.trailer-search__button:hover {
+    background: #4a392b;
+    border-color: #4a392b;
+}
+
+.trailer-search__clear {
+    background: #fff;
+    color: #2b2118;
+}
+
+.trailer-search__clear:hover {
+    background: #f1ece6;
+}
+
+.no-results {
+    padding: 40px 24px;
+    margin-top: 10px;
+
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    text-align: center;
+}
+
+.no-results h2 {
+    margin: 0 0 10px;
+    font-size: 1.25rem;
+}
+
+.no-results p {
+    margin: 0 0 20px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.no-results__clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 9px 14px;
+    border-radius: 999px;
+
+    background: #2b2118;
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.no-results__clear:hover {
+    background: #4a392b;
+}
+
 .trailer-controls {
     display: flex;
     align-items: center;
@@ -186,6 +300,20 @@ body {
 }
 
 @media (max-width: 768px) {
+    .trailer-search {
+        display: grid;
+        grid-template-columns: 1fr auto;
+    }
+
+    .trailer-search__input {
+        max-width: none;
+    }
+
+    .trailer-search__clear {
+        grid-column: 1 / -1;
+        justify-self: start;
+    }
+
     .trailer-controls {
         flex-wrap: wrap;
     }
