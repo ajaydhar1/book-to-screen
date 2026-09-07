@@ -267,7 +267,7 @@ body {
 
     .announcements-shell {
         width: min(100% - 24px, 1100px);
-        padding-top: 40px;
+        padding-top: 18px;
     }
 
     .announcement-card {
