@@ -32,13 +32,7 @@
 
         <div class="trailer-theater-screen">
 
-            <iframe
-                id="trailer-theater-iframe"
-                src=""
-                title="Movie trailer"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-            </iframe>
+            <div id="trailer-theater-iframe"></div>
 
         </div>
 

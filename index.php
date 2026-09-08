@@ -71,7 +71,8 @@ $releasedStmt = $db->query("
         title,
         release_date,
         poster_path,
-        source_author
+        source_author,
+        trailer_youtube_key
     FROM tmdb_adaptations
     WHERE release_date IS NOT NULL
       AND release_date <> ''
@@ -172,7 +173,7 @@ function barnesAndNobleSearchUrl(
                     class="hero-button hero-button--primary shimmer-button"
                     type="button"
                     data-random-trailer>
-                    🎲 Watch a Trailer
+                    🎲 Watch Trailers
                 </button>
 
                 <a
@@ -203,8 +204,9 @@ function barnesAndNobleSearchUrl(
                             ? 'https://image.tmdb.org/t/p/w342' . $movie['poster_path']
                             : null;
 
-                        $trailerUrl = '/tmdb-trailer.php?id='
-                            . urlencode((string) $movie['tmdb_id']);
+                        $trailerKey = trim(
+                            (string) ($movie['trailer_youtube_key'] ?? '')
+                        );
 
                         $bookUrl = barnesAndNobleSearchUrl(
                             $movie['title'] ?? null,
@@ -220,11 +222,30 @@ function barnesAndNobleSearchUrl(
                         <article class="released-card">
 
                             <?php if ($posterUrl): ?>
-                                <a
-                                    class="released-poster-link"
-                                    href="<?= e($trailerUrl) ?>"
-                                    target="_blank"
-                                    rel="noopener">
+
+                                <?php if ($trailerKey !== ''): ?>
+
+                                    <button
+                                        class="released-poster-link trailer-theater-trigger"
+                                        type="button"
+                                        data-trailer-key="<?= e($trailerKey) ?>"
+                                        data-trailer-title="<?= e(
+                                                                $movie['title'] ?? 'Untitled'
+                                                            ) ?>"
+                                        aria-label="Watch trailer for <?= e(
+                                                                            $movie['title'] ?? 'Untitled'
+                                                                        ) ?>">
+
+                                        <img
+                                            class="released-poster"
+                                            src="<?= e($posterUrl) ?>"
+                                            alt="<?= e($movie['title'] ?? '') ?>"
+                                            loading="lazy"
+                                            decoding="async">
+
+                                    </button>
+
+                                <?php else: ?>
 
                                     <img
                                         class="released-poster"
@@ -233,54 +254,95 @@ function barnesAndNobleSearchUrl(
                                         loading="lazy"
                                         decoding="async">
 
-                                </a>
+                                <?php endif; ?>
+
                             <?php endif; ?>
+
 
                             <div class="released-card-body">
 
                                 <h3>
-                                    <a
-                                        href="<?= e($trailerUrl) ?>"
-                                        target="_blank"
-                                        rel="noopener">
+
+                                    <?php if ($trailerKey !== ''): ?>
+
+                                        <button
+                                            class="released-title-link trailer-theater-trigger"
+                                            type="button"
+                                            data-trailer-key="<?= e($trailerKey) ?>"
+                                            data-trailer-title="<?= e(
+                                                                    $movie['title'] ?? 'Untitled'
+                                                                ) ?>">
+
+                                            <?= e($movie['title'] ?? 'Untitled') ?>
+
+                                        </button>
+
+                                    <?php else: ?>
+
                                         <?= e($movie['title'] ?? 'Untitled') ?>
-                                    </a>
+
+                                    <?php endif; ?>
+
                                 </h3>
 
+
                                 <?php if (!empty($movie['release_date'])): ?>
+
                                     <p class="released-date">
                                         <?= e(date(
                                             'M j, Y',
                                             strtotime($movie['release_date'])
                                         )) ?>
                                     </p>
+
                                 <?php endif; ?>
 
+
                                 <?php if ($authorUrl): ?>
+
                                     <p class="released-author">
+
                                         Based on the book by
+
                                         <a href="<?= e($authorUrl) ?>">
                                             <?= e($movie['source_author']) ?>
                                         </a>
+
                                     </p>
+
                                 <?php endif; ?>
+
 
                                 <div class="released-actions">
 
-                                    <a
-                                        href="<?= e($trailerUrl) ?>"
-                                        target="_blank"
-                                        rel="noopener">
-                                        Watch trailer →
-                                    </a>
+                                    <?php if ($trailerKey !== ''): ?>
+
+                                        <button
+                                            class="trailer-theater-trigger"
+                                            type="button"
+                                            data-trailer-key="<?= e($trailerKey) ?>"
+                                            data-trailer-title="<?= e(
+                                                                    $movie['title'] ?? 'Untitled'
+                                                                ) ?>">
+
+                                            Watch trailer →
+
+                                        </button>
+
+                                    <?php endif; ?>
+
 
                                     <?php if ($bookUrl): ?>
+
                                         <a
                                             href="<?= e($bookUrl) ?>"
                                             target="_blank"
                                             rel="noopener noreferrer">
+
                                             Find the book →
+
                                         </a>
+
                                     <?php endif; ?>
 
                                 </div>
