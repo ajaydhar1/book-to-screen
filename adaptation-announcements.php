@@ -386,10 +386,24 @@ $announcements = $listStmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <div class="announcement-image">
                             <?php if (!empty($announcement['featured_image_url'])): ?>
+                                <?php
+                                $imageUrl = $announcement['featured_image_url'];
+
+                                if (
+                                    str_contains($imageUrl, 'deadline.com/wp-content/uploads/')
+                                    && !str_contains($imageUrl, 'w=')
+                                ) {
+                                    $separator = str_contains($imageUrl, '?') ? '&' : '?';
+                                    $imageUrl .= $separator . 'w=450&h=253&crop=1';
+                                }
+                                ?>
                                 <img
-                                    src="<?= h($announcement['featured_image_url']) ?>"
+                                    src="<?= h($imageUrl) ?>"
                                     alt=""
-                                    loading="lazy">
+                                    width="450"
+                                    height="253"
+                                    loading="lazy"
+                                    decoding="async">
                             <?php else: ?>
                                 <div class="announcement-image-placeholder">
                                     No image available

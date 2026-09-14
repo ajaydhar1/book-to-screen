@@ -600,14 +600,14 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     && !str_contains($imageUrl, 'w=')
                                 ) {
                                     $separator = str_contains($imageUrl, '?') ? '&' : '?';
-                                    $imageUrl .= $separator . 'w=900&h=506&crop=1';
+                                    $imageUrl .= $separator . 'w=450&h=253&crop=1';
                                 }
                                 ?>
                                 <img
                                     src="<?= h($imageUrl) ?>"
                                     alt=""
-                                    width="900"
-                                    height="506"
+                                    width="450"
+                                    height="253"
                                     loading="lazy"
                                     decoding="async">
                             <?php else: ?>
