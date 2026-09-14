@@ -549,6 +549,12 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
 
+        <div class="admin-actions-row">
+            <a href="/admin/create-manual-adaptation.php" class="button-secondary">
+                Create Manual Adaptation
+            </a>
+        </div>
+
         <?php if ($notice === 'ignored'): ?>
             <div class="notice success">Lead marked as ignored.</div>
         <?php elseif ($notice === 'rejected'): ?>

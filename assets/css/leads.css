@@ -264,6 +264,13 @@
     margin-bottom: 1.5rem;
 }
 
+.admin-actions-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+}
+
 .button-secondary {
     display: inline-flex;
     align-items: center;
