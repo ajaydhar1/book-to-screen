@@ -13,10 +13,17 @@ $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 $status = $_GET['status'] ?? '';
 
 $returnStatus = $_GET['return_status'] ?? 'pending';
+$allowedResearchers = ['all', 'sarah', 'researcher2'];
+$returnResearcher = $_GET['return_researcher'] ?? 'all';
+
+if (!in_array($returnResearcher, $allowedResearchers, true)) {
+    $returnResearcher = 'all';
+}
+
 $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
 if (!$id || !in_array($status, $allowedStatuses, true)) {
-    header('Location: leads.php?status=' . urlencode($returnStatus) . '&page=' . $page . '&notice=invalid');
+    header('Location: leads.php?status=' . urlencode($returnStatus) . '&researcher=' . urlencode($returnResearcher) . '&page=' . $page . '&notice=invalid');
     exit;
 }
 
@@ -33,5 +40,5 @@ $stmt->execute([
     ':id' => $id,
 ]);
 
-header('Location: leads.php?status=' . urlencode($returnStatus) . '&page=' . $page . '&notice=' . urlencode($status));
+header('Location: leads.php?status=' . urlencode($returnStatus) . '&researcher=' . urlencode($returnResearcher) . '&page=' . $page . '&notice=' . urlencode($status));
 exit;

@@ -33,9 +33,15 @@ function status_class(string $status): string
     };
 }
 
-function filter_url(string $status): string
+function filter_url(string $status, string $researcher = 'all'): string
 {
-    return '?status=' . urlencode($status);
+    $params = ['status' => $status];
+
+    if ($researcher !== 'all') {
+        $params['researcher'] = $researcher;
+    }
+
+    return '?' . http_build_query($params);
 }
 
 function formatDate(string|null $value): string

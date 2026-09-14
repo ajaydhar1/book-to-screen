@@ -36,17 +36,27 @@ $nextCronRun = next_cron_run();
 
 $allowedStatuses = ['all', 'pending', 'ignored', 'approved', 'rejected'];
 $currentStatus = $_GET['status'] ?? 'all';
+$allowedResearchers = ['all', 'sarah', 'researcher2'];
+$currentResearcher = $_GET['researcher'] ?? 'all';
 
 if (!in_array($currentStatus, $allowedStatuses, true)) {
     $currentStatus = 'all';
 }
 
-function pagination_url(int $page, string $status): string
+if (!in_array($currentResearcher, $allowedResearchers, true)) {
+    $currentResearcher = 'all';
+}
+
+function pagination_url(int $page, string $status, string $researcher): string
 {
     $params = ['page' => $page];
 
     if ($status !== 'all') {
         $params['status'] = $status;
+    }
+
+    if ($researcher !== 'all') {
+        $params['researcher'] = $researcher;
     }
 
     return '/admin/leads.php?' . http_build_query($params);
@@ -227,9 +237,30 @@ $totalLeads = array_sum($statusCounts);
 $perPage = 10;
 $page = max(1, (int) ($_GET['page'] ?? 1));
 
-$totalForCurrentFilter = $currentStatus === 'all'
-    ? $totalLeads
-    : $statusCounts[$currentStatus];
+$whereConditions = [];
+
+if ($currentStatus !== 'all') {
+    $whereConditions[] = 'status = :status';
+}
+
+if ($currentResearcher === 'sarah') {
+    $whereConditions[] = 'id % 2 = 0';
+} elseif ($currentResearcher === 'researcher2') {
+    $whereConditions[] = 'id % 2 = 1';
+}
+
+$whereSql = $whereConditions
+    ? 'WHERE ' . implode(' AND ', $whereConditions)
+    : '';
+
+$totalStmt = $db->prepare("SELECT COUNT(*) FROM leads {$whereSql}");
+
+if ($currentStatus !== 'all') {
+    $totalStmt->bindValue(':status', $currentStatus, PDO::PARAM_STR);
+}
+
+$totalStmt->execute();
+$totalForCurrentFilter = (int) $totalStmt->fetchColumn();
 
 $totalPages = max(1, (int) ceil($totalForCurrentFilter / $perPage));
 
@@ -239,42 +270,25 @@ if ($page > $totalPages) {
 
 $offset = ($page - 1) * $perPage;
 
-if ($currentStatus === 'all') {
-    $stmt = $db->prepare("
-        SELECT
-            id,
-            source,
-            article_title,
-            article_url,
-            article_excerpt,
-            featured_image_url,
-            published_at,
-            status,
-            notes,
-            created_at
-        FROM leads
-        ORDER BY published_at DESC
-        LIMIT :limit OFFSET :offset
-    ");
-} else {
-    $stmt = $db->prepare("
-        SELECT
-            id,
-            source,
-            article_title,
-            article_url,
-            article_excerpt,
-            featured_image_url,
-            published_at,
-            status,
-            notes,
-            created_at
-        FROM leads
-        WHERE status = :status
-        ORDER BY published_at DESC
-        LIMIT :limit OFFSET :offset
-    ");
+$stmt = $db->prepare("
+    SELECT
+        id,
+        source,
+        article_title,
+        article_url,
+        article_excerpt,
+        featured_image_url,
+        published_at,
+        status,
+        notes,
+        created_at
+    FROM leads
+    {$whereSql}
+    ORDER BY published_at DESC
+    LIMIT :limit OFFSET :offset
+");
 
+if ($currentStatus !== 'all') {
     $stmt->bindValue(':status', $currentStatus, PDO::PARAM_STR);
 }
 
@@ -447,8 +461,26 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach (['all', 'pending', 'ignored', 'approved', 'rejected'] as $filterStatus): ?>
                     <a
                         class="filter-link <?= $currentStatus === $filterStatus ? 'active' : '' ?>"
-                        href="<?= h(filter_url($filterStatus)) ?>">
+                        href="<?= h(filter_url($filterStatus, $currentResearcher)) ?>">
                         <?= h(ucfirst($filterStatus)) ?>
+                    </a>
+                <?php endforeach; ?>
+            </nav>
+
+            <nav class="filter-bar" aria-label="Assigned Researcher filters">
+                <?php
+                $researcherLabels = [
+                    'all' => 'All Researchers',
+                    'sarah' => 'Sarah C.',
+                    'researcher2' => 'Researcher 2',
+                ];
+                ?>
+
+                <?php foreach ($researcherLabels as $filterResearcher => $label): ?>
+                    <a
+                        class="filter-link <?= $currentResearcher === $filterResearcher ? 'active' : '' ?>"
+                        href="<?= h(filter_url($currentStatus, $filterResearcher)) ?>">
+                        <?= h($label) ?>
                     </a>
                 <?php endforeach; ?>
             </nav>
@@ -596,13 +628,13 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                             <a
                                 class="button button-muted"
-                                href="update-lead-status.php?id=<?= (int) $lead['id'] ?>&status=ignored&return_status=<?= urlencode($currentStatus) ?>&page=<?= (int) $page ?>">
+                                href="update-lead-status.php?id=<?= (int) $lead['id'] ?>&status=ignored&return_status=<?= urlencode($currentStatus) ?>&return_researcher=<?= urlencode($currentResearcher) ?>&page=<?= (int) $page ?>">
                                 Ignore
                             </a>
 
                             <a
                                 class="button button-muted"
-                                href="update-lead-status.php?id=<?= (int) $lead['id'] ?>&status=rejected&return_status=<?= urlencode($currentStatus) ?>&page=<?= (int) $page ?>">
+                                href="update-lead-status.php?id=<?= (int) $lead['id'] ?>&status=rejected&return_status=<?= urlencode($currentStatus) ?>&return_researcher=<?= urlencode($currentResearcher) ?>&page=<?= (int) $page ?>">
                                 Reject
                             </a>
                         </div>
@@ -613,13 +645,13 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php if ($totalPages > 1): ?>
                 <nav class="pagination" aria-label="Lead pagination">
                     <?php if ($page > 1): ?>
-                        <a href="<?= h(pagination_url($page - 1, $currentStatus)) ?>">← Newer</a>
+                        <a href="<?= h(pagination_url($page - 1, $currentStatus, $currentResearcher)) ?>">← Newer</a>
                     <?php endif; ?>
 
                     <span>Page <?= h((string) $page) ?> of <?= h((string) $totalPages) ?></span>
 
                     <?php if ($page < $totalPages): ?>
-                        <a href="<?= h(pagination_url($page + 1, $currentStatus)) ?>">Older →</a>
+                        <a href="<?= h(pagination_url($page + 1, $currentStatus, $currentResearcher)) ?>">Older →</a>
                     <?php endif; ?>
                 </nav>
             <?php endif; ?>
