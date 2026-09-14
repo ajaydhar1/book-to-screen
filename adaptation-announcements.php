@@ -31,10 +31,18 @@ if (!in_array($currentSourceType, $allowedSourceTypes, true)) {
     $currentSourceType = '';
 }
 
+$search = trim(
+    isset($_GET['search']) && is_string($_GET['search'])
+        ? $_GET['search']
+        : ''
+);
+$hasSearch = $search !== '';
+
 function announcements_url(
     string $adaptationType = '',
     string $sourceType = '',
-    int $page = 1
+    int $page = 1,
+    string $search = ''
 ): string {
     $params = [];
 
@@ -44,6 +52,10 @@ function announcements_url(
 
     if ($sourceType !== '') {
         $params['source_type'] = $sourceType;
+    }
+
+    if ($search !== '') {
+        $params['search'] = $search;
     }
 
     if ($page > 1) {
@@ -193,6 +205,11 @@ if ($currentSourceType !== '') {
     $params[':source_type'] = $currentSourceType;
 }
 
+if ($hasSearch) {
+    $where[] = '(article_title LIKE :search OR article_excerpt LIKE :search)';
+    $params[':search'] = '%' . $search . '%';
+}
+
 $whereSql = $where
     ? ' WHERE ' . implode(' AND ', $where)
     : '';
@@ -298,7 +315,7 @@ $announcements = $listStmt->fetchAll(PDO::FETCH_ASSOC);
                 <nav class="filter-bar" aria-label="Adaptation type">
                     <a
                         class="filter-link <?= $currentAdaptationType === '' ? 'active' : '' ?>"
-                        href="<?= h(announcements_url('', $currentSourceType)) ?>">
+                        href="<?= h(announcements_url('', $currentSourceType, 1, $search)) ?>">
                         All
                     </a>
 
@@ -309,7 +326,7 @@ $announcements = $listStmt->fetchAll(PDO::FETCH_ASSOC);
                     ] as $value => $label): ?>
                         <a
                             class="filter-link <?= $currentAdaptationType === $value ? 'active' : '' ?>"
-                            href="<?= h(announcements_url($value, $currentSourceType)) ?>">
+                            href="<?= h(announcements_url($value, $currentSourceType, 1, $search)) ?>">
                             <?= h($label) ?>
                         </a>
                     <?php endforeach; ?>
@@ -322,7 +339,7 @@ $announcements = $listStmt->fetchAll(PDO::FETCH_ASSOC);
                 <nav class="filter-bar" aria-label="Source type">
                     <a
                         class="filter-link <?= $currentSourceType === '' ? 'active' : '' ?>"
-                        href="<?= h(announcements_url($currentAdaptationType, '')) ?>">
+                        href="<?= h(announcements_url($currentAdaptationType, '', 1, $search)) ?>">
                         All
                     </a>
 
@@ -334,7 +351,7 @@ $announcements = $listStmt->fetchAll(PDO::FETCH_ASSOC);
                     ] as $value => $label): ?>
                         <a
                             class="filter-link <?= $currentSourceType === $value ? 'active' : '' ?>"
-                            href="<?= h(announcements_url($currentAdaptationType, $value)) ?>">
+                            href="<?= h(announcements_url($currentAdaptationType, $value, 1, $search)) ?>">
                             <?= h($label) ?>
                         </a>
                     <?php endforeach; ?>
@@ -343,15 +360,53 @@ $announcements = $listStmt->fetchAll(PDO::FETCH_ASSOC);
 
         </section>
 
+        <div class="search-panel">
+            <form method="get" action="/adaptation-announcements.php" class="search-form">
+                <?php if ($currentAdaptationType !== ''): ?>
+                    <input type="hidden" name="adaptation_type" value="<?= h($currentAdaptationType) ?>">
+                <?php endif; ?>
+                <?php if ($currentSourceType !== ''): ?>
+                    <input type="hidden" name="source_type" value="<?= h($currentSourceType) ?>">
+                <?php endif; ?>
+
+                <input
+                    type="search"
+                    name="search"
+                    value="<?= h($search) ?>"
+                    placeholder="Search announcements..."
+                    aria-label="Search announcements"
+                    class="search-input">
+
+                <button type="submit" class="button-secondary">
+                    Search
+                </button>
+
+                <?php if ($hasSearch): ?>
+                    <a href="<?= h(announcements_url($currentAdaptationType, $currentSourceType)) ?>" class="button-secondary">
+                        Clear
+                    </a>
+                <?php endif; ?>
+            </form>
+        </div>
+
         <div class="results-summary">
             <strong><?= h(number_format($totalAnnouncements)) ?></strong>
             <?= $totalAnnouncements === 1 ? 'announcement' : 'announcements' ?>
         </div>
 
+        <?php if ($hasSearch): ?>
+            <div class="search-results-header">
+                Search results for <strong>&ldquo;<?= h($search) ?>&rdquo;</strong>
+                <span class="search-results-count">
+                    (<?= h((string) $totalAnnouncements) ?> matching <?= $totalAnnouncements === 1 ? 'result' : 'results' ?>)
+                </span>
+            </div>
+        <?php endif; ?>
+
         <?php if (empty($announcements)): ?>
 
             <div class="empty-state">
-                No adaptation announcements found for these filters.
+                <?= $hasSearch ? 'No adaptation announcements found matching your search.' : 'No adaptation announcements found for these filters.' ?>
             </div>
 
         <?php else: ?>
@@ -452,7 +507,8 @@ $announcements = $listStmt->fetchAll(PDO::FETCH_ASSOC);
                                 href="<?= h(announcements_url(
                                     $currentAdaptationType,
                                     $currentSourceType,
-                                    $page - 1
+                                    $page - 1,
+                                    $search
                                 )) ?>">
                                 ← Newer
                             </a>
@@ -470,7 +526,8 @@ $announcements = $listStmt->fetchAll(PDO::FETCH_ASSOC);
                                 href="<?= h(announcements_url(
                                     $currentAdaptationType,
                                     $currentSourceType,
-                                    $page + 1
+                                    $page + 1,
+                                    $search
                                 )) ?>">
                                 Older →
                             </a>
