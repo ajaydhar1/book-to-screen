@@ -15,6 +15,7 @@ $status = $_GET['status'] ?? '';
 $returnStatus = $_GET['return_status'] ?? 'pending';
 $allowedResearchers = ['all', 'sarah', 'researcher2'];
 $returnResearcher = $_GET['return_researcher'] ?? 'all';
+$returnSearch = trim(isset($_GET['search']) && is_string($_GET['search']) ? $_GET['search'] : '');
 
 if (!in_array($returnResearcher, $allowedResearchers, true)) {
     $returnResearcher = 'all';
@@ -22,8 +23,19 @@ if (!in_array($returnResearcher, $allowedResearchers, true)) {
 
 $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
+$returnParams = [
+    'status' => $returnStatus,
+    'researcher' => $returnResearcher,
+    'page' => $page,
+];
+
+if ($returnSearch !== '') {
+    $returnParams['search'] = $returnSearch;
+}
+
 if (!$id || !in_array($status, $allowedStatuses, true)) {
-    header('Location: leads.php?status=' . urlencode($returnStatus) . '&researcher=' . urlencode($returnResearcher) . '&page=' . $page . '&notice=invalid');
+    $returnParams['notice'] = 'invalid';
+    header('Location: leads.php?' . http_build_query($returnParams));
     exit;
 }
 
@@ -40,5 +52,6 @@ $stmt->execute([
     ':id' => $id,
 ]);
 
-header('Location: leads.php?status=' . urlencode($returnStatus) . '&researcher=' . urlencode($returnResearcher) . '&page=' . $page . '&notice=' . urlencode($status));
+$returnParams['notice'] = $status;
+header('Location: leads.php?' . http_build_query($returnParams));
 exit;

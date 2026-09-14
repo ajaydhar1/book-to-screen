@@ -33,12 +33,16 @@ function status_class(string $status): string
     };
 }
 
-function filter_url(string $status, string $researcher = 'all'): string
+function filter_url(string $status, string $researcher = 'all', string $search = ''): string
 {
     $params = ['status' => $status];
 
     if ($researcher !== 'all') {
         $params['researcher'] = $researcher;
+    }
+
+    if ($search !== '') {
+        $params['search'] = $search;
     }
 
     return '?' . http_build_query($params);

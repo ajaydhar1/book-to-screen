@@ -38,6 +38,12 @@ $allowedStatuses = ['all', 'pending', 'ignored', 'approved', 'rejected'];
 $currentStatus = $_GET['status'] ?? 'all';
 $allowedResearchers = ['all', 'sarah', 'researcher2'];
 $currentResearcher = $_GET['researcher'] ?? 'all';
+$search = trim(
+    isset($_GET['search']) && is_string($_GET['search'])
+        ? $_GET['search']
+        : ''
+);
+$hasSearch = $search !== '';
 
 if (!in_array($currentStatus, $allowedStatuses, true)) {
     $currentStatus = 'all';
@@ -47,7 +53,7 @@ if (!in_array($currentResearcher, $allowedResearchers, true)) {
     $currentResearcher = 'all';
 }
 
-function pagination_url(int $page, string $status, string $researcher): string
+function pagination_url(int $page, string $status, string $researcher, string $search = ''): string
 {
     $params = ['page' => $page];
 
@@ -57,6 +63,10 @@ function pagination_url(int $page, string $status, string $researcher): string
 
     if ($researcher !== 'all') {
         $params['researcher'] = $researcher;
+    }
+
+    if ($search !== '') {
+        $params['search'] = $search;
     }
 
     return '/admin/leads.php?' . http_build_query($params);
@@ -249,6 +259,14 @@ if ($currentResearcher === 'sarah') {
     $whereConditions[] = 'id % 2 = 1';
 }
 
+if ($hasSearch) {
+    $whereConditions[] = '(
+        CAST(id AS TEXT) LIKE :search
+        OR article_title LIKE :search
+        OR article_excerpt LIKE :search
+    )';
+}
+
 $whereSql = $whereConditions
     ? 'WHERE ' . implode(' AND ', $whereConditions)
     : '';
@@ -257,6 +275,10 @@ $totalStmt = $db->prepare("SELECT COUNT(*) FROM leads {$whereSql}");
 
 if ($currentStatus !== 'all') {
     $totalStmt->bindValue(':status', $currentStatus, PDO::PARAM_STR);
+}
+
+if ($hasSearch) {
+    $totalStmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
 }
 
 $totalStmt->execute();
@@ -270,7 +292,7 @@ if ($page > $totalPages) {
 
 $offset = ($page - 1) * $perPage;
 
- $stmt = $db->prepare("
+$stmt = $db->prepare("
     SELECT
         id,
         source,
@@ -290,6 +312,10 @@ $offset = ($page - 1) * $perPage;
 
 if ($currentStatus !== 'all') {
     $stmt->bindValue(':status', $currentStatus, PDO::PARAM_STR);
+}
+
+if ($hasSearch) {
+    $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
 }
 
 $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
@@ -461,7 +487,7 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach (['all', 'pending', 'ignored', 'approved', 'rejected'] as $filterStatus): ?>
                     <a
                         class="filter-link <?= $currentStatus === $filterStatus ? 'active' : '' ?>"
-                        href="<?= h(filter_url($filterStatus, $currentResearcher)) ?>">
+                        href="<?= h(filter_url($filterStatus, $currentResearcher, $search)) ?>">
                         <?= h(ucfirst($filterStatus)) ?>
                     </a>
                 <?php endforeach; ?>
@@ -479,13 +505,40 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($researcherLabels as $filterResearcher => $label): ?>
                     <a
                         class="filter-link <?= $currentResearcher === $filterResearcher ? 'active' : '' ?>"
-                        href="<?= h(filter_url($currentStatus, $filterResearcher)) ?>">
+                        href="<?= h(filter_url($currentStatus, $filterResearcher, $search)) ?>">
                         <?= h($label) ?>
                     </a>
                 <?php endforeach; ?>
             </nav>
 
             <div class="admin-toolbar-actions">
+
+                <form method="get" action="/admin/leads.php" class="search-form">
+                    <?php if ($currentStatus !== 'all'): ?>
+                        <input type="hidden" name="status" value="<?= h($currentStatus) ?>">
+                    <?php endif; ?>
+                    <?php if ($currentResearcher !== 'all'): ?>
+                        <input type="hidden" name="researcher" value="<?= h($currentResearcher) ?>">
+                    <?php endif; ?>
+
+                    <input
+                        type="search"
+                        name="search"
+                        value="<?= h($search) ?>"
+                        placeholder="Search leads..."
+                        aria-label="Search leads"
+                        class="search-input">
+
+                    <button type="submit" class="button-secondary">
+                        Search
+                    </button>
+
+                    <?php if ($hasSearch): ?>
+                        <a href="<?= h(filter_url($currentStatus, $currentResearcher)) ?>" class="button-secondary">
+                            Clear
+                        </a>
+                    <?php endif; ?>
+                </form>
 
                 <form method="post" action="fetch-rss.php">
                     <button type="submit" class="button-secondary">
@@ -521,9 +574,15 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         <?php endif; ?>
 
+        <?php if ($hasSearch): ?>
+            <div class="search-results-header">
+                Search results for <strong>&ldquo;<?= h($search) ?>&rdquo;</strong> <span class="search-results-count">(<?= h((string) $totalForCurrentFilter) ?> matching <?= $totalForCurrentFilter === 1 ? 'result' : 'results' ?>)</span>
+            </div>
+        <?php endif; ?>
+
         <?php if (empty($leads)): ?>
             <div class="empty-state">
-                No leads found for this filter.
+                <?= $hasSearch ? 'No leads found matching your search.' : 'No leads found for this filter.' ?>
             </div>
         <?php else: ?>
             <section class="lead-list">
@@ -642,13 +701,13 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                             <a
                                 class="button button-muted"
-                                href="update-lead-status.php?id=<?= (int) $lead['id'] ?>&status=ignored&return_status=<?= urlencode($currentStatus) ?>&return_researcher=<?= urlencode($currentResearcher) ?>&page=<?= (int) $page ?>">
+                                href="update-lead-status.php?id=<?= (int) $lead['id'] ?>&status=ignored&return_status=<?= urlencode($currentStatus) ?>&return_researcher=<?= urlencode($currentResearcher) ?>&search=<?= urlencode($search) ?>&page=<?= (int) $page ?>">
                                 Ignore
                             </a>
 
                             <a
                                 class="button button-muted"
-                                href="update-lead-status.php?id=<?= (int) $lead['id'] ?>&status=rejected&return_status=<?= urlencode($currentStatus) ?>&return_researcher=<?= urlencode($currentResearcher) ?>&page=<?= (int) $page ?>">
+                                href="update-lead-status.php?id=<?= (int) $lead['id'] ?>&status=rejected&return_status=<?= urlencode($currentStatus) ?>&return_researcher=<?= urlencode($currentResearcher) ?>&search=<?= urlencode($search) ?>&page=<?= (int) $page ?>">
                                 Reject
                             </a>
                         </div>
@@ -659,13 +718,13 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php if ($totalPages > 1): ?>
                 <nav class="pagination" aria-label="Lead pagination">
                     <?php if ($page > 1): ?>
-                        <a href="<?= h(pagination_url($page - 1, $currentStatus, $currentResearcher)) ?>">← Newer</a>
+                        <a href="<?= h(pagination_url($page - 1, $currentStatus, $currentResearcher, $search)) ?>">← Newer</a>
                     <?php endif; ?>
 
                     <span>Page <?= h((string) $page) ?> of <?= h((string) $totalPages) ?></span>
 
                     <?php if ($page < $totalPages): ?>
-                        <a href="<?= h(pagination_url($page + 1, $currentStatus, $currentResearcher)) ?>">Older →</a>
+                        <a href="<?= h(pagination_url($page + 1, $currentStatus, $currentResearcher, $search)) ?>">Older →</a>
                     <?php endif; ?>
                 </nav>
             <?php endif; ?>
