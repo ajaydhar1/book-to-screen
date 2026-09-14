@@ -270,7 +270,7 @@ if ($page > $totalPages) {
 
 $offset = ($page - 1) * $perPage;
 
-$stmt = $db->prepare("
+ $stmt = $db->prepare("
     SELECT
         id,
         source,
@@ -592,10 +592,24 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <div class="lead-image">
                             <?php if (!empty($lead['featured_image_url'])): ?>
+                                <?php
+                                $imageUrl = $lead['featured_image_url'];
+
+                                if (
+                                    str_contains($imageUrl, 'deadline.com/wp-content/uploads/')
+                                    && !str_contains($imageUrl, 'w=')
+                                ) {
+                                    $separator = str_contains($imageUrl, '?') ? '&' : '?';
+                                    $imageUrl .= $separator . 'w=900&h=506&crop=1';
+                                }
+                                ?>
                                 <img
-                                    src="<?= h($lead['featured_image_url']) ?>"
+                                    src="<?= h($imageUrl) ?>"
                                     alt=""
-                                    loading="lazy">
+                                    width="900"
+                                    height="506"
+                                    loading="lazy"
+                                    decoding="async">
                             <?php else: ?>
                                 <div class="lead-image-placeholder">
                                     No image available
