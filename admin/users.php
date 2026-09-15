@@ -59,17 +59,19 @@ function role_label(string $role): string
 
 $activeUsers = count(array_filter(
     $users,
-    static fn(array $user): bool => $user['is_active'] === true
+    static fn(array $user): bool => (bool) $user['is_active']
 ));
 
 $adminUsers = count(array_filter(
     $users,
-    static fn(array $user): bool => $user['role'] === 'admin' && $user['is_active'] === true
+    static fn(array $user): bool =>
+        $user['role'] === 'admin' && (bool) $user['is_active']
 ));
 
 $editorUsers = count(array_filter(
     $users,
-    static fn(array $user): bool => $user['role'] === 'editor' && $user['is_active'] === true
+    static fn(array $user): bool =>
+        $user['role'] === 'editor' && (bool) $user['is_active']
 ));
 
 ?>
