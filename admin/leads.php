@@ -563,6 +563,8 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="notice success">Lead marked as rejected.</div>
         <?php elseif ($notice === 'invalid'): ?>
             <div class="notice error">Invalid lead status update.</div>
+        <?php elseif ($notice === 'role_changed'): ?>
+            <div class="notice success">Your account role was updated.</div>
         <?php endif; ?>
 
         <?php if (($_GET['created'] ?? '') === '1'): ?>

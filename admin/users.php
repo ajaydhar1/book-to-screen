@@ -605,6 +605,10 @@ $editorUsers = count(array_filter(
 
         <?php if ($notice === 'created'): ?>
             <div class="notice success">User created successfully.</div>
+        <?php elseif ($notice === 'user_updated'): ?>
+            <div class="notice success">User updated successfully.</div>
+        <?php elseif ($notice === 'not_found'): ?>
+            <div class="notice error">That user could not be found.</div>
         <?php elseif ($notice === 'username_exists'): ?>
             <div class="notice error">That username is already in use.</div>
         <?php elseif ($notice === 'invalid_username'): ?>

@@ -12,6 +12,7 @@ if (!empty($_SESSION['admin_logged_in'])) {
 require_once __DIR__ . '/../includes/functions.php';
 
 $error = $_GET['error'] ?? '';
+$notice = $_GET['notice'] ?? '';
 
 ?>
 <!doctype html>
@@ -49,6 +50,8 @@ $error = $_GET['error'] ?? '';
 
             <?php if ($error === 'invalid'): ?>
                 <div class="notice">Invalid username or password.</div>
+            <?php elseif ($notice === 'account_deactivated'): ?>
+                <div class="notice">Your account was deactivated. Please contact another Administrator.</div>
             <?php endif; ?>
 
             <form method="post" action="/admin/login.php">
