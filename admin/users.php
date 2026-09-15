@@ -80,6 +80,8 @@ $editorUsers = count(array_filter(
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow">
     <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="/assets/css/header-footer.css?v=<?= filemtime(__DIR__ . '/../assets/css/header-footer.css') ?>">
+    <link rel="stylesheet" href="/assets/css/admin-nav.css?v=<?= filemtime(__DIR__ . '/../assets/css/admin-nav.css') ?>">
 
     <style>
         * {
@@ -139,33 +141,6 @@ $editorUsers = count(array_filter(
         .view-site-link:hover {
             color: #2b2118;
             text-decoration: underline;
-        }
-
-        .admin-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 24px;
-        }
-
-        .admin-nav a {
-            display: inline-flex;
-            align-items: center;
-            padding: 9px 13px;
-            border: 1px solid #d7c7b2;
-            border-radius: 999px;
-            background: #fff;
-            color: #2b2118;
-            font-size: 14px;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .admin-nav a.active,
-        .admin-nav a:hover {
-            background: #2b2118;
-            border-color: #2b2118;
-            color: #fff;
         }
 
         .stats-grid {
@@ -520,6 +495,9 @@ $editorUsers = count(array_filter(
 </head>
 
 <body>
+    <?php require_once __DIR__ . '/../includes/header.php'; ?>
+    <?php require_once __DIR__ . '/../includes/admin-nav.php'; ?>
+
     <main class="admin-shell">
         <header class="admin-header">
             <div>
@@ -531,11 +509,6 @@ $editorUsers = count(array_filter(
                 View Site ↗
             </a>
         </header>
-
-        <nav class="admin-nav" aria-label="Admin sections">
-            <a href="/admin/leads.php">Article Leads</a>
-            <a class="active" href="/admin/users.php" aria-current="page">Users</a>
-        </nav>
 
         <section class="stats-grid" aria-label="User summary">
             <div class="stat-card">

@@ -1,0 +1,50 @@
+.admin-subnav {
+    border-bottom: 1px solid #e3d8c8;
+    background: #fff;
+}
+
+.admin-subnav__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 12px 20px;
+}
+
+.admin-subnav__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 7px 12px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: #756553;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.admin-subnav__link:hover {
+    border-color: #d7c7b2;
+    color: #2b2118;
+}
+
+.admin-subnav__link.is-active {
+    border-color: #2b2118;
+    background: #2b2118;
+    color: #fff;
+}
+
+@media (max-width: 520px) {
+    .admin-subnav__inner {
+        gap: 6px;
+        padding: 10px 18px;
+    }
+
+    .admin-subnav__link {
+        flex: 1 1 calc(50% - 6px);
+        justify-content: center;
+    }
+}

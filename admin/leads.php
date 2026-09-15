@@ -351,12 +351,14 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <link rel="stylesheet" href="/assets/css/admin.css?v=<?= filemtime(__DIR__ . '/../assets/css/admin.css') ?>">
     <link rel="stylesheet" href="/assets/css/header-footer.css?v=<?= filemtime(__DIR__ . '/../assets/css/header-footer.css') ?>">
+    <link rel="stylesheet" href="/assets/css/admin-nav.css?v=<?= filemtime(__DIR__ . '/../assets/css/admin-nav.css') ?>">
     <link rel="stylesheet" href="/assets/css/leads.css?v=<?= filemtime(__DIR__ . '/../assets/css/leads.css') ?>">
 </head>
 
 <body>
 
     <?php require_once __DIR__ . '/../includes/header.php'; ?>
+    <?php require_once __DIR__ . '/../includes/admin-nav.php'; ?>
 
     <main class="admin-shell">
         <header class="admin-header">
