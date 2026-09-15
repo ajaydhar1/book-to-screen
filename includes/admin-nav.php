@@ -24,8 +24,8 @@ $adminNavItems = [
 
 <nav class="admin-subnav" aria-label="Admin sections">
     <div class="admin-subnav__inner">
-        <?php foreach ($adminNavItems as $page => $item): ?>
-            <?php $isActive = $page === $adminCurrentPage; ?>
+        <?php foreach ($adminNavItems as $adminPage => $item): ?>
+            <?php $isActive = $adminPage === $adminCurrentPage; ?>
             <a
                 class="admin-subnav__link<?= $isActive ? ' is-active' : ''; ?>"
                 href="<?= htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8'); ?>"
