@@ -42,7 +42,7 @@
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 14px;
     margin-bottom: 24px;
 }
@@ -157,6 +157,11 @@
     color: #41464b;
 }
 
+.status-flagged {
+    background: #ffe5d0;
+    color: #8a3b00;
+}
+
 .status-default {
     background: #e7f1ff;
     color: #084298;
@@ -258,10 +263,17 @@
 
 .admin-toolbar {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 1.5rem;
+}
+
+.filter-bars {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
 }
 
 .admin-actions-row {
@@ -342,13 +354,20 @@
     color: #756553;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1100px) {
     .admin-toolbar {
         flex-direction: column;
         align-items: stretch;
         gap: 1rem;
     }
 
+    .filter-bars,
+    .admin-toolbar-actions {
+        width: 100%;
+    }
+}
+
+@media (max-width: 700px) {
     .filter-bar {
         justify-content: center;
     }

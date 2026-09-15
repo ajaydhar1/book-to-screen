@@ -29,6 +29,7 @@ function status_class(string $status): string
         'approved' => 'status-approved',
         'rejected' => 'status-rejected',
         'ignored' => 'status-ignored',
+        'flagged' => 'status-flagged',
         default => 'status-default',
     };
 }

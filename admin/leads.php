@@ -34,7 +34,8 @@ $cronRunStmt->execute([
 $latestCronRun = $cronRunStmt->fetch(PDO::FETCH_ASSOC) ?: null;
 $nextCronRun = next_cron_run();
 
-$allowedStatuses = ['all', 'pending', 'ignored', 'approved', 'rejected'];
+// "flagged" here is a lead status; unrelated to the keyword-detection flagged/unflagged concept in scripts/ignore-unflagged-pending.php
+$allowedStatuses = ['all', 'pending', 'ignored', 'approved', 'rejected', 'flagged'];
 $currentStatus = $_GET['status'] ?? 'all';
 $allowedResearchers = ['all', 'sarah', 'researcher2'];
 $currentResearcher = $_GET['researcher'] ?? 'all';
@@ -70,6 +71,24 @@ function pagination_url(int $page, string $status, string $researcher, string $s
     }
 
     return '/admin/leads.php?' . http_build_query($params);
+}
+
+function lead_status_action_url(
+    int $leadId,
+    string $newStatus,
+    string $currentStatus,
+    string $currentResearcher,
+    string $search,
+    int $page
+): string {
+    return 'update-lead-status.php?' . http_build_query([
+        'id' => $leadId,
+        'status' => $newStatus,
+        'return_status' => $currentStatus,
+        'return_researcher' => $currentResearcher,
+        'search' => $search,
+        'page' => $page,
+    ]);
 }
 
 function cron_datetime(?string $datetime): ?DateTimeImmutable
@@ -236,6 +255,7 @@ $statusCounts = [
     'ignored' => 0,
     'approved' => 0,
     'rejected' => 0,
+    'flagged' => 0,
 ];
 
 foreach ($countStmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
@@ -397,6 +417,11 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <span>Rejected</span>
                 <strong><?= h((string) $statusCounts['rejected']) ?></strong>
             </div>
+
+            <div class="stat-card">
+                <span>Flagged</span>
+                <strong><?= h((string) $statusCounts['flagged']) ?></strong>
+            </div>
         </section>
 
         <section class="cron-panel" aria-labelledby="cron-panel-title">
@@ -485,33 +510,35 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </section>
 
         <div class="admin-toolbar">
-            <nav class="filter-bar" aria-label="Lead filters">
-                <?php foreach (['all', 'pending', 'ignored', 'approved', 'rejected'] as $filterStatus): ?>
-                    <a
-                        class="filter-link <?= $currentStatus === $filterStatus ? 'active' : '' ?>"
-                        href="<?= h(filter_url($filterStatus, $currentResearcher, $search)) ?>">
-                        <?= h(ucfirst($filterStatus)) ?>
-                    </a>
-                <?php endforeach; ?>
-            </nav>
+            <div class="filter-bars">
+                <nav class="filter-bar" aria-label="Lead filters">
+                    <?php foreach (['all', 'pending', 'ignored', 'approved', 'rejected', 'flagged'] as $filterStatus): ?>
+                        <a
+                            class="filter-link <?= $currentStatus === $filterStatus ? 'active' : '' ?>"
+                            href="<?= h(filter_url($filterStatus, $currentResearcher, $search)) ?>">
+                            <?= h(ucfirst($filterStatus)) ?>
+                        </a>
+                    <?php endforeach; ?>
+                </nav>
 
-            <nav class="filter-bar" aria-label="Assigned Researcher filters">
-                <?php
-                $researcherLabels = [
-                    'all' => 'All Researchers',
-                    'sarah' => 'Sarah C.',
-                    'researcher2' => 'Researcher 2',
-                ];
-                ?>
+                <nav class="filter-bar" aria-label="Assigned Researcher filters">
+                    <?php
+                    $researcherLabels = [
+                        'all' => 'All Researchers',
+                        'sarah' => 'Sarah C.',
+                        'researcher2' => 'Researcher 2',
+                    ];
+                    ?>
 
-                <?php foreach ($researcherLabels as $filterResearcher => $label): ?>
-                    <a
-                        class="filter-link <?= $currentResearcher === $filterResearcher ? 'active' : '' ?>"
-                        href="<?= h(filter_url($currentStatus, $filterResearcher, $search)) ?>">
-                        <?= h($label) ?>
-                    </a>
-                <?php endforeach; ?>
-            </nav>
+                    <?php foreach ($researcherLabels as $filterResearcher => $label): ?>
+                        <a
+                            class="filter-link <?= $currentResearcher === $filterResearcher ? 'active' : '' ?>"
+                            href="<?= h(filter_url($currentStatus, $filterResearcher, $search)) ?>">
+                            <?= h($label) ?>
+                        </a>
+                    <?php endforeach; ?>
+                </nav>
+            </div>
 
             <div class="admin-toolbar-actions">
 
@@ -550,13 +577,11 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </form>
                 <?php endif; ?>
 
-            </div>
-        </div>
+                <a href="/admin/create-manual-adaptation.php" class="button-secondary">
+                    Create Manual Adaptation
+                </a>
 
-        <div class="admin-actions-row">
-            <a href="/admin/create-manual-adaptation.php" class="button-secondary">
-                Create Manual Adaptation
-            </a>
+            </div>
         </div>
 
         <?php if ($notice === 'ignored'): ?>
@@ -707,21 +732,41 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 View Article
                             </a>
 
-                            <a class="button button-muted" href="/admin/create-adaptation.php?lead_id=<?= (int) $lead['id'] ?>">
-                                Approve
-                            </a>
+                            <?php if (in_array($lead['status'], ['pending', 'flagged'], true)): ?>
+                                <a class="button button-muted" href="/admin/create-adaptation.php?lead_id=<?= (int) $lead['id'] ?>">
+                                    Approve
+                                </a>
+                            <?php endif; ?>
 
-                            <a
-                                class="button button-muted"
-                                href="update-lead-status.php?id=<?= (int) $lead['id'] ?>&status=ignored&return_status=<?= urlencode($currentStatus) ?>&return_researcher=<?= urlencode($currentResearcher) ?>&search=<?= urlencode($search) ?>&page=<?= (int) $page ?>">
-                                Ignore
-                            </a>
+                            <?php if (in_array($lead['status'], ['pending', 'flagged'], true)): ?>
+                                <a
+                                    class="button button-muted"
+                                    href="<?= h(lead_status_action_url((int) $lead['id'], 'ignored', $currentStatus, $currentResearcher, $search, $page)) ?>">
+                                    Ignore
+                                </a>
 
-                            <a
-                                class="button button-muted"
-                                href="update-lead-status.php?id=<?= (int) $lead['id'] ?>&status=rejected&return_status=<?= urlencode($currentStatus) ?>&return_researcher=<?= urlencode($currentResearcher) ?>&search=<?= urlencode($search) ?>&page=<?= (int) $page ?>">
-                                Reject
-                            </a>
+                                <a
+                                    class="button button-muted"
+                                    href="<?= h(lead_status_action_url((int) $lead['id'], 'rejected', $currentStatus, $currentResearcher, $search, $page)) ?>">
+                                    Reject
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if ($lead['status'] === 'pending'): ?>
+                                <a
+                                    class="button button-muted"
+                                    href="<?= h(lead_status_action_url((int) $lead['id'], 'flagged', $currentStatus, $currentResearcher, $search, $page)) ?>">
+                                    Flag
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if (in_array($lead['status'], ['ignored', 'rejected', 'flagged'], true)): ?>
+                                <a
+                                    class="button button-muted"
+                                    href="<?= h(lead_status_action_url((int) $lead['id'], 'pending', $currentStatus, $currentResearcher, $search, $page)) ?>">
+                                    Make Pending
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </article>
                 <?php endforeach; ?>

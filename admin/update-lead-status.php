@@ -7,7 +7,7 @@ require_once __DIR__ . '/../includes/db.php';
 
 $db = get_db();
 
-$allowedStatuses = ['ignored', 'rejected'];
+$allowedStatuses = ['ignored', 'rejected', 'flagged', 'pending'];
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 $status = $_GET['status'] ?? '';
