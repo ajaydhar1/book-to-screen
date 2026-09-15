@@ -89,6 +89,7 @@ try {
                 title LIKE :search
                 OR original_title LIKE :search
                 OR source_author LIKE :search
+                OR overview LIKE :search
             )
         ";
         }
@@ -149,6 +150,7 @@ try {
                 title LIKE :search
                 OR original_title LIKE :search
                 OR source_author LIKE :search
+                OR overview LIKE :search
         ";
         }
 
@@ -190,6 +192,7 @@ try {
                 title LIKE :search
                 OR original_title LIKE :search
                 OR source_author LIKE :search
+                OR overview LIKE :search
         ";
         }
 
@@ -241,6 +244,7 @@ try {
                 title LIKE :search
                 OR original_title LIKE :search
                 OR source_author LIKE :search
+                OR overview LIKE :search
         ";
         }
 
