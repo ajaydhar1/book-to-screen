@@ -44,6 +44,11 @@ if (
     ");
     $updateLoginStmt->execute([':id' => $user['id']]);
 
+    if ($_SESSION['must_change_password']) {
+        header('Location: /admin/change-password.php');
+        exit;
+    }
+
     header('Location: /admin/leads.php?status=pending');
     exit;
 }
