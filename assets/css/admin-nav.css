@@ -48,3 +48,42 @@
         justify-content: center;
     }
 }
+
+.admin-nav-loading {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.85);
+    color: #2b2118;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.admin-nav-loading[hidden] {
+    display: none;
+}
+
+.admin-nav-loading__spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #d7c7b2;
+    border-top-color: #2b2118;
+    border-radius: 50%;
+    animation: admin-nav-loading-spin .7s linear infinite;
+}
+
+@keyframes admin-nav-loading-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .admin-nav-loading__spinner {
+        animation: none;
+    }
+}

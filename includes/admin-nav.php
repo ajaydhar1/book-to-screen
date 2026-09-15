@@ -35,3 +35,43 @@ $adminNavItems = [
         <?php endforeach; ?>
     </div>
 </nav>
+
+<div id="admin-nav-loading" class="admin-nav-loading" role="status" aria-live="polite" hidden>
+    <div class="admin-nav-loading__spinner" aria-hidden="true"></div>
+    <span class="admin-nav-loading__text">Loading&hellip;</span>
+</div>
+
+<script>
+(function () {
+    var overlay = document.getElementById('admin-nav-loading');
+    if (!overlay) {
+        return;
+    }
+
+    function showOverlay() {
+        overlay.hidden = false;
+    }
+
+    function hideOverlay() {
+        overlay.hidden = true;
+    }
+
+    document.addEventListener('click', function (event) {
+        if (event.defaultPrevented || event.button !== 0) {
+            return;
+        }
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+            return;
+        }
+
+        var link = event.target.closest ? event.target.closest('.admin-subnav__link') : null;
+        if (!link || link.getAttribute('aria-current') === 'page' || link.target === '_blank') {
+            return;
+        }
+
+        showOverlay();
+    });
+
+    window.addEventListener('pageshow', hideOverlay);
+})();
+</script>
