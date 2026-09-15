@@ -5,13 +5,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/../includes/db.php';
 
-// Replace this with your real authorization helper.
-/*
-if (($_SESSION['role'] ?? '') !== 'admin') {
-    http_response_code(403);
-    exit('You do not have permission to create users.');
-}
-*/
+require_admin();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: /admin/users.php');

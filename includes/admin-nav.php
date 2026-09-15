@@ -33,6 +33,10 @@ $adminNavItems = [
                 <?= htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8'); ?>
             </a>
         <?php endforeach; ?>
+
+        <a class="admin-subnav__link admin-subnav__logout" href="/admin/logout.php">
+            Logout
+        </a>
     </div>
 </nav>
 

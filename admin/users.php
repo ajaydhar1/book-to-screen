@@ -9,6 +9,8 @@ require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
 
+require_admin();
+
 $notice = $_GET['notice'] ?? '';
 
 $db = get_db();
@@ -598,11 +600,6 @@ $editorUsers = count(array_filter(
                         Create User
                     </button>
                 </div>
-
-                <p class="prototype-note">
-                    This form is visual only for now. After we approve the fields, we can create the users table,
-                    validation rules, CSRF protection, and the actual create-user handler.
-                </p>
             </form>
         </details>
 
