@@ -607,6 +607,8 @@ $editorUsers = count(array_filter(
             <div class="notice success">User created successfully.</div>
         <?php elseif ($notice === 'user_updated'): ?>
             <div class="notice success">User updated successfully.</div>
+        <?php elseif ($notice === 'password_reset'): ?>
+            <div class="notice success">Password reset successfully.</div>
         <?php elseif ($notice === 'not_found'): ?>
             <div class="notice error">That user could not be found.</div>
         <?php elseif ($notice === 'username_exists'): ?>
@@ -680,7 +682,7 @@ $editorUsers = count(array_filter(
 
                     <div class="user-actions">
                         <a class="button button-muted" href="edit-user.php?id=<?= urlencode((string) $user['id']) ?>">Edit User</a>
-                        <button class="button button-muted" type="button" aria-disabled="true">Reset Password</button>
+                        <a class="button" href="reset-password.php?id=<?= urlencode((string) $user['id']) ?>">Reset Password</a>
 
                         <?php if ($user['role'] === 'admin' && $adminUsers === 1): ?>
                             <button
