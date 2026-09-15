@@ -6,6 +6,8 @@ require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
 
+require_admin();
+
 /**
  * Book-to-Screen application tables to surface on this dashboard.
  * SQLite internal/system objects are intentionally excluded.

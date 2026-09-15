@@ -1,25 +1,33 @@
 <?php
 
 $adminCurrentPage = basename($_SERVER['PHP_SELF']);
+$adminIsAdmin = ($_SESSION['role'] ?? null) === 'admin';
 
 $adminNavItems = [
     'leads.php' => [
         'label' => 'Leads',
         'href' => '/admin/leads.php',
     ],
-    'users.php' => [
+];
+
+// These sections expose system administration and are hidden from Editors.
+// The destination endpoints also enforce require_admin() server-side.
+if ($adminIsAdmin) {
+    $adminNavItems['users.php'] = [
         'label' => 'Users',
         'href' => '/admin/users.php',
-    ],
-    'cron-status.php' => [
+    ];
+
+    $adminNavItems['cron-status.php'] = [
         'label' => 'Cron Status',
         'href' => '/admin/cron-status.php',
-    ],
-    'database.php' => [
+    ];
+
+    $adminNavItems['database.php'] = [
         'label' => 'Database',
         'href' => '/admin/database.php',
-    ],
-];
+    ];
+}
 ?>
 
 <nav class="admin-subnav" aria-label="Admin sections">
