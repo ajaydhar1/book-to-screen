@@ -633,3 +633,13 @@
 .search-results-count {
     color: #756553;
 }
+
+.filtered-lead-count {
+    margin: 18px 0 24px;
+    color: #6b625a;
+    font-size: 0.95rem;
+}
+
+.filtered-lead-count strong {
+    color: #241c15;
+}

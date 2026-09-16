@@ -584,6 +584,12 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
 
+        <div class="filtered-lead-count">
+            <strong><?= h(number_format($totalForCurrentFilter)) ?></strong>
+            <?= $totalForCurrentFilter === 1 ? 'lead matches' : 'leads match' ?>
+            the current filters
+        </div>
+
         <?php if ($notice === 'ignored'): ?>
             <div class="notice success">Lead marked as ignored.</div>
         <?php elseif ($notice === 'rejected'): ?>
