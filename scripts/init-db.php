@@ -19,8 +19,10 @@ $db->exec("
         status TEXT NOT NULL DEFAULT 'pending',
         notes TEXT,
         reviewed_at TEXT,
+        reviewed_by_user_id INTEGER,
         created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (reviewed_by_user_id) REFERENCES users(id)
     )
 ");
 
@@ -40,8 +42,10 @@ $db->exec("
         article_title TEXT,
         article_excerpt TEXT,
         featured_image_url TEXT,
+        created_by_user_id INTEGER,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-        updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+        updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (created_by_user_id) REFERENCES users(id)
     )
 ");
 

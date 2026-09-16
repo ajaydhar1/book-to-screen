@@ -197,6 +197,12 @@
     color: #3d342a;
 }
 
+.lead-attribution {
+    margin: 12px 0 0;
+    font-size: 13px;
+    color: #756553;
+}
+
 .lead-actions {
     display: flex;
     flex-wrap: wrap;

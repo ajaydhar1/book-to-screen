@@ -116,6 +116,21 @@ function format_cron_datetime(?string $datetime): string
     return $date->format('D, M j, Y \a\t g:i A');
 }
 
+function format_review_datetime(?string $datetime): string
+{
+    if ($datetime === null || $datetime === '') {
+        return '';
+    }
+
+    try {
+        return (new DateTimeImmutable($datetime, new DateTimeZone('UTC')))
+            ->setTimezone(new DateTimeZone(TIMEZONE))
+            ->format('M j, g:i A');
+    } catch (Throwable) {
+        return $datetime;
+    }
+}
+
 function format_time_ago(?string $datetime): string
 {
     $date = cron_datetime($datetime);
@@ -270,20 +285,20 @@ $page = max(1, (int) ($_GET['page'] ?? 1));
 $whereConditions = [];
 
 if ($currentStatus !== 'all') {
-    $whereConditions[] = 'status = :status';
+    $whereConditions[] = 'leads.status = :status';
 }
 
 if ($currentResearcher === 'sarah') {
-    $whereConditions[] = 'id % 2 = 0';
+    $whereConditions[] = 'leads.id % 2 = 0';
 } elseif ($currentResearcher === 'researcher2') {
-    $whereConditions[] = 'id % 2 = 1';
+    $whereConditions[] = 'leads.id % 2 = 1';
 }
 
 if ($hasSearch) {
     $whereConditions[] = '(
-        CAST(id AS TEXT) LIKE :search
-        OR article_title LIKE :search
-        OR article_excerpt LIKE :search
+        CAST(leads.id AS TEXT) LIKE :search
+        OR leads.article_title LIKE :search
+        OR leads.article_excerpt LIKE :search
     )';
 }
 
@@ -314,19 +329,23 @@ $offset = ($page - 1) * $perPage;
 
 $stmt = $db->prepare("
     SELECT
-        id,
-        source,
-        article_title,
-        article_url,
-        article_excerpt,
-        featured_image_url,
-        published_at,
-        status,
-        notes,
-        created_at
+        leads.id,
+        leads.source,
+        leads.article_title,
+        leads.article_url,
+        leads.article_excerpt,
+        leads.featured_image_url,
+        leads.published_at,
+        leads.status,
+        leads.notes,
+        leads.reviewed_at,
+        leads.reviewed_by_user_id,
+        leads.created_at,
+        users.display_name AS reviewer_name
     FROM leads
+    LEFT JOIN users ON leads.reviewed_by_user_id = users.id
     {$whereSql}
-    ORDER BY published_at DESC
+    ORDER BY leads.published_at DESC
     LIMIT :limit OFFSET :offset
 ");
 
@@ -731,6 +750,16 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <?php if (!empty($lead['notes'])): ?>
                             <p class="notes"><?= h($lead['notes']) ?></p>
+                        <?php endif; ?>
+
+                        <?php
+                        $hasReviewer = !empty($lead['reviewer_name']);
+                        $hasReviewedAt = !empty($lead['reviewed_at']);
+                        ?>
+                        <?php if ($lead['status'] !== 'pending' && $hasReviewer): ?>
+                            <p class="lead-attribution">
+                                <?= h(ucfirst($lead['status'])) ?> by <?= h($lead['reviewer_name']) ?><?php if ($hasReviewedAt): ?> · <?= h(format_review_datetime($lead['reviewed_at'])) ?><?php endif; ?>
+                            </p>
                         <?php endif; ?>
 
                         <div class="lead-actions">

@@ -39,18 +39,43 @@ if (!$id || !in_array($status, $allowedStatuses, true)) {
     exit;
 }
 
-$stmt = $db->prepare("
-    UPDATE leads
-    SET status = :status,
-        reviewed_at = CURRENT_TIMESTAMP,
-        updated_at = CURRENT_TIMESTAMP
-    WHERE id = :id
-");
+$userId = (int) ($_SESSION['user_id'] ?? 0);
 
-$stmt->execute([
-    ':status' => $status,
-    ':id' => $id,
-]);
+if ($userId <= 0) {
+    http_response_code(401);
+    exit('Unauthorized or invalid user session.');
+}
+
+if ($status === 'pending') {
+    $stmt = $db->prepare("
+        UPDATE leads
+        SET status = :status,
+            reviewed_by_user_id = NULL,
+            reviewed_at = NULL,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = :id
+    ");
+
+    $stmt->execute([
+        ':status' => 'pending',
+        ':id' => $id,
+    ]);
+} else {
+    $stmt = $db->prepare("
+        UPDATE leads
+        SET status = :status,
+            reviewed_by_user_id = :reviewed_by_user_id,
+            reviewed_at = CURRENT_TIMESTAMP,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = :id
+    ");
+
+    $stmt->execute([
+        ':status' => $status,
+        ':reviewed_by_user_id' => $userId,
+        ':id' => $id,
+    ]);
+}
 
 $returnParams['notice'] = $status;
 header('Location: leads.php?' . http_build_query($returnParams));

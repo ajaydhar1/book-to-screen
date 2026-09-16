@@ -21,6 +21,13 @@ $adaptationType = trim($_POST['adaptation_type'] ?? '');
 $adaptationStatus = trim($_POST['adaptation_status'] ?? 'In Development');
 $shortNote = trim($_POST['short_note'] ?? '');
 
+$userId = (int) ($_SESSION['user_id'] ?? 0);
+
+if ($userId <= 0) {
+    http_response_code(401);
+    exit('Unauthorized or invalid user session.');
+}
+
 if ($leadId <= 0 || $bookTitle === '') {
     header('Location: /admin/leads.php?created=0');
     exit;
@@ -58,7 +65,8 @@ try {
             source_published_at,
             article_title,
             article_excerpt,
-            featured_image_url
+            featured_image_url,
+            created_by_user_id
         )
         VALUES (
             :lead_id,
@@ -73,7 +81,8 @@ try {
             :source_published_at,
             :article_title,
             :article_excerpt,
-            :featured_image_url
+            :featured_image_url,
+            :created_by_user_id
         )'
     );
 
@@ -91,17 +100,22 @@ try {
         ':article_title' => $lead['article_title'] ?? null,
         ':article_excerpt' => $lead['article_excerpt'] ?? null,
         ':featured_image_url' => $lead['featured_image_url'] ?? null,
+        ':created_by_user_id' => $userId,
     ]);
 
     $update = $db->prepare(
         "UPDATE leads
          SET status = 'approved',
+             reviewed_by_user_id = :reviewed_by_user_id,
              reviewed_at = CURRENT_TIMESTAMP,
              updated_at = CURRENT_TIMESTAMP
          WHERE id = :id"
     );
 
-    $update->execute([':id' => $leadId]);
+    $update->execute([
+        ':reviewed_by_user_id' => $userId,
+        ':id' => $leadId,
+    ]);
 
     $db->commit();
 

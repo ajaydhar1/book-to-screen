@@ -19,6 +19,13 @@ $adaptationType = trim($_POST['adaptation_type'] ?? '');
 $adaptationStatus = trim($_POST['adaptation_status'] ?? 'In Development');
 $shortNote = trim($_POST['short_note'] ?? '');
 
+$userId = (int) ($_SESSION['user_id'] ?? 0);
+
+if ($userId <= 0) {
+    http_response_code(401);
+    exit('Unauthorized or invalid user session.');
+}
+
 $sourceName = trim($_POST['source_name'] ?? '');
 $sourceUrl = trim($_POST['source_url'] ?? '');
 $sourcePublishedAt = trim($_POST['source_published_at'] ?? '');
@@ -46,7 +53,8 @@ try {
             source_published_at,
             article_title,
             article_excerpt,
-            featured_image_url
+            featured_image_url,
+            created_by_user_id
         )
         VALUES (
             :lead_id,
@@ -61,7 +69,8 @@ try {
             :source_published_at,
             :article_title,
             :article_excerpt,
-            :featured_image_url
+            :featured_image_url,
+            :created_by_user_id
         )'
     );
 
@@ -79,6 +88,7 @@ try {
         ':article_title' => $articleTitle !== '' ? $articleTitle : null,
         ':article_excerpt' => $articleExcerpt !== '' ? $articleExcerpt : null,
         ':featured_image_url' => $featuredImageUrl !== '' ? $featuredImageUrl : null,
+        ':created_by_user_id' => $userId,
     ]);
 
     header('Location: /admin/leads.php?created=1');
