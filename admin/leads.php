@@ -521,12 +521,12 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php endforeach; ?>
                 </nav>
 
-                <nav class="filter-bar" aria-label="Assigned Researcher filters">
+                <nav class="filter-bar" aria-label="Assigned Editor filters">
                     <?php
                     $researcherLabels = [
-                        'all' => 'All Researchers',
+                        'all' => 'All Editors',
                         'sarah' => 'Sarah C.',
-                        'researcher2' => 'Researcher 2',
+                        'researcher2' => 'Alexandra',
                     ];
                     ?>
 
