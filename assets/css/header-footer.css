@@ -234,6 +234,30 @@ body {
     text-decoration: underline;
 }
 
+.site-footer__social-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+.site-footer__social-links a {
+    display: inline-flex;
+    color: inherit;
+    line-height: 1;
+}
+
+.site-footer__social-links a:hover {
+    text-decoration: none;
+    color: #4a392b;
+}
+
+.site-footer__social-icon {
+    width: 15px;
+    height: 15px;
+}
+
 footer a {
     color: #7a5c3e;
     text-decoration: none;
