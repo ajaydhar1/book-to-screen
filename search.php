@@ -71,7 +71,7 @@ if ($hasSearch) {
     $classifiedLeadsSql = <<<'SQL'
 WITH classified_leads AS (
     SELECT
-        id, source, article_title, article_url, article_excerpt,
+        id, adaptation_id, source, article_title, article_url, article_excerpt,
         featured_image_url, published_at,
         CASE
             WHEN article_text LIKE '%graphic novel%' OR article_text LIKE '%comic book%' OR article_text LIKE '%comics%' THEN 'comics-graphic-novels'
@@ -87,8 +87,18 @@ WITH classified_leads AS (
             ELSE NULL
         END AS adaptation_type
     FROM (
-        SELECT leads.*, LOWER(COALESCE(article_title, '') || ' ' || COALESCE(article_excerpt, '')) AS article_text
+        SELECT
+            leads.*,
+            linked_adaptations.adaptation_id,
+            LOWER(COALESCE(article_title, '') || ' ' || COALESCE(article_excerpt, '')) AS article_text
         FROM leads
+        LEFT JOIN (
+            SELECT lead_id, MAX(id) AS adaptation_id
+            FROM adaptations
+            WHERE lead_id IS NOT NULL
+            GROUP BY lead_id
+        ) AS linked_adaptations
+            ON linked_adaptations.lead_id = leads.id
     ) AS normalized_leads
     WHERE
         (article_text LIKE '%adaptation%' OR article_text LIKE '%adapted%' OR article_text LIKE '%adapting%' OR article_text LIKE '%to adapt%' OR article_text LIKE '%based on%' OR article_text LIKE '%based upon%' OR article_text LIKE '%optioned%')
@@ -186,9 +196,9 @@ SQL;
                                     <?php if (!empty($announcement['featured_image_url'])): ?><img class="search-announcement-card__image" src="<?= h($announcement['featured_image_url']) ?>" alt="" loading="lazy"><?php endif; ?>
                                     <div class="search-announcement-card__body">
                                         <p class="search-meta"><?php if (!empty($announcement['adaptation_type'])): ?><span><?= h(search_adaptation_type_label($announcement['adaptation_type'])) ?></span><?php endif; ?><?php if (!empty($announcement['source_type'])): ?><span><?= h(search_source_type_label($announcement['source_type'])) ?></span><?php endif; ?><?= !empty($announcement['published_at']) ? h(format_datetime($announcement['published_at'])) : '' ?></p>
-                                        <h3><a href="<?= h($announcement['article_url']) ?>" target="_blank" rel="noopener"><?= h($announcement['article_title']) ?></a></h3>
+                                        <h3><a href="<?= !empty($announcement['adaptation_id']) ? h('/adaptation.php?id=' . (int) $announcement['adaptation_id']) : h($announcement['article_url']) ?>"<?= empty($announcement['adaptation_id']) ? ' target="_blank" rel="noopener"' : '' ?>><?= h($announcement['article_title']) ?></a></h3>
                                         <?php if (!empty($announcement['article_excerpt'])): ?><p class="search-overview"><?= h($announcement['article_excerpt']) ?></p><?php endif; ?>
-                                        <a class="search-announcement-button" href="<?= h($announcement['article_url']) ?>" target="_blank" rel="noopener">View Announcement</a>
+                                        <a class="search-announcement-button" href="<?= !empty($announcement['adaptation_id']) ? h('/adaptation.php?id=' . (int) $announcement['adaptation_id']) : h($announcement['article_url']) ?>"<?= empty($announcement['adaptation_id']) ? ' target="_blank" rel="noopener"' : '' ?>><?= !empty($announcement['adaptation_id']) ? 'View Adaptation' : 'View Announcement' ?></a>
                                     </div>
                                 </article>
                             <?php endforeach; ?>

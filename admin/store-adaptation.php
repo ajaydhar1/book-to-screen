@@ -48,6 +48,29 @@ if (!$lead) {
     exit;
 }
 
+$sourceUrl = trim((string) ($lead['article_url'] ?? ''));
+
+if ($sourceUrl !== '') {
+    $duplicateStmt = $db->prepare(
+        'SELECT id
+         FROM adaptations
+         WHERE trim(COALESCE(source_url, \'\')) <> \'\'
+           AND lower(trim(source_url)) = lower(trim(:source_url))
+         ORDER BY id ASC
+         LIMIT 1'
+    );
+    $duplicateStmt->execute([':source_url' => $sourceUrl]);
+    $duplicateAdaptationId = $duplicateStmt->fetchColumn();
+
+    if ($duplicateAdaptationId !== false) {
+        header(
+            'Location: /admin/leads.php?status=pending&duplicate=1'
+            . '&adaptation_id=' . (int) $duplicateAdaptationId
+        );
+        exit;
+    }
+}
+
 $db->beginTransaction();
 
 try {
@@ -95,7 +118,7 @@ try {
         ':adaptation_status' => $adaptationStatus,
         ':short_note' => $shortNote,
         ':source_name' => $lead['source'] ?? null,
-        ':source_url' => $lead['article_url'] ?? null,
+        ':source_url' => $sourceUrl !== '' ? $sourceUrl : null,
         ':source_published_at' => $lead['published_at'] ?? null,
         ':article_title' => $lead['article_title'] ?? null,
         ':article_excerpt' => $lead['article_excerpt'] ?? null,

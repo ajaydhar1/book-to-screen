@@ -100,6 +100,7 @@ $classifiedLeadsSql = <<<'SQL'
 WITH classified_leads AS (
     SELECT
         id,
+        adaptation_id,
         source,
         article_title,
         article_url,
@@ -159,11 +160,19 @@ WITH classified_leads AS (
     FROM (
         SELECT
             leads.*,
+            linked_adaptations.adaptation_id,
             LOWER(
                 COALESCE(article_title, '') || ' ' ||
                 COALESCE(article_excerpt, '')
             ) AS article_text
         FROM leads
+        LEFT JOIN (
+            SELECT lead_id, MAX(id) AS adaptation_id
+            FROM adaptations
+            WHERE lead_id IS NOT NULL
+            GROUP BY lead_id
+        ) AS linked_adaptations
+            ON linked_adaptations.lead_id = leads.id
     ) AS normalized_leads
 
     WHERE
@@ -467,10 +476,9 @@ $announcements = $listStmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
 
                         <h2>
-                            <a
-                                href="<?= h($announcement['article_url']) ?>"
-                                target="_blank"
-                                rel="noopener">
+                            <a href="<?= !empty($announcement['adaptation_id'])
+                                ? h('/adaptation.php?id=' . (int) $announcement['adaptation_id'])
+                                : h($announcement['article_url']) ?>"<?= empty($announcement['adaptation_id']) ? ' target="_blank" rel="noopener"' : '' ?>>
                                 <?= h($announcement['article_title']) ?>
                             </a>
                         </h2>
@@ -484,11 +492,16 @@ $announcements = $listStmt->fetchAll(PDO::FETCH_ASSOC);
                         <div class="announcement-actions">
                             <a
                                 class="button button-primary"
-                                href="<?= h($announcement['article_url']) ?>"
-                                target="_blank"
-                                rel="noopener">
-                                View Announcement
+                                href="<?= !empty($announcement['adaptation_id'])
+                                    ? h('/adaptation.php?id=' . (int) $announcement['adaptation_id'])
+                                    : h($announcement['article_url']) ?>"<?= empty($announcement['adaptation_id']) ? ' target="_blank" rel="noopener"' : '' ?>>
+                                <?= !empty($announcement['adaptation_id']) ? 'View Adaptation' : 'View Announcement' ?>
                             </a>
+                            <?php if (!empty($announcement['adaptation_id'])): ?>
+                                <a class="button button-secondary" href="<?= h($announcement['article_url']) ?>" target="_blank" rel="noopener">
+                                    Read original announcement
+                                </a>
+                            <?php endif; ?>
                         </div>
 
                     </article>

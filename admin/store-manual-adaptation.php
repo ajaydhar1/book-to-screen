@@ -38,6 +38,27 @@ if ($bookTitle === '') {
     exit;
 }
 
+if ($sourceUrl !== '') {
+    $duplicateStmt = $db->prepare(
+        'SELECT id
+         FROM adaptations
+         WHERE trim(COALESCE(source_url, \'\')) <> \'\'
+           AND lower(trim(source_url)) = lower(trim(:source_url))
+         ORDER BY id ASC
+         LIMIT 1'
+    );
+    $duplicateStmt->execute([':source_url' => $sourceUrl]);
+    $duplicateAdaptationId = $duplicateStmt->fetchColumn();
+
+    if ($duplicateAdaptationId !== false) {
+        header(
+            'Location: /admin/leads.php?duplicate=1'
+            . '&adaptation_id=' . (int) $duplicateAdaptationId
+        );
+        exit;
+    }
+}
+
 try {
     $insert = $db->prepare(
         'INSERT INTO adaptations (

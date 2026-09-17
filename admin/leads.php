@@ -341,8 +341,15 @@ $stmt = $db->prepare("
         leads.reviewed_at,
         leads.reviewed_by_user_id,
         leads.created_at,
+        linked_adaptations.adaptation_id,
         users.display_name AS reviewer_name
     FROM leads
+    LEFT JOIN (
+        SELECT lead_id, MAX(id) AS adaptation_id
+        FROM adaptations
+        WHERE lead_id IS NOT NULL
+        GROUP BY lead_id
+    ) AS linked_adaptations ON linked_adaptations.lead_id = leads.id
     LEFT JOIN users ON leads.reviewed_by_user_id = users.id
     {$whereSql}
     ORDER BY leads.published_at DESC
@@ -619,6 +626,19 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="notice success">Your account role was updated.</div>
         <?php endif; ?>
 
+        <?php if (($_GET['duplicate'] ?? '') === '1'): ?>
+            <div class="notice error">
+                An adaptation with this source URL already exists
+                <?php if (!empty($_GET['adaptation_id'])): ?>
+                    as adaptation #<?= h((string) (int) $_GET['adaptation_id']) ?>.
+                    <a href="/adaptation.php?id=<?= (int) $_GET['adaptation_id'] ?>">View the existing adaptation</a>.
+                <?php else: ?>
+                    .
+                <?php endif; ?>
+                No new adaptation was created.
+            </div>
+        <?php endif; ?>
+
         <?php if (($_GET['created'] ?? '') === '1'): ?>
             <div class="notice success">Adaptation created successfully.</div>
         <?php elseif (($_GET['created'] ?? '') === '0'): ?>
@@ -766,6 +786,12 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <a class="button button-primary" href="<?= h($lead['article_url']) ?>" target="_blank" rel="noopener">
                                 View Article
                             </a>
+
+                            <?php if ($lead['status'] === 'approved' && !empty($lead['adaptation_id'])): ?>
+                                <a class="button button-muted" href="/adaptation.php?id=<?= (int) $lead['adaptation_id'] ?>">
+                                    View Announcement
+                                </a>
+                            <?php endif; ?>
 
                             <?php if (in_array($lead['status'], ['pending', 'flagged'], true)): ?>
                                 <a class="button button-muted" href="/admin/create-adaptation.php?lead_id=<?= (int) $lead['id'] ?>">

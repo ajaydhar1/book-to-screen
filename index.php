@@ -33,7 +33,7 @@ $stmt = $db->prepare("
         featured_image_url,
         created_at
     FROM adaptations
-    ORDER BY source_published_at DESC, created_at DESC
+    ORDER BY source_published_at DESC, created_at DESC, id DESC
     LIMIT :limit OFFSET :offset
 ");
 
@@ -43,7 +43,26 @@ $stmt->execute();
 
 $adaptations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$discoverStmt = $db->query("
+$discoverWhere = '';
+$discoverParams = [];
+$latestIds = array_map(
+    static fn(array $adaptation): int => (int) $adaptation['id'],
+    $adaptations
+);
+
+if ($latestIds) {
+    $placeholders = [];
+
+    foreach ($latestIds as $index => $latestId) {
+        $placeholder = ':latest_id_' . $index;
+        $placeholders[] = $placeholder;
+        $discoverParams[$placeholder] = $latestId;
+    }
+
+    $discoverWhere = 'WHERE id NOT IN (' . implode(', ', $placeholders) . ')';
+}
+
+$discoverStmt = $db->prepare("
     SELECT
         id,
         book_title,
@@ -59,9 +78,16 @@ $discoverStmt = $db->query("
         featured_image_url,
         created_at
     FROM adaptations
+    {$discoverWhere}
     ORDER BY RANDOM()
     LIMIT 5
 ");
+
+foreach ($discoverParams as $placeholder => $latestId) {
+    $discoverStmt->bindValue($placeholder, $latestId, PDO::PARAM_INT);
+}
+
+$discoverStmt->execute();
 
 $discoveries = $discoverStmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -465,10 +491,8 @@ function barnesAndNobleSearchUrl(
 
                                 <a
                                     class="card-link"
-                                    href="<?= e($featured['source_url']) ?>"
-                                    target="_blank"
-                                    rel="noopener noreferrer">
-                                    Read article →
+                                    href="/adaptation.php?id=<?= (int) $featured['id'] ?>">
+                                    View adaptation →
                                 </a>
 
                             </div>
@@ -575,10 +599,8 @@ function barnesAndNobleSearchUrl(
 
                                             <a
                                                 class="card-link"
-                                                href="<?= e($adaptation['source_url']) ?>"
-                                                target="_blank"
-                                                rel="noopener noreferrer">
-                                                Read article →
+                                                href="/adaptation.php?id=<?= (int) $adaptation['id'] ?>">
+                                                View adaptation →
                                             </a>
 
                                         </div>
@@ -703,10 +725,8 @@ function barnesAndNobleSearchUrl(
 
                                     <a
                                         class="card-link"
-                                        href="<?= e($adaptation['source_url']) ?>"
-                                        target="_blank"
-                                        rel="noopener noreferrer">
-                                        Read article →
+                                        href="/adaptation.php?id=<?= (int) $adaptation['id'] ?>">
+                                        View adaptation →
                                     </a>
 
                                 </div>
