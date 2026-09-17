@@ -125,12 +125,20 @@ SQL;
     $announcements = $announcementListStmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+$metaTitle = $hasSearch
+    ? 'Search results for "' . $search . '" | Book to Screen'
+    : 'Search | Book to Screen';
+$metaDescription = $hasSearch
+    ? 'Search Book to Screen for trailers, adaptations, and adaptation announcements matching "' . $search . '".'
+    : 'Search Book to Screen for trailers, adaptations, and adaptation announcements.';
+$metaCanonical = 'https://booktoscreen.org/search.php';
+
 ?>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Search | Book to Screen</title>
+    <?php require __DIR__ . '/includes/meta.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/assets/css/header-footer.css?v=<?= filemtime(__DIR__ . '/assets/css/header-footer.css') ?>">

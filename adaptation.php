@@ -57,10 +57,19 @@ if ($imageUrl !== '' && str_contains($imageUrl, 'deadline.com/wp-content/uploads
 }
 
 $pageTitle = $displayTitle . ' | Book to Screen';
-$metaDescription = $sourceExcerpt !== ''
-	? $sourceExcerpt
+$adaptationDescription = trim((string) ($adaptation['short_note'] ?? '')) ?: $sourceExcerpt;
+$adaptationBasis = 'Based on ' . (string) ($adaptation['book_title'] ?? 'this source material');
+if ($bookAuthor !== '') {
+	$adaptationBasis .= ' by ' . $bookAuthor;
+}
+$metaDescription = $adaptationDescription !== ''
+	? $adaptationBasis . '. ' . $adaptationDescription
 	: 'Learn about the ' . strtolower((string) ($adaptation['adaptation_type'] ?: 'screen'))
-		. ' adaptation of ' . ($adaptation['book_title'] ?? 'this source material') . '.';
+		. ' adaptation of ' . $adaptationBasis . '.';
+$metaTitle = $pageTitle;
+$metaCanonical = 'https://booktoscreen.org/adaptation.php?id=' . $adaptationId;
+$metaImage = $imageUrl;
+$metaType = 'article';
 
 $authorAdaptations = [];
 if ($bookAuthor !== '') {
@@ -140,8 +149,7 @@ function adaptation_detail_type_label(?string $type): string
 
 <head>
 	<meta charset="utf-8">
-	<title><?= h($pageTitle) ?></title>
-	<meta name="description" content="<?= h($metaDescription) ?>">
+	<?php require __DIR__ . '/includes/meta.php'; ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/png" href="/favicon.png">
 	<link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(__DIR__ . '/assets/css/site.css') ?>">

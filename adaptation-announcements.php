@@ -265,6 +265,10 @@ $listStmt->execute();
 
 $announcements = $listStmt->fetchAll(PDO::FETCH_ASSOC);
 
+$metaTitle = 'Adaptation Announcements | Book to Screen';
+$metaDescription = 'Browse recent film, television, and limited-series adaptation announcements by source type.';
+$metaCanonical = 'https://booktoscreen.org/adaptation-announcements.php';
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -284,10 +288,7 @@ $announcements = $listStmt->fetchAll(PDO::FETCH_ASSOC);
     </script>
 
     <meta charset="utf-8">
-    <title>Adaptation Announcements | Book to Screen</title>
-    <meta
-        name="description"
-        content="Browse recent film, television, and limited-series adaptation announcements by source type.">
+    <?php require __DIR__ . '/includes/meta.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" type="image/png" href="/favicon.png">

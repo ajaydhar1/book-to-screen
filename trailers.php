@@ -333,6 +333,10 @@ function barnesAndNobleSearchUrl(
         . urlencode($query);
 }
 
+$metaTitle = 'Adaptation Trailers | Book to Screen';
+$metaDescription = 'Watch trailers for movies adapted from books and other source material, with release details and author information.';
+$metaCanonical = 'https://booktoscreen.org/trailers.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -354,11 +358,9 @@ function barnesAndNobleSearchUrl(
 
     <meta charset="UTF-8">
 
-    <title>TMDB Book Adaptations POC</title>
+    <?php require __DIR__ . '/includes/meta.php'; ?>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="canonical" href="https://booktoscreen.org/trailers.php">
 
     <link rel="icon" type="image/png" href="/favicon.png">
 

@@ -138,6 +138,10 @@ function barnesAndNobleSearchUrl(
     return 'https://www.barnesandnoble.com/search?q='
         . urlencode($query);
 }
+
+$metaTitle = 'Book to Screen | Books, Articles & Podcasts Becoming Movies and TV';
+$metaDescription = 'Discover books, articles, podcasts, comics, and true stories being adapted into movies and television. Follow the latest adaptation announcements from across the entertainment industry.';
+$metaCanonical = 'https://booktoscreen.org/';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -158,19 +162,13 @@ function barnesAndNobleSearchUrl(
 
     <meta charset="UTF-8">
 
-    <title>Book to Screen | Books, Articles & Podcasts Becoming Movies and TV</title>
+    <?php require __DIR__ . '/includes/meta.php'; ?>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta
-        name="description"
-        content="Discover books, articles, podcasts, comics, and true stories being adapted into movies and television. Follow the latest adaptation announcements from across the entertainment industry.">
-
-    <meta
         name="robots"
         content="index,follow">
-
-    <link rel="canonical" href="https://booktoscreen.org/">
 
     <link rel="icon" type="image/png" href="/favicon.png">
 
