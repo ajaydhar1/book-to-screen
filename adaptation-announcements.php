@@ -492,7 +492,7 @@ $metaCanonical = 'https://booktoscreen.org/adaptation-announcements.php';
 
                         <div class="announcement-actions">
                             <a
-                                class="button button-primary"
+                                class="button <?= !empty($announcement['adaptation_id']) ? 'button-primary' : 'button-secondary' ?>"
                                 href="<?= !empty($announcement['adaptation_id'])
                                     ? h('/adaptation.php?id=' . (int) $announcement['adaptation_id'])
                                     : h($announcement['article_url']) ?>"<?= empty($announcement['adaptation_id']) ? ' target="_blank" rel="noopener"' : '' ?>>
