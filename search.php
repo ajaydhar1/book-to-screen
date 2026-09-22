@@ -174,7 +174,14 @@ $metaCanonical = 'https://booktoscreen.org/search.php';
                     <?php else: ?>
                         <div class="search-movie-list">
                             <?php foreach ($movies as $movie): ?>
-                                <?php $poster = search_poster_url($movie['poster_path'] ?? null); $trailerKey = trim((string) ($movie['trailer_youtube_key'] ?? '')); ?>
+                                <?php
+                                $poster = search_poster_url($movie['poster_path'] ?? null);
+                                $trailerKey = trim((string) ($movie['trailer_youtube_key'] ?? ''));
+                                $bookUrl = barnes_and_noble_search_url(
+                                    $movie['title'] ?? null,
+                                    $movie['source_author'] ?? null
+                                );
+                                ?>
                                 <article class="search-movie-card">
                                     <?php if ($poster): ?><img class="search-movie-card__poster" src="<?= h($poster) ?>" alt="<?= h($movie['title'] ?? '') ?>" loading="lazy"><?php else: ?><div class="search-movie-card__poster search-movie-card__poster--empty">No poster</div><?php endif; ?>
                                     <div class="search-movie-card__body">
@@ -182,7 +189,12 @@ $metaCanonical = 'https://booktoscreen.org/search.php';
                                         <p class="search-meta">Release: <?= h($movie['release_date'] ?? 'Unknown') ?></p>
                                         <?php if (!empty($movie['source_author'])): ?><p class="search-source">Based on the book by <?= h($movie['source_author']) ?></p><?php endif; ?>
                                         <p class="search-overview"><?= h($movie['overview'] ?? 'No overview available.') ?></p>
-                                        <?php if ($trailerKey !== ''): ?><button class="search-trailer-button trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($movie['title'] ?? 'Untitled') ?>">Watch Trailer</button><?php endif; ?>
+                                        <?php if ($trailerKey !== '' || $bookUrl !== null): ?>
+                                            <div class="search-movie-card__actions">
+                                                <?php if ($trailerKey !== ''): ?><button class="search-trailer-button trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($movie['title'] ?? 'Untitled') ?>">Watch Trailer</button><?php endif; ?>
+                                                <?php if ($bookUrl !== null): ?><a class="search-book-button" href="<?= h($bookUrl) ?>" target="_blank" rel="noopener">Find the Book</a><?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
                                 </article>
                             <?php endforeach; ?>

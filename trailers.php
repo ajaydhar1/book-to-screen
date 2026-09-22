@@ -649,17 +649,6 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
 
                             <div class="actions">
 
-                                <?php if ($bookUrl): ?>
-
-                                    <a
-                                        href="<?= e($bookUrl) ?>"
-                                        target="_blank"
-                                        rel="noopener">
-                                        📖 Find the Book
-                                    </a>
-
-                                <?php endif; ?>
-
                                 <?php if ($trailerKey !== ''): ?>
 
                                     <button
@@ -671,6 +660,17 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
                                                             ) ?>">
                                         ▶ Watch Trailer
                                     </button>
+
+                                <?php endif; ?>
+
+                                <?php if ($bookUrl): ?>
+
+                                    <a
+                                        href="<?= e($bookUrl) ?>"
+                                        target="_blank"
+                                        rel="noopener">
+                                        📖 Find the Book
+                                    </a>
 
                                 <?php endif; ?>
 
