@@ -30,7 +30,7 @@ return [
                             'title' => 'The Godfather',
                             'year' => 1972,
                             'director' => 'Francis Ford Coppola',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 238,
                         ],
             [
                             'rank' => 3,
@@ -44,7 +44,7 @@ return [
                             'title' => 'Raging Bull',
                             'year' => 1980,
                             'director' => 'Martin Scorsese',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1578,
                         ],
             [
                             'rank' => 5,
@@ -58,7 +58,7 @@ return [
                             'title' => 'Gone with the Wind',
                             'year' => 1939,
                             'director' => 'Victor Fleming',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 770,
                         ],
             [
                             'rank' => 7,
@@ -72,7 +72,7 @@ return [
                             'title' => 'Schindler\'s List',
                             'year' => 1993,
                             'director' => 'Steven Spielberg',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 424,
                         ],
             [
                             'rank' => 9,
@@ -86,7 +86,7 @@ return [
                             'title' => 'The Wizard of Oz',
                             'year' => 1939,
                             'director' => 'Victor Fleming',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 630,
                         ],
             [
                             'rank' => 11,
@@ -100,7 +100,7 @@ return [
                             'title' => 'The Searchers',
                             'year' => 1956,
                             'director' => 'John Ford',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3114,
                         ],
             [
                             'rank' => 13,
@@ -114,14 +114,14 @@ return [
                             'title' => 'Psycho',
                             'year' => 1960,
                             'director' => 'Alfred Hitchcock',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 539,
                         ],
             [
                             'rank' => 15,
                             'title' => '2001: A Space Odyssey',
                             'year' => 1968,
                             'director' => 'Stanley Kubrick',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 62,
                         ],
             [
                             'rank' => 16,
@@ -135,7 +135,7 @@ return [
                             'title' => 'The Graduate',
                             'year' => 1967,
                             'director' => 'Mike Nichols',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 37247,
                         ],
             [
                             'rank' => 18,
@@ -177,7 +177,7 @@ return [
                             'title' => 'The Grapes of Wrath',
                             'year' => 1940,
                             'director' => 'John Ford',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 596,
                         ],
             [
                             'rank' => 24,
@@ -191,7 +191,7 @@ return [
                             'title' => 'To Kill a Mockingbird',
                             'year' => 1962,
                             'director' => 'Robert Mulligan',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 595,
                         ],
             [
                             'rank' => 26,
@@ -219,35 +219,35 @@ return [
                             'title' => 'Double Indemnity',
                             'year' => 1944,
                             'director' => 'Billy Wilder',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 996,
                         ],
             [
                             'rank' => 30,
                             'title' => 'Apocalypse Now',
                             'year' => 1979,
                             'director' => 'Francis Ford Coppola',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 28,
                         ],
             [
                             'rank' => 31,
                             'title' => 'The Maltese Falcon',
                             'year' => 1941,
                             'director' => 'John Huston',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 963,
                         ],
             [
                             'rank' => 32,
                             'title' => 'The Godfather Part II',
                             'year' => 1974,
                             'director' => 'Francis Ford Coppola',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 240,
                         ],
             [
                             'rank' => 33,
                             'title' => 'One Flew Over the Cuckoo\'s Nest',
                             'year' => 1975,
                             'director' => 'Miloš Forman',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 510,
                         ],
             [
                             'rank' => 34,
@@ -268,7 +268,7 @@ return [
                             'title' => 'The Bridge on the River Kwai',
                             'year' => 1957,
                             'director' => 'David Lean',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 826,
                         ],
             [
                             'rank' => 37,
@@ -282,7 +282,7 @@ return [
                             'title' => 'The Treasure of the Sierra Madre',
                             'year' => 1948,
                             'director' => 'John Huston',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3090,
                         ],
             [
                             'rank' => 39,
@@ -317,7 +317,7 @@ return [
                             'title' => 'Midnight Cowboy',
                             'year' => 1969,
                             'director' => 'John Schlesinger',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3116,
                         ],
             [
                             'rank' => 44,
@@ -331,7 +331,7 @@ return [
                             'title' => 'Shane',
                             'year' => 1953,
                             'director' => 'George Stevens',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3110,
                         ],
             [
                             'rank' => 46,
@@ -352,7 +352,7 @@ return [
                             'title' => 'Rear Window',
                             'year' => 1954,
                             'director' => 'Alfred Hitchcock',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 567,
                         ],
             [
                             'rank' => 49,
@@ -366,7 +366,7 @@ return [
                             'title' => 'The Lord of the Rings: The Fellowship of the Ring',
                             'year' => 2001,
                             'director' => 'Peter Jackson',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 120,
                         ],
             [
                             'rank' => 51,
@@ -408,7 +408,7 @@ return [
                             'title' => 'Jaws',
                             'year' => 1975,
                             'director' => 'Steven Spielberg',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 578,
                         ],
             [
                             'rank' => 57,
@@ -506,7 +506,7 @@ return [
                             'title' => 'A Clockwork Orange',
                             'year' => 1971,
                             'director' => 'Stanley Kubrick',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 185,
                         ],
             [
                             'rank' => 71,
@@ -520,7 +520,7 @@ return [
                             'title' => 'The Shawshank Redemption',
                             'year' => 1994,
                             'director' => 'Frank Darabont',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 278,
                         ],
             [
                             'rank' => 73,
@@ -534,7 +534,7 @@ return [
                             'title' => 'The Silence of the Lambs',
                             'year' => 1991,
                             'director' => 'Jonathan Demme',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 274,
                         ],
             [
                             'rank' => 75,
@@ -548,14 +548,14 @@ return [
                             'title' => 'Forrest Gump',
                             'year' => 1994,
                             'director' => 'Robert Zemeckis',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 13,
                         ],
             [
                             'rank' => 77,
                             'title' => 'All the President\'s Men',
                             'year' => 1976,
                             'director' => 'Alan J. Pakula',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 891,
                         ],
             [
                             'rank' => 78,
@@ -660,14 +660,14 @@ return [
                             'title' => 'Goodfellas',
                             'year' => 1990,
                             'director' => 'Martin Scorsese',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 769,
                         ],
             [
                             'rank' => 93,
                             'title' => 'The French Connection',
                             'year' => 1971,
                             'director' => 'William Friedkin',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1051,
                         ],
             [
                             'rank' => 94,
@@ -681,7 +681,7 @@ return [
                             'title' => 'The Last Picture Show',
                             'year' => 1971,
                             'director' => 'Peter Bogdanovich',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 25188,
                         ],
             [
                             'rank' => 96,
@@ -695,7 +695,7 @@ return [
                             'title' => 'Blade Runner',
                             'year' => 1982,
                             'director' => 'Ridley Scott',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 78,
                         ],
             [
                             'rank' => 98,
@@ -716,7 +716,7 @@ return [
                             'title' => 'Ben-Hur',
                             'year' => 1959,
                             'director' => 'William Wyler',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 665,
                         ],
         ],
     ],
@@ -730,7 +730,7 @@ return [
             [
                             'award_year' => 2025,
                             'title' => 'One Battle After Another',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1054867,
                         ],
             [
                             'award_year' => 2024,
@@ -740,7 +740,7 @@ return [
             [
                             'award_year' => 2023,
                             'title' => 'Oppenheimer',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 872585,
                         ],
             [
                             'award_year' => 2022,
@@ -755,7 +755,7 @@ return [
             [
                             'award_year' => 2020,
                             'title' => 'Nomadland',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 581734,
                         ],
             [
                             'award_year' => 2019,
@@ -775,7 +775,7 @@ return [
             [
                             'award_year' => 2016,
                             'title' => 'Moonlight',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 376867,
                         ],
             [
                             'award_year' => 2015,
@@ -790,7 +790,7 @@ return [
             [
                             'award_year' => 2013,
                             'title' => '12 Years a Slave',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 76203,
                         ],
             [
                             'award_year' => 2012,
@@ -820,7 +820,7 @@ return [
             [
                             'award_year' => 2007,
                             'title' => 'No Country for Old Men',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 6977,
                         ],
             [
                             'award_year' => 2006,
@@ -840,7 +840,7 @@ return [
             [
                             'award_year' => 2003,
                             'title' => 'The Lord of the Rings: The Return of the King',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 122,
                         ],
             [
                             'award_year' => 2002,
@@ -850,7 +850,7 @@ return [
             [
                             'award_year' => 2001,
                             'title' => 'A Beautiful Mind',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 453,
                         ],
             [
                             'award_year' => 2000,
@@ -875,7 +875,7 @@ return [
             [
                             'award_year' => 1996,
                             'title' => 'The English Patient',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 409,
                         ],
             [
                             'award_year' => 1995,
@@ -885,12 +885,12 @@ return [
             [
                             'award_year' => 1994,
                             'title' => 'Forrest Gump',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 13,
                         ],
             [
                             'award_year' => 1993,
                             'title' => 'Schindler’s List',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 424,
                         ],
             [
                             'award_year' => 1992,
@@ -900,12 +900,12 @@ return [
             [
                             'award_year' => 1991,
                             'title' => 'The Silence of the Lambs',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 274,
                         ],
             [
                             'award_year' => 1990,
                             'title' => 'Dances with Wolves',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 581,
                         ],
             [
                             'award_year' => 1989,
@@ -940,7 +940,7 @@ return [
             [
                             'award_year' => 1983,
                             'title' => 'Terms of Endearment',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 11050,
                         ],
             [
                             'award_year' => 1982,
@@ -955,7 +955,7 @@ return [
             [
                             'award_year' => 1980,
                             'title' => 'Ordinary People',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 16619,
                         ],
             [
                             'award_year' => 1979,
@@ -980,12 +980,12 @@ return [
             [
                             'award_year' => 1975,
                             'title' => 'One Flew over the Cuckoo’s Nest',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 510,
                         ],
             [
                             'award_year' => 1974,
                             'title' => 'The Godfather Part II',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 240,
                         ],
             [
                             'award_year' => 1973,
@@ -995,12 +995,12 @@ return [
             [
                             'award_year' => 1972,
                             'title' => 'The Godfather',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 238,
                         ],
             [
                             'award_year' => 1971,
                             'title' => 'The French Connection',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1051,
                         ],
             [
                             'award_year' => 1970,
@@ -1010,7 +1010,7 @@ return [
             [
                             'award_year' => 1969,
                             'title' => 'Midnight Cowboy',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3116,
                         ],
             [
                             'award_year' => 1968,
@@ -1040,7 +1040,7 @@ return [
             [
                             'award_year' => 1963,
                             'title' => 'Tom Jones',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 5769,
                         ],
             [
                             'award_year' => 1962,
@@ -1060,22 +1060,22 @@ return [
             [
                             'award_year' => 1959,
                             'title' => 'Ben-Hur',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 665,
                         ],
             [
                             'award_year' => 1958,
                             'title' => 'Gigi',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 17281,
                         ],
             [
                             'award_year' => 1957,
                             'title' => 'The Bridge on the River Kwai',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 826,
                         ],
             [
                             'award_year' => 1956,
                             'title' => 'Around the World in 80 Days',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 2897,
                         ],
             [
                             'award_year' => 1955,
@@ -1090,7 +1090,7 @@ return [
             [
                             'award_year' => 1953,
                             'title' => 'From Here to Eternity',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 11426,
                         ],
             [
                             'award_year' => 1952,
@@ -1110,7 +1110,7 @@ return [
             [
                             'award_year' => 1949,
                             'title' => 'All the King’s Men',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 25430,
                         ],
             [
                             'award_year' => 1948,
@@ -1120,7 +1120,7 @@ return [
             [
                             'award_year' => 1947,
                             'title' => 'Gentleman’s Agreement',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 33667,
                         ],
             [
                             'award_year' => 1946,
@@ -1130,7 +1130,7 @@ return [
             [
                             'award_year' => 1945,
                             'title' => 'The Lost Weekend',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 28580,
                         ],
             [
                             'award_year' => 1944,
@@ -1145,22 +1145,22 @@ return [
             [
                             'award_year' => 1942,
                             'title' => 'Mrs. Miniver',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 27367,
                         ],
             [
                             'award_year' => 1941,
                             'title' => 'How Green Was My Valley',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 43266,
                         ],
             [
                             'award_year' => 1940,
                             'title' => 'Rebecca',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 223,
                         ],
             [
                             'award_year' => 1939,
                             'title' => 'Gone with the Wind',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 770,
                         ],
             [
                             'award_year' => 1938,
@@ -1200,12 +1200,12 @@ return [
             [
                             'award_year' => 1931,
                             'title' => 'Cimarron',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 46623,
                         ],
             [
                             'award_year' => 1930,
                             'title' => 'All Quiet on the Western Front',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 143,
                         ],
             [
                             'award_year' => 1929,
@@ -1974,7 +1974,7 @@ return [
                             'title' => '2001: A Space Odyssey',
                             'year' => 1968,
                             'director' => 'Stanley Kubrick',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 62,
                         ],
             [
                             'rank' => 7,
@@ -2016,7 +2016,7 @@ return [
                             'title' => 'The Godfather',
                             'year' => 1972,
                             'director' => 'Francis Ford Coppola',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 238,
                         ],
             [
                             'rank' => 13,
@@ -2037,7 +2037,7 @@ return [
                             'title' => 'The Searchers',
                             'year' => 1956,
                             'director' => 'John Ford',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3114,
                         ],
             [
                             'rank' => 16,
@@ -2065,7 +2065,7 @@ return [
                             'title' => 'Apocalypse Now',
                             'year' => 1979,
                             'director' => 'Francis Ford Coppola',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 28,
                         ],
             [
                             'rank' => 20,
@@ -2114,7 +2114,7 @@ return [
                             'title' => 'The Night of the Hunter',
                             'year' => 1955,
                             'director' => 'Charles Laughton',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3112,
                         ],
             [
                             'rank' => 27,
@@ -2163,7 +2163,7 @@ return [
                             'title' => 'Psycho',
                             'year' => 1960,
                             'director' => 'Alfred Hitchcock',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 539,
                         ],
             [
                             'rank' => 34,
@@ -2212,7 +2212,7 @@ return [
                             'title' => 'Rear Window',
                             'year' => 1954,
                             'director' => 'Alfred Hitchcock',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 567,
                         ],
             [
                             'rank' => 41,
@@ -2226,7 +2226,7 @@ return [
                             'title' => 'Rashomon',
                             'year' => 1950,
                             'director' => 'Akira Kurosawa',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 548,
                         ],
             [
                             'rank' => 43,
@@ -2254,14 +2254,14 @@ return [
                             'title' => 'The Battle of Algiers',
                             'year' => 1966,
                             'director' => 'Gillo Pontecorvo',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 17295,
                         ],
             [
                             'rank' => 45,
                             'title' => 'Barry Lyndon',
                             'year' => 1975,
                             'director' => 'Stanley Kubrick',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3175,
                         ],
             [
                             'rank' => 48,
@@ -2338,7 +2338,7 @@ return [
                             'title' => 'Blade Runner',
                             'year' => 1982,
                             'director' => 'Ridley Scott',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 78,
                         ],
             [
                             'rank' => 59,
@@ -2366,7 +2366,7 @@ return [
                             'title' => 'Moonlight',
                             'year' => 2016,
                             'director' => 'Barry Jenkins',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 376867,
                         ],
             [
                             'rank' => 63,
@@ -2380,7 +2380,7 @@ return [
                             'title' => 'GoodFellas',
                             'year' => 1990,
                             'director' => 'Martin Scorsese',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 769,
                         ],
             [
                             'rank' => 63,
@@ -2548,7 +2548,7 @@ return [
                             'title' => 'The Shining',
                             'year' => 1980,
                             'director' => 'Stanley Kubrick',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 694,
                         ],
             [
                             'rank' => 88,
@@ -3172,7 +3172,7 @@ return [
                             'year' => 2013,
                             'induction_year' => 2023,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 76203,
                         ],
             [
                             'title' => '13 Lakes',
@@ -3200,7 +3200,7 @@ return [
                             'year' => 1968,
                             'induction_year' => 1991,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 62,
                         ],
             [
                             'title' => '20,000 Leagues Under the Sea',
@@ -3284,7 +3284,7 @@ return [
                             'year' => 1930,
                             'induction_year' => 1990,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 143,
                         ],
             [
                             'title' => 'All That Heaven Allows',
@@ -3305,14 +3305,14 @@ return [
                             'year' => 1949,
                             'induction_year' => 2001,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 25430,
                         ],
             [
                             'title' => 'All the President\'s Men',
                             'year' => 1976,
                             'induction_year' => 2010,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 891,
                         ],
             [
                             'title' => 'Allures',
@@ -3333,7 +3333,7 @@ return [
                             'year' => 1963,
                             'induction_year' => 2001,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 47249,
                         ],
             [
                             'title' => 'American Graffiti',
@@ -3361,14 +3361,14 @@ return [
                             'year' => 1959,
                             'induction_year' => 2012,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 93,
                         ],
             [
                             'title' => 'Angels with Dirty Faces',
                             'year' => 1938,
                             'induction_year' => 2024,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 13696,
                         ],
             [
                             'title' => 'Annabelle Serpentine Dance',
@@ -3403,7 +3403,7 @@ return [
                             'year' => 1979,
                             'induction_year' => 2000,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 28,
                         ],
             [
                             'title' => 'Apollo 13',
@@ -3424,7 +3424,7 @@ return [
                             'year' => 1950,
                             'induction_year' => 2008,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 16958,
                         ],
             [
                             'title' => 'Atlantic City',
@@ -3606,7 +3606,7 @@ return [
                             'year' => 1979,
                             'induction_year' => 2015,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 10322,
                         ],
             [
                             'title' => 'Ben-Hur: A Tale of the Christ',
@@ -3620,7 +3620,7 @@ return [
                             'year' => 1959,
                             'induction_year' => 2004,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 665,
                         ],
             [
                             'title' => 'Bert Williams: Lime Kiln Club Field Day',
@@ -3690,7 +3690,7 @@ return [
                             'year' => 1946,
                             'induction_year' => 1997,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 910,
                         ],
             [
                             'title' => 'The Big Trail',
@@ -3753,7 +3753,7 @@ return [
                             'year' => 1982,
                             'induction_year' => 1993,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 78,
                         ],
             [
                             'title' => 'Blazing Saddles',
@@ -3879,7 +3879,7 @@ return [
                             'year' => 1957,
                             'induction_year' => 1997,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 826,
                         ],
             [
                             'title' => 'Bringing Up Baby',
@@ -3900,7 +3900,7 @@ return [
                             'year' => 2005,
                             'induction_year' => 2018,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 142,
                         ],
             [
                             'title' => 'Broken Blossoms',
@@ -3942,7 +3942,7 @@ return [
                             'year' => 1968,
                             'induction_year' => 2007,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 916,
                         ],
             [
                             'title' => 'Bush Mama',
@@ -3998,7 +3998,7 @@ return [
                             'year' => 1976,
                             'induction_year' => 2022,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 7340,
                         ],
             [
                             'title' => 'Casablanca',
@@ -4075,7 +4075,7 @@ return [
                             'year' => 1983,
                             'induction_year' => 2012,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 850,
                         ],
             [
                             'title' => 'Chulas Fronteras',
@@ -4096,7 +4096,7 @@ return [
                             'year' => 1950,
                             'induction_year' => 2018,
                             'film_type' => 'Animated narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 11224,
                         ],
             [
                             'title' => 'Citizen Kane',
@@ -4145,7 +4145,7 @@ return [
                             'year' => 1971,
                             'induction_year' => 2020,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 185,
                         ],
             [
                             'title' => 'Close Encounters of the Third Kind',
@@ -4159,7 +4159,7 @@ return [
                             'year' => 1995,
                             'induction_year' => 2025,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 9603,
                         ],
             [
                             'title' => 'Coal Miner\'s Daughter',
@@ -4215,7 +4215,7 @@ return [
                             'year' => 1967,
                             'induction_year' => 2005,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 903,
                         ],
             [
                             'title' => 'Cooley High',
@@ -4341,7 +4341,7 @@ return [
                             'year' => 1990,
                             'induction_year' => 2007,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 581,
                         ],
             [
                             'title' => 'The Dark Knight',
@@ -4432,7 +4432,7 @@ return [
                             'year' => 1972,
                             'induction_year' => 2008,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 10669,
                         ],
             [
                             'title' => 'Demolishing and Building Up the Star Theatre',
@@ -4460,7 +4460,7 @@ return [
                             'year' => 1945,
                             'induction_year' => 1992,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 20367,
                         ],
             [
                             'title' => 'The Devil Never Sleeps',
@@ -4481,7 +4481,7 @@ return [
                             'year' => 1988,
                             'induction_year' => 2017,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 562,
                         ],
             [
                             'title' => 'Dinner at Eight',
@@ -4544,7 +4544,7 @@ return [
                             'year' => 1944,
                             'induction_year' => 1992,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 996,
                         ],
             [
                             'title' => 'Down Argentine Way',
@@ -4558,14 +4558,14 @@ return [
                             'year' => 1964,
                             'induction_year' => 1989,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 935,
                         ],
             [
                             'title' => 'Dracula',
                             'year' => 1931,
                             'induction_year' => 2000,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 138,
                         ],
             [
                             'title' => 'Dracula (Spanish version)',
@@ -4649,7 +4649,7 @@ return [
                             'year' => 1955,
                             'induction_year' => 2016,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 220,
                         ],
             [
                             'title' => 'Easy Rider',
@@ -4796,7 +4796,7 @@ return [
                             'year' => 1973,
                             'induction_year' => 2010,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 9552,
                         ],
             [
                             'title' => 'The Exploits of Elaine[II]',
@@ -4859,7 +4859,7 @@ return [
                             'year' => 1982,
                             'induction_year' => 2005,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 13342,
                         ],
             [
                             'title' => 'Fatty\'s Tintype Tangle',
@@ -4887,7 +4887,7 @@ return [
                             'year' => 1989,
                             'induction_year' => 2017,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 2323,
                         ],
             [
                             'title' => 'Film Portrait',
@@ -4992,7 +4992,7 @@ return [
                             'year' => 1994,
                             'induction_year' => 2011,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 13,
                         ],
             [
                             'title' => 'The Four Horsemen of the Apocalypse',
@@ -5020,7 +5020,7 @@ return [
                             'year' => 1931,
                             'induction_year' => 1991,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3035,
                         ],
             [
                             'title' => 'Freaks',
@@ -5048,7 +5048,7 @@ return [
                             'year' => 1971,
                             'induction_year' => 2005,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1051,
                         ],
             [
                             'title' => 'The Freshman',
@@ -5069,7 +5069,7 @@ return [
                             'year' => 1953,
                             'induction_year' => 2002,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 11426,
                         ],
             [
                             'title' => 'From Stump to Ship',
@@ -5160,7 +5160,7 @@ return [
                             'year' => 1947,
                             'induction_year' => 2017,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 33667,
                         ],
             [
                             'title' => 'George Stevens\' World War II footage',
@@ -5209,7 +5209,7 @@ return [
                             'year' => 1958,
                             'induction_year' => 1991,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 17281,
                         ],
             [
                             'title' => 'Gilda',
@@ -5251,14 +5251,14 @@ return [
                             'year' => 1972,
                             'induction_year' => 1990,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 238,
                         ],
             [
                             'title' => 'The Godfather Part II',
                             'year' => 1974,
                             'induction_year' => 1993,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 240,
                         ],
             [
                             'title' => 'Going My Way',
@@ -5286,14 +5286,14 @@ return [
                             'year' => 1939,
                             'induction_year' => 1989,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 770,
                         ],
             [
                             'title' => 'Goodfellas',
                             'year' => 1990,
                             'induction_year' => 2000,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 769,
                         ],
             [
                             'title' => 'The Goonies',
@@ -5307,7 +5307,7 @@ return [
                             'year' => 1967,
                             'induction_year' => 1996,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 37247,
                         ],
             [
                             'title' => 'The Grand Budapest Hotel',
@@ -5328,7 +5328,7 @@ return [
                             'year' => 1940,
                             'induction_year' => 1989,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 596,
                         ],
             [
                             'title' => 'Grass',
@@ -5629,7 +5629,7 @@ return [
                             'year' => 2002,
                             'induction_year' => 2025,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 590,
                         ],
             [
                             'title' => 'Hours for Jerome: Parts 1 and 2',
@@ -5678,7 +5678,7 @@ return [
                             'year' => 1941,
                             'induction_year' => 1990,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 43266,
                         ],
             [
                             'title' => 'How the West Was Won',
@@ -5692,7 +5692,7 @@ return [
                             'year' => 1963,
                             'induction_year' => 2018,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 24748,
                         ],
             [
                             'title' => 'Humoresque',
@@ -5720,7 +5720,7 @@ return [
                             'year' => 1961,
                             'induction_year' => 1997,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 990,
                         ],
             [
                             'title' => 'I Am a Fugitive from a Chain Gang',
@@ -5825,7 +5825,7 @@ return [
                             'year' => 1957,
                             'induction_year' => 2009,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 31682,
                         ],
             [
                             'title' => 'The Incredibles',
@@ -5881,14 +5881,14 @@ return [
                             'year' => 1956,
                             'induction_year' => 1994,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 11549,
                         ],
             [
                             'title' => 'The Invisible Man',
                             'year' => 1933,
                             'induction_year' => 2008,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 10787,
                         ],
             [
                             'title' => 'It Happened One Night',
@@ -5951,7 +5951,7 @@ return [
                             'year' => 1975,
                             'induction_year' => 2001,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 578,
                         ],
             [
                             'title' => 'Jazz on a Summer\'s Day',
@@ -6000,7 +6000,7 @@ return [
                             'year' => 1993,
                             'induction_year' => 2020,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 19931,
                         ],
             [
                             'title' => 'Jubilo',
@@ -6028,7 +6028,7 @@ return [
                             'year' => 1993,
                             'induction_year' => 2018,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 329,
                         ],
             [
                             'title' => 'Kannapolis, N.C.',
@@ -6140,7 +6140,7 @@ return [
                             'year' => 1997,
                             'induction_year' => 2015,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 2118,
                         ],
             [
                             'title' => 'La Bamba',
@@ -6224,14 +6224,14 @@ return [
                             'year' => 1920,
                             'induction_year' => 1995,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 71065,
                         ],
             [
                             'title' => 'The Last Picture Show',
                             'year' => 1971,
                             'induction_year' => 1998,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 25188,
                         ],
             [
                             'title' => 'The Last Waltz',
@@ -6273,14 +6273,14 @@ return [
                             'year' => 1969,
                             'induction_year' => 1989,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 91737,
                         ],
             [
                             'title' => 'Leave Her to Heaven',
                             'year' => 1945,
                             'induction_year' => 2018,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 17645,
                         ],
             [
                             'title' => 'Let There Be Light',
@@ -6343,7 +6343,7 @@ return [
                             'year' => 1963,
                             'induction_year' => 2020,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 38805,
                         ],
             [
                             'title' => 'The Lion King',
@@ -6357,14 +6357,14 @@ return [
                             'year' => 1970,
                             'induction_year' => 2014,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 11040,
                         ],
             [
                             'title' => 'Little Caesar',
                             'year' => 1931,
                             'induction_year' => 2000,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 27899,
                         ],
             [
                             'title' => 'Little Fugitive',
@@ -6427,7 +6427,7 @@ return [
                             'year' => 2001,
                             'induction_year' => 2021,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 120,
                         ],
             [
                             'title' => 'Losing Ground',
@@ -6441,21 +6441,21 @@ return [
                             'year' => 1937,
                             'induction_year' => 2016,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3598,
                         ],
             [
                             'title' => 'The Lost Weekend',
                             'year' => 1945,
                             'induction_year' => 2011,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 28580,
                         ],
             [
                             'title' => 'The Lost World',
                             'year' => 1925,
                             'induction_year' => 1998,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 2981,
                         ],
             [
                             'title' => 'Louisiana Story',
@@ -6574,7 +6574,7 @@ return [
                             'year' => 1941,
                             'induction_year' => 1989,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 963,
                         ],
             [
                             'title' => 'The Man Who Shot Liberty Valance',
@@ -6609,7 +6609,7 @@ return [
                             'year' => 1979,
                             'induction_year' => 2001,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 696,
                         ],
             [
                             'title' => 'Manzanar',
@@ -6679,7 +6679,7 @@ return [
                             'year' => 1964,
                             'induction_year' => 2013,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 433,
                         ],
             [
                             'title' => 'Master Hands',
@@ -6728,7 +6728,7 @@ return [
                             'year' => 1971,
                             'induction_year' => 2010,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 29005,
                         ],
             [
                             'title' => 'Mean Streets',
@@ -6812,7 +6812,7 @@ return [
                             'year' => 1969,
                             'induction_year' => 1994,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3116,
                         ],
             [
                             'title' => 'Mighty Like a Moose',
@@ -6938,7 +6938,7 @@ return [
                             'year' => 1942,
                             'induction_year' => 2009,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 27367,
                         ],
             [
                             'title' => 'Multiple SIDosis',
@@ -7134,7 +7134,7 @@ return [
                             'year' => 1955,
                             'induction_year' => 1992,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3112,
                         ],
             [
                             'title' => 'Night of the Living Dead',
@@ -7169,7 +7169,7 @@ return [
                             'year' => 2007,
                             'induction_year' => 2024,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 6977,
                         ],
             [
                             'title' => 'No Lies',
@@ -7183,7 +7183,7 @@ return [
                             'year' => 1979,
                             'induction_year' => 2011,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 40842,
                         ],
             [
                             'title' => 'North by Northwest',
@@ -7281,7 +7281,7 @@ return [
                             'year' => 1975,
                             'induction_year' => 1993,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 510,
                         ],
             [
                             'title' => 'One Froggy Evening',
@@ -7400,7 +7400,7 @@ return [
                             'year' => 1957,
                             'induction_year' => 1992,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 975,
                         ],
             [
                             'title' => 'Patton',
@@ -7449,7 +7449,7 @@ return [
                             'year' => 1925,
                             'induction_year' => 1998,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 964,
                         ],
             [
                             'title' => 'The Phenix City Story',
@@ -7512,14 +7512,14 @@ return [
                             'year' => 1951,
                             'induction_year' => 1991,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 25673,
                         ],
             [
                             'title' => 'Planet of the Apes',
                             'year' => 1968,
                             'induction_year' => 2001,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 871,
                         ],
             [
                             'title' => 'Platoon',
@@ -7547,7 +7547,7 @@ return [
                             'year' => 1967,
                             'induction_year' => 2016,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 26039,
                         ],
             [
                             'title' => 'Point of Order',
@@ -7659,7 +7659,7 @@ return [
                             'year' => 1987,
                             'induction_year' => 2016,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 2493,
                         ],
             [
                             'title' => 'Princess Nicotine; or, The Smoke Fairy',
@@ -7673,7 +7673,7 @@ return [
                             'year' => 1937,
                             'induction_year' => 1991,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 43867,
                         ],
             [
                             'title' => 'The Producers',
@@ -7687,7 +7687,7 @@ return [
                             'year' => 1960,
                             'induction_year' => 1992,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 539,
                         ],
             [
                             'title' => 'The Public Enemy',
@@ -7764,7 +7764,7 @@ return [
                             'year' => 1980,
                             'induction_year' => 1990,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1578,
                         ],
             [
                             'title' => 'Raiders of the Lost Ark',
@@ -7792,14 +7792,14 @@ return [
                             'year' => 1954,
                             'induction_year' => 1997,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 567,
                         ],
             [
                             'title' => 'Rebecca',
                             'year' => 1940,
                             'induction_year' => 2018,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 223,
                         ],
             [
                             'title' => 'Rebel Without a Cause',
@@ -7904,7 +7904,7 @@ return [
                             'year' => 1983,
                             'induction_year' => 2013,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 9549,
                         ],
             [
                             'title' => 'Ringling Brothers Parade Film',
@@ -7981,7 +7981,7 @@ return [
                             'year' => 1968,
                             'induction_year' => 2014,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 805,
                         ],
             [
                             'title' => 'Ruggles of Red Gap',
@@ -8072,14 +8072,14 @@ return [
                             'year' => 1932,
                             'induction_year' => 1994,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 877,
                         ],
             [
                             'title' => 'Schindler\'s List',
                             'year' => 1993,
                             'induction_year' => 2004,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 424,
                         ],
             [
                             'title' => 'Scorpio Rising',
@@ -8100,7 +8100,7 @@ return [
                             'year' => 1956,
                             'induction_year' => 1989,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3114,
                         ],
             [
                             'title' => 'Seconds',
@@ -8184,14 +8184,14 @@ return [
                             'year' => 1953,
                             'induction_year' => 1993,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3110,
                         ],
             [
                             'title' => 'The Shawshank Redemption',
                             'year' => 1994,
                             'induction_year' => 2015,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 278,
                         ],
             [
                             'title' => 'She Done Him Wrong',
@@ -8226,7 +8226,7 @@ return [
                             'year' => 1980,
                             'induction_year' => 2018,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 694,
                         ],
             [
                             'title' => 'Shock Corridor',
@@ -8268,7 +8268,7 @@ return [
                             'year' => 2001,
                             'induction_year' => 2020,
                             'film_type' => 'Animated narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 808,
                         ],
             [
                             'title' => 'Siege',
@@ -8282,7 +8282,7 @@ return [
                             'year' => 1991,
                             'induction_year' => 2011,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 274,
                         ],
             [
                             'title' => 'Singin\' in the Rain',
@@ -8359,7 +8359,7 @@ return [
                             'year' => 2010,
                             'induction_year' => 2024,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 37799,
                         ],
             [
                             'title' => 'Some Like It Hot',
@@ -8401,7 +8401,7 @@ return [
                             'year' => 1972,
                             'induction_year' => 2021,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 42489,
                         ],
             [
                             'title' => 'Sparrows',
@@ -8548,7 +8548,7 @@ return [
                             'year' => 1951,
                             'induction_year' => 2021,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 845,
                         ],
             [
                             'title' => 'A Streetcar Named Desire±',
@@ -8807,14 +8807,14 @@ return [
                             'year' => 1982,
                             'induction_year' => 2025,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1091,
                         ],
             [
                             'title' => 'The Thing from Another World',
                             'year' => 1951,
                             'induction_year' => 2001,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 10785,
                         ],
             [
                             'title' => 'Think of Me First as a Person',
@@ -8912,7 +8912,7 @@ return [
                             'year' => 1962,
                             'induction_year' => 1995,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 595,
                         ],
             [
                             'title' => 'To Sleep with Anger',
@@ -8975,7 +8975,7 @@ return [
                             'year' => 1958,
                             'induction_year' => 1993,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1480,
                         ],
             [
                             'title' => 'Toy Story',
@@ -9010,14 +9010,14 @@ return [
                             'year' => 1948,
                             'induction_year' => 1990,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3090,
                         ],
             [
                             'title' => 'A Tree Grows in Brooklyn',
                             'year' => 1945,
                             'induction_year' => 2010,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 30177,
                         ],
             [
                             'title' => 'A Trip Down Market Street',
@@ -9052,7 +9052,7 @@ return [
                             'year' => 1949,
                             'induction_year' => 1998,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 15497,
                         ],
             [
                             'title' => 'Twentieth Century',
@@ -9080,7 +9080,7 @@ return [
                             'year' => 1914,
                             'induction_year' => 2012,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 151234,
                         ],
             [
                             'title' => 'Under Western Stars',
@@ -9178,7 +9178,7 @@ return [
                             'year' => 1953,
                             'induction_year' => 2011,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 8974,
                         ],
             [
                             'title' => 'Water and Power',
@@ -9248,7 +9248,7 @@ return [
                             'year' => 1962,
                             'induction_year' => 2021,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 10242,
                         ],
             [
                             'title' => 'What\'s Opera, Doc?',
@@ -9297,7 +9297,7 @@ return [
                             'year' => 1988,
                             'induction_year' => 2016,
                             'film_type' => 'Narrative feature (animated/live-action hybrid)',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 856,
                         ],
             [
                             'title' => 'Who Killed Vincent Chin?',
@@ -9353,7 +9353,7 @@ return [
                             'year' => 1960,
                             'induction_year' => 2002,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 82311,
                         ],
             [
                             'title' => 'Will',
@@ -9374,7 +9374,7 @@ return [
                             'year' => 1971,
                             'induction_year' => 2014,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 252,
                         ],
             [
                             'title' => 'Winchester \'73',
@@ -9388,7 +9388,7 @@ return [
                             'year' => 1928,
                             'induction_year' => 1993,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 31416,
                         ],
             [
                             'title' => 'Wings',
@@ -9486,7 +9486,7 @@ return [
                             'year' => 1939,
                             'induction_year' => 2007,
                             'film_type' => 'Narrative feature',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3084,
                         ],
             [
                             'title' => 'Yankee Doodle Dandy',
@@ -9545,7 +9545,7 @@ return [
                             'year' => 1972,
                             'source_title' => 'The Godfather',
                             'author' => 'Mario Puzo',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 238,
                         ],
             [
                             'rank' => 2,
@@ -9553,7 +9553,7 @@ return [
                             'year' => 1974,
                             'source_title' => 'The Godfather',
                             'author' => 'Mario Puzo',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 240,
                         ],
             [
                             'rank' => 3,
@@ -9561,7 +9561,7 @@ return [
                             'year' => 2001,
                             'source_title' => 'The Fellowship of the Ring',
                             'author' => 'J.R.R. Tolkien',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 120,
                         ],
             [
                             'rank' => 4,
@@ -9569,7 +9569,7 @@ return [
                             'year' => 2003,
                             'source_title' => 'The Return of the King',
                             'author' => 'J.R.R. Tolkien',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 122,
                         ],
             [
                             'rank' => 5,
@@ -9577,7 +9577,7 @@ return [
                             'year' => 1994,
                             'source_title' => 'Rita Hayworth and Shawshank Redemption',
                             'author' => 'Stephen King',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 278,
                         ],
             [
                             'rank' => 6,
@@ -9585,7 +9585,7 @@ return [
                             'year' => 1993,
                             'source_title' => 'Schindler\'s Ark',
                             'author' => 'Thomas Keneally',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 424,
                         ],
             [
                             'rank' => 7,
@@ -9593,7 +9593,7 @@ return [
                             'year' => 1975,
                             'source_title' => 'One Flew Over the Cuckoo\'s Nest',
                             'author' => 'Ken Kesey',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 510,
                         ],
             [
                             'rank' => 8,
@@ -9601,7 +9601,7 @@ return [
                             'year' => 1962,
                             'source_title' => 'To Kill a Mockingbird',
                             'author' => 'Harper Lee',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 595,
                         ],
             [
                             'rank' => 9,
@@ -9609,7 +9609,7 @@ return [
                             'year' => 1991,
                             'source_title' => 'The Silence of the Lambs',
                             'author' => 'Thomas Harris',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 274,
                         ],
             [
                             'rank' => 10,
@@ -9617,7 +9617,7 @@ return [
                             'year' => 2007,
                             'source_title' => 'No Country for Old Men',
                             'author' => 'Cormac McCarthy',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 6977,
                         ],
             [
                             'rank' => 11,
@@ -9625,7 +9625,7 @@ return [
                             'year' => 1980,
                             'source_title' => 'The Shining',
                             'author' => 'Stephen King',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 694,
                         ],
             [
                             'rank' => 12,
@@ -9633,7 +9633,7 @@ return [
                             'year' => 1975,
                             'source_title' => 'Jaws',
                             'author' => 'Peter Benchley',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 578,
                         ],
             [
                             'rank' => 13,
@@ -9641,7 +9641,7 @@ return [
                             'year' => 1960,
                             'source_title' => 'Psycho',
                             'author' => 'Robert Bloch',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 539,
                         ],
             [
                             'rank' => 14,
@@ -9649,7 +9649,7 @@ return [
                             'year' => 1982,
                             'source_title' => 'Do Androids Dream of Electric Sheep?',
                             'author' => 'Philip K. Dick',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 78,
                         ],
             [
                             'rank' => 15,
@@ -9657,7 +9657,7 @@ return [
                             'year' => 1979,
                             'source_title' => 'Heart of Darkness',
                             'author' => 'Joseph Conrad',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 28,
                         ],
             [
                             'rank' => 16,
@@ -9665,7 +9665,7 @@ return [
                             'year' => 1939,
                             'source_title' => 'The Wonderful Wizard of Oz',
                             'author' => 'L. Frank Baum',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 630,
                         ],
             [
                             'rank' => 17,
@@ -9673,7 +9673,7 @@ return [
                             'year' => 1941,
                             'source_title' => 'The Maltese Falcon',
                             'author' => 'Dashiell Hammett',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 963,
                         ],
             [
                             'rank' => 18,
@@ -9681,7 +9681,7 @@ return [
                             'year' => 1940,
                             'source_title' => 'Rebecca',
                             'author' => 'Daphne du Maurier',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 223,
                         ],
             [
                             'rank' => 19,
@@ -9689,7 +9689,7 @@ return [
                             'year' => 1940,
                             'source_title' => 'The Grapes of Wrath',
                             'author' => 'John Steinbeck',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 596,
                         ],
             [
                             'rank' => 20,
@@ -9697,7 +9697,7 @@ return [
                             'year' => 1971,
                             'source_title' => 'A Clockwork Orange',
                             'author' => 'Anthony Burgess',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 185,
                         ],
             [
                             'rank' => 21,
@@ -9705,7 +9705,7 @@ return [
                             'year' => 1968,
                             'source_title' => 'Arthur C. Clarke\'s short fiction / developed alongside the novel',
                             'author' => 'Arthur C. Clarke',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 62,
                         ],
             [
                             'rank' => 22,
@@ -9713,7 +9713,7 @@ return [
                             'year' => 1997,
                             'source_title' => 'L.A. Confidential',
                             'author' => 'James Ellroy',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 2118,
                         ],
             [
                             'rank' => 23,
@@ -9721,7 +9721,7 @@ return [
                             'year' => 2005,
                             'source_title' => '"Brokeback Mountain"',
                             'author' => 'Annie Proulx',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 142,
                         ],
             [
                             'rank' => 24,
@@ -9729,7 +9729,7 @@ return [
                             'year' => 1987,
                             'source_title' => 'The Princess Bride',
                             'author' => 'William Goldman',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 2493,
                         ],
             [
                             'rank' => 25,
@@ -9737,7 +9737,7 @@ return [
                             'year' => 1973,
                             'source_title' => 'The Exorcist',
                             'author' => 'William Peter Blatty',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 9552,
                         ],
             [
                             'rank' => 26,
@@ -9745,7 +9745,7 @@ return [
                             'year' => 1990,
                             'source_title' => 'Wiseguy',
                             'author' => 'Nicholas Pileggi',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 769,
                         ],
             [
                             'rank' => 27,
@@ -9753,7 +9753,7 @@ return [
                             'year' => 2007,
                             'source_title' => 'Oil!',
                             'author' => 'Upton Sinclair',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 7345,
                         ],
             [
                             'rank' => 28,
@@ -9761,7 +9761,7 @@ return [
                             'year' => 2006,
                             'source_title' => 'The Children of Men',
                             'author' => 'P. D. James',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 9693,
                         ],
             [
                             'rank' => 29,
@@ -9769,7 +9769,7 @@ return [
                             'year' => 2016,
                             'source_title' => '“Story of Your Life”',
                             'author' => 'Ted Chiang',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 329865,
                         ],
             [
                             'rank' => 30,
@@ -9777,7 +9777,7 @@ return [
                             'year' => 2010,
                             'source_title' => 'The Accidental Billionaires',
                             'author' => 'Ben Mezrich',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 37799,
                         ],
             [
                             'rank' => 31,
@@ -9785,7 +9785,7 @@ return [
                             'year' => 2015,
                             'source_title' => 'The Price of Salt',
                             'author' => 'Patricia Highsmith',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 258480,
                         ],
             [
                             'rank' => 32,
@@ -9793,7 +9793,7 @@ return [
                             'year' => 1993,
                             'source_title' => 'The Remains of the Day',
                             'author' => 'Kazuo Ishiguro',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1245,
                         ],
             [
                             'rank' => 33,
@@ -9801,7 +9801,7 @@ return [
                             'year' => 1995,
                             'source_title' => 'Sense and Sensibility',
                             'author' => 'Jane Austen',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 4584,
                         ],
             [
                             'rank' => 34,
@@ -9809,7 +9809,7 @@ return [
                             'year' => 2019,
                             'source_title' => 'Little Women',
                             'author' => 'Louisa May Alcott',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 331482,
                         ],
             [
                             'rank' => 35,
@@ -9817,7 +9817,7 @@ return [
                             'year' => 1993,
                             'source_title' => 'The Age of Innocence',
                             'author' => 'Edith Wharton',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 10436,
                         ],
             [
                             'rank' => 36,
@@ -9825,7 +9825,7 @@ return [
                             'year' => 1992,
                             'source_title' => 'Orlando: A Biography',
                             'author' => 'Virginia Woolf',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 9300,
                         ],
             [
                             'rank' => 37,
@@ -9833,7 +9833,7 @@ return [
                             'year' => 1985,
                             'source_title' => 'The Color Purple',
                             'author' => 'Alice Walker',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 558915,
                         ],
             [
                             'rank' => 38,
@@ -9841,7 +9841,7 @@ return [
                             'year' => 2013,
                             'source_title' => 'Twelve Years a Slave',
                             'author' => 'Solomon Northup',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 76203,
                         ],
             [
                             'rank' => 39,
@@ -9849,7 +9849,7 @@ return [
                             'year' => 2016,
                             'source_title' => 'In Moonlight Black Boys Look Blue',
                             'author' => 'Tarell Alvin McCraney',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 376867,
                         ],
             [
                             'rank' => 40,
@@ -9857,7 +9857,7 @@ return [
                             'year' => 2007,
                             'source_title' => 'Persepolis',
                             'author' => 'Marjane Satrapi',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 2011,
                         ],
             [
                             'rank' => 41,
@@ -9865,7 +9865,7 @@ return [
                             'year' => 2009,
                             'source_title' => 'Coraline',
                             'author' => 'Neil Gaiman',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 14836,
                         ],
             [
                             'rank' => 42,
@@ -9873,7 +9873,7 @@ return [
                             'year' => 2009,
                             'source_title' => 'Fantastic Mr Fox',
                             'author' => 'Roald Dahl',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 10315,
                         ],
             [
                             'rank' => 43,
@@ -9881,7 +9881,7 @@ return [
                             'year' => 2010,
                             'source_title' => 'How to Train Your Dragon',
                             'author' => 'Cressida Cowell',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 10191,
                         ],
             [
                             'rank' => 44,
@@ -9889,7 +9889,7 @@ return [
                             'year' => 2013,
                             'source_title' => 'The Tale of the Bamboo Cutter',
                             'author' => 'Anonymous',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 149871,
                         ],
             [
                             'rank' => 45,
@@ -9897,7 +9897,7 @@ return [
                             'year' => 1950,
                             'source_title' => 'Akutagawa short stories',
                             'author' => 'Ryūnosuke Akutagawa',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 548,
                         ],
             [
                             'rank' => 46,
@@ -9905,7 +9905,7 @@ return [
                             'year' => 1964,
                             'source_title' => 'The Woman in the Dunes',
                             'author' => 'Kōbō Abe',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 16672,
                         ],
             [
                             'rank' => 47,
@@ -9913,7 +9913,7 @@ return [
                             'year' => 1963,
                             'source_title' => 'The Leopard',
                             'author' => 'Giuseppe Tomasi di Lampedusa',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1040,
                         ],
             [
                             'rank' => 48,
@@ -9921,7 +9921,7 @@ return [
                             'year' => 1970,
                             'source_title' => 'The Conformist',
                             'author' => 'Alberto Moravia',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 8416,
                         ],
             [
                             'rank' => 49,
@@ -9929,7 +9929,7 @@ return [
                             'year' => 1966,
                             'source_title' => 'Souvenirs de la Bataille d\'Alger',
                             'author' => 'Saadi Yacef',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 17295,
                         ],
             [
                             'rank' => 50,
@@ -9937,7 +9937,7 @@ return [
                             'year' => 2000,
                             'source_title' => 'Crouching Tiger, Hidden Dragon',
                             'author' => 'Wang Dulu',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 146,
                         ],
             [
                             'rank' => 51,
@@ -9945,7 +9945,7 @@ return [
                             'year' => 1944,
                             'source_title' => 'Double Indemnity',
                             'author' => 'James M. Cain',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 996,
                         ],
             [
                             'rank' => 52,
@@ -9953,7 +9953,7 @@ return [
                             'year' => 1956,
                             'source_title' => 'The Searchers',
                             'author' => 'Alan Le May',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3114,
                         ],
             [
                             'rank' => 53,
@@ -9961,7 +9961,7 @@ return [
                             'year' => 1951,
                             'source_title' => 'The African Queen',
                             'author' => 'C. S. Forester',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 488,
                         ],
             [
                             'rank' => 54,
@@ -9969,7 +9969,7 @@ return [
                             'year' => 1957,
                             'source_title' => 'The Bridge over the River Kwai',
                             'author' => 'Pierre Boulle',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 826,
                         ],
             [
                             'rank' => 55,
@@ -9977,7 +9977,7 @@ return [
                             'year' => 1965,
                             'source_title' => 'Doctor Zhivago',
                             'author' => 'Boris Pasternak',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 907,
                         ],
             [
                             'rank' => 56,
@@ -9985,7 +9985,7 @@ return [
                             'year' => 1939,
                             'source_title' => 'Gone with the Wind',
                             'author' => 'Margaret Mitchell',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 770,
                         ],
             [
                             'rank' => 57,
@@ -9993,7 +9993,7 @@ return [
                             'year' => 1930,
                             'source_title' => 'All Quiet on the Western Front',
                             'author' => 'Erich Maria Remarque',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 143,
                         ],
             [
                             'rank' => 58,
@@ -10001,7 +10001,7 @@ return [
                             'year' => 1964,
                             'source_title' => 'Red Alert',
                             'author' => 'Peter George',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 935,
                         ],
             [
                             'rank' => 59,
@@ -10009,7 +10009,7 @@ return [
                             'year' => 1969,
                             'source_title' => 'Midnight Cowboy',
                             'author' => 'James Leo Herlihy',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3116,
                         ],
             [
                             'rank' => 60,
@@ -10017,7 +10017,7 @@ return [
                             'year' => 1980,
                             'source_title' => 'Raging Bull: My Story',
                             'author' => 'Jake LaMotta et al.',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1578,
                         ],
             [
                             'rank' => 61,
@@ -10025,7 +10025,7 @@ return [
                             'year' => 1967,
                             'source_title' => 'The Graduate',
                             'author' => 'Charles Webb',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 37247,
                         ],
             [
                             'rank' => 62,
@@ -10033,7 +10033,7 @@ return [
                             'year' => 1971,
                             'source_title' => 'The Last Picture Show',
                             'author' => 'Larry McMurtry',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 25188,
                         ],
             [
                             'rank' => 63,
@@ -10041,7 +10041,7 @@ return [
                             'year' => 1986,
                             'source_title' => 'The Body',
                             'author' => 'Stephen King',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 235,
                         ],
             [
                             'rank' => 64,
@@ -10049,7 +10049,7 @@ return [
                             'year' => 1990,
                             'source_title' => 'Misery',
                             'author' => 'Stephen King',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1700,
                         ],
             [
                             'rank' => 65,
@@ -10057,7 +10057,7 @@ return [
                             'year' => 1999,
                             'source_title' => 'The Talented Mr. Ripley',
                             'author' => 'Patricia Highsmith',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1213,
                         ],
             [
                             'rank' => 66,
@@ -10065,7 +10065,7 @@ return [
                             'year' => 1999,
                             'source_title' => 'Fight Club',
                             'author' => 'Chuck Palahniuk',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 550,
                         ],
             [
                             'rank' => 67,
@@ -10073,7 +10073,7 @@ return [
                             'year' => 2000,
                             'source_title' => 'American Psycho',
                             'author' => 'Bret Easton Ellis',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1359,
                         ],
             [
                             'rank' => 68,
@@ -10081,7 +10081,7 @@ return [
                             'year' => 2002,
                             'source_title' => 'The Orchid Thief',
                             'author' => 'Susan Orlean',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 2757,
                         ],
             [
                             'rank' => 69,
@@ -10089,7 +10089,7 @@ return [
                             'year' => 2007,
                             'source_title' => 'Atonement',
                             'author' => 'Ian McEwan',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 4347,
                         ],
             [
                             'rank' => 70,
@@ -10097,7 +10097,7 @@ return [
                             'year' => 2010,
                             'source_title' => 'Never Let Me Go',
                             'author' => 'Kazuo Ishiguro',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 42188,
                         ],
             [
                             'rank' => 71,
@@ -10105,7 +10105,7 @@ return [
                             'year' => 2015,
                             'source_title' => 'Room',
                             'author' => 'Emma Donoghue',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 264644,
                         ],
             [
                             'rank' => 72,
@@ -10113,7 +10113,7 @@ return [
                             'year' => 2017,
                             'source_title' => 'Call Me by Your Name',
                             'author' => 'André Aciman',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 398818,
                         ],
             [
                             'rank' => 73,
@@ -10121,7 +10121,7 @@ return [
                             'year' => 2021,
                             'source_title' => '“Drive My Car” + other Murakami material',
                             'author' => 'Haruki Murakami',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 758866,
                         ],
             [
                             'rank' => 74,
@@ -10129,7 +10129,7 @@ return [
                             'year' => 2023,
                             'source_title' => 'The Zone of Interest',
                             'author' => 'Martin Amis',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 467244,
                         ],
             [
                             'rank' => 75,
@@ -10137,7 +10137,7 @@ return [
                             'year' => 2023,
                             'source_title' => 'American Prometheus',
                             'author' => 'Kai Bird & Martin J. Sherwin',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 872585,
                         ],
             [
                             'rank' => 76,
@@ -10145,7 +10145,7 @@ return [
                             'year' => 1954,
                             'source_title' => '“It Had to Be Murder”',
                             'author' => 'Cornell Woolrich',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 567,
                         ],
             [
                             'rank' => 77,
@@ -10153,7 +10153,7 @@ return [
                             'year' => 1958,
                             'source_title' => 'Badge of Evil',
                             'author' => 'Whit Masterson',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1480,
                         ],
             [
                             'rank' => 78,
@@ -10161,7 +10161,7 @@ return [
                             'year' => 1955,
                             'source_title' => 'The Night of the Hunter',
                             'author' => 'Davis Grubb',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 3112,
                         ],
             [
                             'rank' => 79,
@@ -10169,7 +10169,7 @@ return [
                             'year' => 1961,
                             'source_title' => 'The Turn of the Screw',
                             'author' => 'Henry James',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 16372,
                         ],
             [
                             'rank' => 80,
@@ -10177,7 +10177,7 @@ return [
                             'year' => 1968,
                             'source_title' => 'Rosemary\'s Baby',
                             'author' => 'Ira Levin',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 805,
                         ],
             [
                             'rank' => 81,
@@ -10185,7 +10185,7 @@ return [
                             'year' => 1971,
                             'source_title' => 'The French Connection',
                             'author' => 'Robin Moore',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1051,
                         ],
             [
                             'rank' => 82,
@@ -10193,7 +10193,7 @@ return [
                             'year' => 1976,
                             'source_title' => 'All the President\'s Men',
                             'author' => 'Carl Bernstein & Bob Woodward',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 891,
                         ],
             [
                             'rank' => 83,
@@ -10201,7 +10201,7 @@ return [
                             'year' => 1978,
                             'source_title' => 'Watership Down',
                             'author' => 'Richard Adams',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 11837,
                         ],
             [
                             'rank' => 84,
@@ -10209,7 +10209,7 @@ return [
                             'year' => 1983,
                             'source_title' => 'The Right Stuff',
                             'author' => 'Tom Wolfe',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 9549,
                         ],
             [
                             'rank' => 85,
@@ -10217,7 +10217,7 @@ return [
                             'year' => 1986,
                             'source_title' => 'The Color of Money',
                             'author' => 'Walter Tevis',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 11873,
                         ],
             [
                             'rank' => 86,
@@ -10225,7 +10225,7 @@ return [
                             'year' => 1992,
                             'source_title' => 'The Last of the Mohicans',
                             'author' => 'James Fenimore Cooper',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 9361,
                         ],
             [
                             'rank' => 87,
@@ -10233,7 +10233,7 @@ return [
                             'year' => 1993,
                             'source_title' => 'Jurassic Park',
                             'author' => 'Michael Crichton',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 329,
                         ],
             [
                             'rank' => 88,
@@ -10241,7 +10241,7 @@ return [
                             'year' => 1996,
                             'source_title' => 'The English Patient',
                             'author' => 'Michael Ondaatje',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 409,
                         ],
             [
                             'rank' => 89,
@@ -10249,7 +10249,7 @@ return [
                             'year' => 1998,
                             'source_title' => 'The Thin Red Line',
                             'author' => 'James Jones',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 8741,
                         ],
             [
                             'rank' => 90,
@@ -10257,7 +10257,7 @@ return [
                             'year' => 1999,
                             'source_title' => 'The Virgin Suicides',
                             'author' => 'Jeffrey Eugenides',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1443,
                         ],
             [
                             'rank' => 91,
@@ -10265,7 +10265,7 @@ return [
                             'year' => 2002,
                             'source_title' => 'The Two Towers',
                             'author' => 'J.R.R. Tolkien',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 121,
                         ],
             [
                             'rank' => 92,
@@ -10273,7 +10273,7 @@ return [
                             'year' => 2002,
                             'source_title' => 'City of God',
                             'author' => 'Paulo Lins',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 598,
                         ],
             [
                             'rank' => 93,
@@ -10281,7 +10281,7 @@ return [
                             'year' => 2003,
                             'source_title' => 'Old Boy',
                             'author' => 'Garon Tsuchiya & Nobuaki Minegishi',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 670,
                         ],
             [
                             'rank' => 94,
@@ -10289,7 +10289,7 @@ return [
                             'year' => 2005,
                             'source_title' => 'A History of Violence',
                             'author' => 'John Wagner & Vince Locke',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 59,
                         ],
             [
                             'rank' => 95,
@@ -10297,7 +10297,7 @@ return [
                             'year' => 2007,
                             'source_title' => 'Zodiac / Zodiac Unmasked',
                             'author' => 'Robert Graysmith',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 1949,
                         ],
             [
                             'rank' => 96,
@@ -10305,7 +10305,7 @@ return [
                             'year' => 2008,
                             'source_title' => 'Let the Right One In',
                             'author' => 'John Ajvide Lindqvist',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 13310,
                         ],
             [
                             'rank' => 97,
@@ -10313,7 +10313,7 @@ return [
                             'year' => 2011,
                             'source_title' => 'Moneyball',
                             'author' => 'Michael Lewis',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 60308,
                         ],
             [
                             'rank' => 98,
@@ -10321,7 +10321,7 @@ return [
                             'year' => 2014,
                             'source_title' => 'Gone Girl',
                             'author' => 'Gillian Flynn',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 210577,
                         ],
             [
                             'rank' => 99,
@@ -10329,7 +10329,7 @@ return [
                             'year' => 2017,
                             'source_title' => 'Paddington books',
                             'author' => 'Michael Bond',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 346648,
                         ],
             [
                             'rank' => 100,
@@ -10337,7 +10337,7 @@ return [
                             'year' => 2024,
                             'source_title' => 'Dune',
                             'author' => 'Frank Herbert',
-                            'tmdb_id' => null,
+                            'tmdb_id' => 693134,
                         ],
         ],
     ],
