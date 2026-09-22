@@ -21,6 +21,7 @@ if (!in_array($collectionKey, ACCLAIMED_PUBLIC_COLLECTIONS, true)) {
         <?php require __DIR__ . '/includes/meta.php'; ?>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/png" href="/favicon.png">
+        <link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(__DIR__ . '/assets/css/site.css') ?>">
         <link rel="stylesheet" href="/assets/css/header-footer.css?v=<?= filemtime(__DIR__ . '/assets/css/header-footer.css') ?>">
         <link rel="stylesheet" href="/assets/css/acclaimed.css?v=<?= filemtime(__DIR__ . '/assets/css/acclaimed.css') ?>">
     </head>
@@ -74,6 +75,7 @@ if ($collectionKey === 'b2s-100') {
     <?php require __DIR__ . '/includes/meta.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(__DIR__ . '/assets/css/site.css') ?>">
     <link rel="stylesheet" href="/assets/css/header-footer.css?v=<?= filemtime(__DIR__ . '/assets/css/header-footer.css') ?>">
     <link rel="stylesheet" href="/assets/css/trailer-theater.css?v=<?= filemtime(__DIR__ . '/assets/css/trailer-theater.css') ?>">
     <link rel="stylesheet" href="/assets/css/acclaimed.css?v=<?= filemtime(__DIR__ . '/assets/css/acclaimed.css') ?>">
