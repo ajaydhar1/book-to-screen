@@ -1,0 +1,46 @@
+body { margin: 0; background: #f6f3ee; color: #222; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.acclaimed-shell { max-width: 1320px; margin: 0 auto; padding: 42px 20px 64px; }
+.acclaimed-header { max-width: 790px; margin-bottom: 42px; }
+.acclaimed-eyebrow { margin: 0 0 8px; color: #7a5c3e; font-size: .8rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+.acclaimed-header h1 { margin: 0 0 14px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.35rem, 5vw, 4rem); line-height: 1; }
+.acclaimed-header p:not(.acclaimed-eyebrow) { margin: 0; color: #5d5144; font-size: 1.05rem; line-height: 1.6; }
+.acclaimed-cluster { margin: 0 0 52px; padding-top: 28px; border-top: 1px solid #ded8cf; }
+.acclaimed-cluster--flagship { padding: 28px; border: 1px solid #cfbfaa; border-radius: 8px; background: #fbf8f3; }
+.acclaimed-cluster__heading { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; margin-bottom: 20px; }
+.acclaimed-cluster__heading h2 { margin: 0 0 8px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.12; }
+.acclaimed-cluster__heading p:not(.acclaimed-eyebrow) { max-width: 720px; margin: 0; color: #5d5144; line-height: 1.5; }
+.acclaimed-view-all, .acclaimed-back-link { color: #2b2118; font-size: .9rem; font-weight: 800; text-decoration: none; white-space: nowrap; }
+.acclaimed-view-all { padding: 9px 11px; border: 1px solid #c9b79e; border-radius: 6px; background: #fff; }
+.acclaimed-view-all:hover, .acclaimed-back-link:hover { color: #7a5c3e; text-decoration: underline; text-underline-offset: 3px; }
+.acclaimed-view-all__count { color: #7a5c3e; }
+.acclaimed-poster-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.acclaimed-poster-card { min-width: 0; }
+.acclaimed-poster-card__button { display: block; width: 100%; padding: 0; overflow: hidden; border: 0; border-radius: 6px; background: #e5ddd2; cursor: pointer; }
+.acclaimed-poster-card__button:focus-visible, .acclaimed-movie-card__poster-button:focus-visible, .acclaimed-movie-card__trailer:focus-visible, .acclaimed-view-all:focus-visible, .acclaimed-pagination a:focus-visible { outline: 3px solid #7a5c3e; outline-offset: 3px; }
+.acclaimed-poster-card__button img, .acclaimed-poster-card__image { display: block; width: 100%; aspect-ratio: 2 / 3; object-fit: cover; transition: opacity .15s ease; }
+.acclaimed-poster-card__button:hover img { opacity: .84; }
+.acclaimed-poster-card__empty, .acclaimed-movie-card__empty { display: grid; width: 100%; aspect-ratio: 2 / 3; place-items: center; background: #e5ddd2; color: #756553; font-size: .85rem; text-align: center; }
+.acclaimed-poster-card__body { padding-top: 8px; }
+.acclaimed-poster-card__body span, .acclaimed-movie-card__context { display: block; margin: 0 0 4px; color: #7a5c3e; font-size: .76rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.acclaimed-poster-card__body h3 { margin: 0; font-size: .98rem; line-height: 1.25; }
+.acclaimed-poster-card__body p { margin: 4px 0 0; color: #756553; font-size: .84rem; }
+.acclaimed-collection-page { max-width: 1120px; }
+.acclaimed-back-link { display: inline-block; margin-bottom: 28px; }
+.acclaimed-count { margin-top: 16px !important; color: #7a5c3e !important; font-weight: 800; }
+.acclaimed-movie-list { display: grid; gap: 15px; }
+.acclaimed-movie-card { display: grid; grid-template-columns: 150px minmax(0, 1fr); overflow: hidden; border: 1px solid #ded8cf; border-radius: 8px; background: #fff; }
+.acclaimed-movie-card__poster-wrap { background: #e5ddd2; }
+.acclaimed-movie-card__poster-button { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.acclaimed-movie-card__poster-button img, .acclaimed-movie-card__poster { display: block; width: 100%; height: 100%; min-height: 225px; object-fit: cover; }
+.acclaimed-movie-card__body { min-width: 0; padding: 18px 20px; }
+.acclaimed-movie-card__body h2 { margin: 0 0 7px; font-family: Georgia, "Times New Roman", serif; font-size: 1.35rem; line-height: 1.15; }
+.acclaimed-movie-card__meta, .acclaimed-movie-card__source { margin: 0 0 8px; color: #5d5144; font-size: .9rem; line-height: 1.45; }
+.acclaimed-movie-card__overview { display: -webkit-box; margin: 10px 0 0; overflow: hidden; color: #555; font-size: .92rem; line-height: 1.5; line-clamp: 3; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.acclaimed-movie-card__trailer { margin-top: 14px; padding: 8px 11px; border: 1px solid #2b2118; border-radius: 6px; background: #2b2118; color: #fff; font: inherit; font-size: .84rem; font-weight: 800; cursor: pointer; }
+.acclaimed-movie-card__trailer:hover { background: #4a392b; }
+.acclaimed-pagination { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center; margin-top: 30px; }
+.acclaimed-pagination a { color: #2b2118; font-weight: 800; text-decoration: none; }
+.acclaimed-pagination a:last-child { text-align: right; }
+.acclaimed-pagination span { color: #756553; font-size: .9rem; text-align: center; }
+@media (max-width: 820px) { .acclaimed-poster-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .acclaimed-cluster__heading { flex-direction: column; gap: 14px; } }
+@media (max-width: 560px) { .acclaimed-shell { padding: 28px 14px 48px; } .acclaimed-cluster--flagship { padding: 18px; } .acclaimed-poster-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } .acclaimed-movie-card { grid-template-columns: 104px minmax(0, 1fr); } .acclaimed-movie-card__poster-button img, .acclaimed-movie-card__poster { min-height: 156px; } .acclaimed-movie-card__body { padding: 14px; } .acclaimed-movie-card__body h2 { font-size: 1.1rem; } .acclaimed-movie-card__overview { display: none; } }
