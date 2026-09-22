@@ -12,6 +12,13 @@ function navActive(string $page, string $currentPage): string
 {
     return $page === $currentPage ? ' is-active' : '';
 }
+
+function acclaimedNavActive(string $currentPage): string
+{
+    return in_array($currentPage, ['acclaimed.php', 'acclaimed-collection.php'], true)
+        ? ' is-active'
+        : '';
+}
 ?>
 
 <header class="site-header">
@@ -33,6 +40,12 @@ function navActive(string $page, string $currentPage): string
                     href="/trailers.php"
                     class="site-nav__link<?= navActive('trailers.php', $currentPage); ?>">
                     Adaptation Trailers
+                </a>
+
+                <a
+                    href="/acclaimed.php"
+                    class="site-nav__link<?= acclaimedNavActive($currentPage); ?>">
+                    Acclaimed
                 </a>
 
                 <a

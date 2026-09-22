@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/acclaimed-public.php';
 
 $db = get_db();
 
@@ -108,6 +109,14 @@ $releasedStmt = $db->query("
 ");
 
 $releasedMovies = $releasedStmt->fetchAll(PDO::FETCH_ASSOC);
+
+$acclaimedDatasets = require __DIR__ . '/includes/acclaimed-datasets.php';
+$b2sPreviewItems = array_slice(
+    acclaimed_public_matched_items($acclaimedDatasets['b2s-100']),
+    0,
+    5
+);
+$b2sPreviewAdaptations = acclaimed_public_load_adaptations($b2sPreviewItems);
 
 function e(?string $value): string
 {
@@ -385,6 +394,54 @@ $metaCanonical = 'https://booktoscreen.org/';
                     </a>
                 </div>
 
+            </section>
+        <?php endif; ?>
+
+        <?php if ($b2sPreviewItems !== []): ?>
+            <section class="section b2s-feature-section" aria-labelledby="b2s-feature-heading">
+                <div class="section-heading b2s-feature-heading">
+                    <div>
+                        <p class="eyebrow">Acclaimed</p>
+                        <h2 id="b2s-feature-heading">Book to Screen's 100 Greatest Film Adaptations</h2>
+                        <p>Our editorial ranking of 100 outstanding films adapted from books and other published works.</p>
+                    </div>
+                    <div class="b2s-feature-links">
+                        <a class="b2s-feature-explore" href="/acclaimed-collection.php?collection=b2s-100">Explore the B2S 100</a>
+                        <a class="b2s-feature-all" href="/acclaimed.php">Acclaimed</a>
+                    </div>
+                </div>
+
+                <div class="b2s-feature-grid">
+                    <?php foreach ($b2sPreviewItems as $item): ?>
+                        <?php $movie = $b2sPreviewAdaptations[(int) $item['tmdb_id']] ?? null; ?>
+                        <?php if ($movie === null): continue; endif; ?>
+                        <?php
+                        $posterUrl = acclaimed_public_poster_url($movie['poster_path'] ?? null);
+                        $trailerKey = trim((string) ($movie['trailer_youtube_key'] ?? ''));
+                        ?>
+                        <article class="b2s-feature-card">
+                            <?php if ($posterUrl !== null && $trailerKey !== ''): ?>
+                                <button
+                                    class="b2s-feature-poster-link trailer-theater-trigger"
+                                    type="button"
+                                    data-trailer-key="<?= e($trailerKey) ?>"
+                                    data-trailer-title="<?= e($movie['title'] ?? $item['title']) ?>"
+                                    aria-label="Watch trailer for <?= e($movie['title'] ?? $item['title']) ?>">
+                                    <img src="<?= e($posterUrl) ?>" alt="<?= e($movie['title'] ?? $item['title']) ?> poster" loading="lazy" decoding="async">
+                                </button>
+                            <?php elseif ($posterUrl !== null): ?>
+                                <img class="b2s-feature-poster" src="<?= e($posterUrl) ?>" alt="<?= e($movie['title'] ?? $item['title']) ?> poster" loading="lazy" decoding="async">
+                            <?php else: ?>
+                                <div class="b2s-feature-poster b2s-feature-poster--empty">No poster</div>
+                            <?php endif; ?>
+                            <div class="b2s-feature-card__body">
+                                <span>#<?= e((string) $item['rank']) ?></span>
+                                <h3><?= e($item['title']) ?></h3>
+                                <p><?= e((string) $item['year']) ?></p>
+                            </div>
+                        </article>
+                    <?php endforeach; ?>
+                </div>
             </section>
         <?php endif; ?>
 
