@@ -95,7 +95,14 @@ if ($collectionKey === 'b2s-100') {
             <?php foreach ($pageItems as $item): ?>
                 <?php $adaptation = $adaptations[(int) $item['tmdb_id']] ?? null; ?>
                 <?php if ($adaptation === null): continue; endif; ?>
-                <?php $poster = acclaimed_public_poster_url($adaptation['poster_path'] ?? null); $trailerKey = trim((string) ($adaptation['trailer_youtube_key'] ?? '')); ?>
+                <?php
+                $poster = acclaimed_public_poster_url($adaptation['poster_path'] ?? null);
+                $trailerKey = trim((string) ($adaptation['trailer_youtube_key'] ?? ''));
+                $bookUrl = barnes_and_noble_search_url(
+                    $item['source_title'] ?? $adaptation['title'] ?? null,
+                    $item['author'] ?? $adaptation['source_author'] ?? null
+                );
+                ?>
                 <article class="acclaimed-movie-card">
                     <div class="acclaimed-movie-card__poster-wrap">
                         <?php if ($poster !== null && $trailerKey !== ''): ?>
@@ -114,7 +121,12 @@ if ($collectionKey === 'b2s-100') {
                         <p class="acclaimed-movie-card__meta">Release: <?= h((string) ($adaptation['release_date'] ?? $item['year'] ?? 'Unknown')) ?></p>
                         <?php if (isset($item['source_title'])): ?><p class="acclaimed-movie-card__source">Based on <strong><?= h($item['source_title']) ?></strong><?php if (isset($item['author'])): ?> by <?= h($item['author']) ?><?php endif; ?>.</p><?php elseif (!empty($adaptation['source_author'])): ?><p class="acclaimed-movie-card__source">Based on the book by <?= h($adaptation['source_author']) ?>.</p><?php endif; ?>
                         <?php if (!empty($adaptation['overview'])): ?><p class="acclaimed-movie-card__overview"><?= h($adaptation['overview']) ?></p><?php endif; ?>
-                        <?php if ($trailerKey !== ''): ?><button class="acclaimed-movie-card__trailer trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($adaptation['title']) ?>">Watch Trailer</button><?php endif; ?>
+                        <?php if ($trailerKey !== '' || $bookUrl !== null): ?>
+                            <div class="acclaimed-movie-card__actions">
+                                <?php if ($trailerKey !== ''): ?><button class="acclaimed-movie-card__trailer trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($adaptation['title']) ?>">Watch Trailer</button><?php endif; ?>
+                                <?php if ($bookUrl !== null): ?><a class="acclaimed-movie-card__book" href="<?= h($bookUrl) ?>" target="_blank" rel="noopener">Find the Book</a><?php endif; ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </article>
             <?php endforeach; ?>

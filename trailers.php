@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 
 require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/functions.php';
 
 $db = get_db();
 
@@ -315,24 +316,6 @@ function posterUrl(?string $posterPath): ?string
     return 'https://image.tmdb.org/t/p/w342' . $posterPath;
 }
 
-function barnesAndNobleSearchUrl(
-    ?string $movieTitle,
-    ?string $sourceAuthor
-): ?string {
-    $query = trim(
-        ($movieTitle ?? '')
-            . ' '
-            . ($sourceAuthor ?? '')
-    );
-
-    if ($query === '') {
-        return null;
-    }
-
-    return 'https://www.barnesandnoble.com/search?q='
-        . urlencode($query);
-}
-
 $metaTitle = 'Adaptation Trailers | Book to Screen';
 $metaDescription = 'Watch trailers for movies adapted from books and other source material, with release details and author information.';
 $metaCanonical = 'https://booktoscreen.org/trailers.php';
@@ -563,7 +546,7 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
                         $movie['poster_path'] ?? null
                     );
 
-                    $bookUrl = barnesAndNobleSearchUrl(
+                    $bookUrl = barnes_and_noble_search_url(
                         $movie['title'] ?? null,
                         $movie['source_author'] ?? null
                     );

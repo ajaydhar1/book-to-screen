@@ -22,6 +22,17 @@ function h(string|null $value): string
     return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
 }
 
+function barnes_and_noble_search_url(?string $bookTitle, ?string $bookAuthor): ?string
+{
+    $query = trim(($bookTitle ?? '') . ' ' . ($bookAuthor ?? ''));
+
+    if ($query === '') {
+        return null;
+    }
+
+    return 'https://www.barnesandnoble.com/search?q=' . urlencode($query);
+}
+
 function status_class(string $status): string
 {
     return match ($status) {

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/acclaimed-public.php';
 
 $db = get_db();
@@ -123,31 +124,6 @@ function e(?string $value): string
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
-function formatDate(?string $value): string
-{
-    if (!$value) {
-        return '';
-    }
-
-    return date('M j, Y', strtotime($value));
-}
-
-function barnesAndNobleSearchUrl(
-    ?string $bookTitle,
-    ?string $bookAuthor
-): ?string {
-    $query = trim(
-        ($bookTitle ?? '') . ' ' . ($bookAuthor ?? '')
-    );
-
-    if ($query === '') {
-        return null;
-    }
-
-    return 'https://www.barnesandnoble.com/search?q='
-        . urlencode($query);
-}
-
 $metaTitle = 'Book to Screen | Books, Articles & Podcasts Becoming Movies and TV';
 $metaDescription = 'Discover books, articles, podcasts, comics, and true stories being adapted into movies and television. Follow the latest adaptation announcements from across the entertainment industry.';
 $metaCanonical = 'https://booktoscreen.org/';
@@ -241,7 +217,7 @@ $metaCanonical = 'https://booktoscreen.org/';
                             (string) ($movie['trailer_youtube_key'] ?? '')
                         );
 
-                        $bookUrl = barnesAndNobleSearchUrl(
+                        $bookUrl = barnes_and_noble_search_url(
                             $movie['title'] ?? null,
                             $movie['source_author'] ?? null
                         );
@@ -528,7 +504,7 @@ $metaCanonical = 'https://booktoscreen.org/';
                             <div class="card-actions">
 
                                 <?php
-                                $bookUrl = barnesAndNobleSearchUrl(
+                                $bookUrl = barnes_and_noble_search_url(
                                     $featured['book_title'] ?? null,
                                     $featured['book_author'] ?? null
                                 );
@@ -636,7 +612,7 @@ $metaCanonical = 'https://booktoscreen.org/';
                                         <div class="card-actions">
 
                                             <?php
-                                            $bookUrl = barnesAndNobleSearchUrl(
+                                            $bookUrl = barnes_and_noble_search_url(
                                                 $adaptation['book_title'] ?? null,
                                                 $adaptation['book_author'] ?? null
                                             );
@@ -762,7 +738,7 @@ $metaCanonical = 'https://booktoscreen.org/';
                                 <div class="card-actions">
 
                                     <?php
-                                    $bookUrl = barnesAndNobleSearchUrl(
+                                    $bookUrl = barnes_and_noble_search_url(
                                         $adaptation['book_title'] ?? null,
                                         $adaptation['book_author'] ?? null
                                     );
