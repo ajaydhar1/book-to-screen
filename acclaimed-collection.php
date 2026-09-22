@@ -62,6 +62,10 @@ function acclaimed_collection_url(string $collectionKey, int $page): string
 $metaTitle = $collection['title'] . ' | Acclaimed | Book to Screen';
 $metaDescription = $collection['description'];
 $metaCanonical = 'https://booktoscreen.org/acclaimed-collection.php?collection=' . rawurlencode($collectionKey);
+
+if ($collectionKey === 'b2s-100') {
+    $metaImage = 'https://booktoscreen.org/assets/images/social/b2s-100-social.png';
+}
 ?>
 <!doctype html>
 <html lang="en">
