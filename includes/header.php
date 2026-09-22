@@ -39,7 +39,7 @@ function acclaimedNavActive(string $currentPage): string
                 <a
                     href="/trailers.php"
                     class="site-nav__link<?= navActive('trailers.php', $currentPage); ?>">
-                    Adaptation Trailers
+                    Trailers
                 </a>
 
                 <a
