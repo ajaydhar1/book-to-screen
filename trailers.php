@@ -358,24 +358,24 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
 
     <?php require_once __DIR__ . '/includes/header.php'; ?>
 
-    <div class="container">
+    <div class="trailers-shell">
 
-        <a class="back-link" href="/">
-            ← Back to Home
-        </a>
+        <header class="trailers-header">
+            <div>
+                <p class="eyebrow">Book to Screen</p>
+                <h1 class="page-title">Adaptation Trailers</h1>
+                <p class="page-intro">
+                    Discover movies based on books and watch their latest trailers.
+                </p>
+            </div>
+        </header>
 
-        <h1>TMDB Book Adaptations POC</h1>
-
-        <div class="subtitle">
+        <div class="subtitle page-intro">
 
             <?php if ($hasAuthorFilter): ?>
 
                 Movies based on books by
                 <strong><?= e($author) ?></strong>
-
-            <?php else: ?>
-
-                Keyword 818 — “Based on novel or book”
 
             <?php endif; ?>
 
@@ -640,7 +640,7 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
 
                             <?php endif; ?>
 
-                            <div class="overview">
+                            <div class="overview card-summary">
                                 <?= e(
                                     $movie['overview']
                                         ?? 'No overview available.'

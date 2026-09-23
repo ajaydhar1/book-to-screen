@@ -170,7 +170,7 @@ $metaCanonical = 'https://booktoscreen.org/';
         <section class="hero home-hero">
             <p class="eyebrow">Adaptation Tracker</p>
 
-            <h2>Stories on their way to film and/or television.</h2>
+            <h2 class="editorial-title">Stories on their way to film and/or television.</h2>
 
             <p>
                 Book to Screen tracks books, articles, podcasts, comics, and true stories

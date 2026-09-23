@@ -179,7 +179,7 @@ function adaptation_detail_type_label(?string $type): string
 					<?php endif; ?>
 				</div>
 
-				<h1><?= h($displayTitle) ?></h1>
+				<h1 class="editorial-title"><?= h($displayTitle) ?></h1>
 				<p class="detail-based-on">Based on <em><?= h($adaptation['book_title']) ?></em></p>
 
 				<?php if ($bookAuthor !== ''): ?>
@@ -187,11 +187,11 @@ function adaptation_detail_type_label(?string $type): string
 				<?php endif; ?>
 
 				<?php if (!empty($adaptation['short_note'])): ?>
-					<p class="detail-note"><?= h($adaptation['short_note']) ?></p>
+					<p class="detail-note body-copy"><?= h($adaptation['short_note']) ?></p>
 				<?php endif; ?>
 
 				<?php if ($sourceExcerpt !== ''): ?>
-					<p class="detail-excerpt"><?= h($sourceExcerpt) ?></p>
+					<p class="detail-excerpt body-copy"><?= h($sourceExcerpt) ?></p>
 				<?php endif; ?>
 
 				<div class="detail-source">
@@ -219,7 +219,7 @@ function adaptation_detail_type_label(?string $type): string
 							<?php if ($itemImage): ?><img src="<?= h($itemImage) ?>" alt="" loading="lazy" decoding="async"><?php endif; ?>
 							<span class="detail-card-meta"><?= h(adaptation_detail_type_label($item['adaptation_type'] ?? null)) ?></span>
 							<h3><?= h($item['adaptation_title'] ?: $item['book_title']) ?></h3>
-							<p><?= h($item['book_title']) ?></p>
+							<p class="card-summary"><?= h($item['book_title']) ?></p>
 						</a>
 					<?php endforeach; ?>
 				</div>
@@ -235,7 +235,7 @@ function adaptation_detail_type_label(?string $type): string
 							<?php if (!empty($item['poster_path'])): ?><img src="<?= h('https://image.tmdb.org/t/p/w342' . $item['poster_path']) ?>" alt="<?= h($item['title']) ?>" loading="lazy" decoding="async"><?php endif; ?>
 							<span class="detail-card-meta">TMDb · <?= h($item['release_date'] ?: 'Release date unknown') ?></span>
 							<h3><?= h($item['title']) ?></h3>
-							<?php if (!empty($item['overview'])): ?><p><?= h($item['overview']) ?></p><?php endif; ?>
+							<?php if (!empty($item['overview'])): ?><p class="card-summary"><?= h($item['overview']) ?></p><?php endif; ?>
 						</a>
 					<?php endforeach; ?>
 				</div>
@@ -252,7 +252,7 @@ function adaptation_detail_type_label(?string $type): string
 							<?php if ($itemImage): ?><img src="<?= h($itemImage) ?>" alt="" loading="lazy" decoding="async"><?php endif; ?>
 							<span class="detail-card-meta"><?= h($item['adaptation_status'] ?: 'Adaptation') ?></span>
 							<h3><?= h($item['adaptation_title'] ?: $item['book_title']) ?></h3>
-							<p><?= h($item['book_title']) ?></p>
+							<p class="card-summary"><?= h($item['book_title']) ?></p>
 						</a>
 					<?php endforeach; ?>
 				</div>

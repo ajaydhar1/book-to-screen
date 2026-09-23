@@ -1,14 +1,11 @@
-body { margin: 0; background: #f6f3ee; color: #222; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+body { margin: 0; color: #222; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
 .acclaimed-shell { max-width: 1320px; margin: 0 auto; padding: 42px 20px 64px; }
-.acclaimed-header { max-width: 790px; margin-bottom: 42px; }
-.acclaimed-eyebrow { margin: 0 0 8px; color: #7a5c3e; font-size: .8rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
-.acclaimed-header h1 { margin: 0 0 14px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.35rem, 5vw, 4rem); line-height: 1; }
-.acclaimed-header p:not(.acclaimed-eyebrow) { margin: 0; color: #5d5144; font-size: 1.05rem; line-height: 1.6; }
+.acclaimed-header { max-width: 790px; margin-bottom: 32px; }
 .acclaimed-cluster { margin: 0 0 52px; padding-top: 28px; border-top: 1px solid #ded8cf; }
 .acclaimed-cluster--flagship { padding: 28px; border: 1px solid #cfbfaa; border-radius: 8px; background: #fbf8f3; }
 .acclaimed-cluster__heading { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; margin-bottom: 20px; }
 .acclaimed-cluster__heading h2 { margin: 0 0 8px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.12; }
-.acclaimed-cluster__heading p:not(.acclaimed-eyebrow) { max-width: 720px; margin: 0; color: #5d5144; line-height: 1.5; }
+.acclaimed-cluster__heading p:not(.eyebrow) { max-width: 720px; margin: 0; color: #5d5144; line-height: 1.5; }
 .acclaimed-view-all, .acclaimed-back-link { color: #2b2118; font-size: .9rem; font-weight: 800; text-decoration: none; white-space: nowrap; }
 .acclaimed-view-all { padding: 9px 11px; border: 1px solid #c9b79e; border-radius: 6px; background: #fff; }
 .acclaimed-view-all:hover, .acclaimed-back-link:hover { color: #7a5c3e; text-decoration: underline; text-underline-offset: 3px; }
@@ -35,7 +32,7 @@ body { margin: 0; background: #f6f3ee; color: #222; font-family: system-ui, -app
 .acclaimed-movie-card__body { min-width: 0; padding: 18px 20px; }
 .acclaimed-movie-card__body h2 { margin: 0 0 7px; font-family: Georgia, "Times New Roman", serif; font-size: 1.35rem; line-height: 1.15; }
 .acclaimed-movie-card__meta, .acclaimed-movie-card__source { margin: 0 0 8px; color: #5d5144; font-size: .9rem; line-height: 1.45; }
-.acclaimed-movie-card__overview { display: -webkit-box; margin: 10px 0 0; overflow: hidden; color: #555; font-size: .92rem; line-height: 1.5; line-clamp: 3; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.acclaimed-movie-card__overview { display: -webkit-box; margin: 10px 0 0; overflow: hidden; color: #5d5146; font-size: .95rem; line-height: 1.55; line-clamp: 3; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
 .acclaimed-movie-card__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
 .acclaimed-movie-card__trailer { margin-top: 14px; padding: 8px 11px; border: 1px solid #2b2118; border-radius: 6px; background: #2b2118; color: #fff; font: inherit; font-size: .84rem; font-weight: 800; cursor: pointer; }
 .acclaimed-movie-card__actions .acclaimed-movie-card__trailer { margin-top: 0; }

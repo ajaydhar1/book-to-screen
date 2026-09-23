@@ -295,6 +295,9 @@ $metaCanonical = 'https://booktoscreen.org/adaptation-announcements.php';
 
     <link
         rel="stylesheet"
+        href="/assets/css/site.css?v=<?= filemtime(__DIR__ . '/assets/css/site.css') ?>">
+    <link
+        rel="stylesheet"
         href="/assets/css/header-footer.css?v=<?= filemtime(__DIR__ . '/assets/css/header-footer.css') ?>">
     <link
         rel="stylesheet"
@@ -310,8 +313,8 @@ $metaCanonical = 'https://booktoscreen.org/adaptation-announcements.php';
         <header class="announcements-header">
             <div>
                 <p class="eyebrow">Book to Screen</p>
-                <h1>Adaptation Announcements</h1>
-                <p class="intro">
+                <h1 class="page-title">Adaptation Announcements</h1>
+                <p class="page-intro">
                     Track recent announcements for film, television, and limited-series adaptations.
                 </p>
             </div>
@@ -485,7 +488,7 @@ $metaCanonical = 'https://booktoscreen.org/adaptation-announcements.php';
                         </h2>
 
                         <?php if (!empty($announcement['article_excerpt'])): ?>
-                            <p class="excerpt">
+                            <p class="excerpt card-summary">
                                 <?= h($announcement['article_excerpt']) ?>
                             </p>
                         <?php endif; ?>

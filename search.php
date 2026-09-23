@@ -141,6 +141,7 @@ $metaCanonical = 'https://booktoscreen.org/search.php';
     <?php require __DIR__ . '/includes/meta.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(__DIR__ . '/assets/css/site.css') ?>">
     <link rel="stylesheet" href="/assets/css/header-footer.css?v=<?= filemtime(__DIR__ . '/assets/css/header-footer.css') ?>">
     <link rel="stylesheet" href="/assets/css/trailer-theater.css?v=<?= filemtime(__DIR__ . '/assets/css/trailer-theater.css') ?>">
     <link rel="stylesheet" href="/assets/css/search.css?v=<?= filemtime(__DIR__ . '/assets/css/search.css') ?>">
@@ -149,7 +150,7 @@ $metaCanonical = 'https://booktoscreen.org/search.php';
     <?php require_once __DIR__ . '/includes/header.php'; ?>
     <main class="search-shell">
         <header class="search-page-header">
-            <p class="search-eyebrow">Book to Screen</p>
+            <p class="eyebrow">Book to Screen</p>
             <h1><?= $hasSearch ? 'Search results for &ldquo;' . h($search) . '&rdquo;' : 'Search Book to Screen' ?></h1>
             <form class="search-page-form" method="get" action="/search.php">
                 <label for="search-page-query">Search Book to Screen</label>

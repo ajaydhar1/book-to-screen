@@ -30,9 +30,9 @@ if (!in_array($collectionKey, ACCLAIMED_PUBLIC_COLLECTIONS, true)) {
         <main class="acclaimed-shell">
             <a class="acclaimed-back-link" href="/acclaimed.php">&larr; Acclaimed</a>
             <header class="acclaimed-header">
-                <p class="acclaimed-eyebrow">Not Found</p>
-                <h1>Collection not found</h1>
-                <p>That Acclaimed collection is not available.</p>
+                <p class="eyebrow">Not Found</p>
+                <h1 class="page-title">Collection not found</h1>
+                <p class="page-intro">That Acclaimed collection is not available.</p>
             </header>
         </main>
         <?php require_once __DIR__ . '/includes/footer.php'; ?>
@@ -85,9 +85,9 @@ if ($collectionKey === 'b2s-100') {
     <main class="acclaimed-shell acclaimed-collection-page">
         <a class="acclaimed-back-link" href="/acclaimed.php">&larr; Acclaimed</a>
         <header class="acclaimed-header">
-            <p class="acclaimed-eyebrow"><?= h(acclaimed_public_collection_label($collectionKey)) ?></p>
-            <h1><?= h($collection['title']) ?></h1>
-            <p><?= h($collection['description']) ?></p>
+            <p class="eyebrow"><?= h(acclaimed_public_collection_label($collectionKey)) ?></p>
+            <h1 class="page-title"><?= h($collection['title']) ?></h1>
+            <p class="page-intro"><?= h($collection['description']) ?></p>
             <p class="acclaimed-count"><?= number_format($totalItems) ?> <?= $totalItems === 1 ? 'adaptation' : 'adaptations' ?> represented</p>
         </header>
 

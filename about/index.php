@@ -50,7 +50,7 @@ declare(strict_types=1);
         <section class="hero about-hero">
             <p class="eyebrow">About Book to Screen</p>
 
-            <h1>The stories behind tomorrow’s movies and television.</h1>
+            <h1 class="editorial-title">The stories behind tomorrow’s movies and television.</h1>
 
             <p class="hero-intro">
                 Book to Screen is an editorially curated adaptation tracker following
@@ -65,19 +65,19 @@ declare(strict_types=1);
 
                 <h2>Follow the source material before it reaches the screen.</h2>
 
-                <p>
+                <p class="body-copy">
                     Every adaptation begins with a source. Sometimes it is a bestselling
                     novel or celebrated memoir. Other times, it is a magazine article,
                     podcast, comic, short story, or remarkable real-life event.
                 </p>
 
-                <p>
+                <p class="body-copy">
                     Book to Screen collects and organizes adaptation announcements so
                     readers and viewers can discover the original stories behind upcoming
                     movies and television projects.
                 </p>
 
-                <p>
+                <p class="body-copy">
                     Our goal is to create a useful, accessible archive for anyone interested
                     in the connection between publishing, storytelling, and the screen
                     entertainment industry.
@@ -91,7 +91,7 @@ declare(strict_types=1);
 
                 <h2>How adaptations are added.</h2>
 
-                <p>
+                <p class="body-copy">
                     Book to Screen reviews entertainment industry reporting and evaluates
                     each potential lead before it is added to the public archive.
                 </p>
@@ -197,7 +197,7 @@ declare(strict_types=1);
 
                 <h2>Help us discover what is being adapted next.</h2>
 
-                <p>
+                <p class="body-copy">
                     Community submissions and contributor opportunities are planned for
                     the future. In the meantime, explore the latest verified adaptations
                     in the Book to Screen archive.

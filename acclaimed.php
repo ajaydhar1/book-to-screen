@@ -45,9 +45,9 @@ $metaCanonical = 'https://booktoscreen.org/acclaimed.php';
     <?php require_once __DIR__ . '/includes/header.php'; ?>
     <main class="acclaimed-shell">
         <header class="acclaimed-header">
-            <p class="acclaimed-eyebrow">Book to Screen</p>
-            <h1>Acclaimed</h1>
-            <p>Editorial film lists and landmark collections, viewed through the stories that made their way from page to screen.</p>
+            <p class="eyebrow">Book to Screen</p>
+            <h1 class="page-title">Acclaimed</h1>
+            <p class="page-intro">Editorial film lists and landmark collections, viewed through the stories that made their way from page to screen.</p>
         </header>
 
         <?php foreach ($collections as $index => $entry): ?>
@@ -55,7 +55,7 @@ $metaCanonical = 'https://booktoscreen.org/acclaimed.php';
             <section class="acclaimed-cluster<?= $index === 0 ? ' acclaimed-cluster--flagship' : '' ?>" aria-labelledby="<?= h($entry['key']) ?>-heading">
                 <div class="acclaimed-cluster__heading">
                     <div>
-                        <p class="acclaimed-eyebrow"><?= h(acclaimed_public_collection_label($entry['key'])) ?></p>
+                        <p class="eyebrow"><?= h(acclaimed_public_collection_label($entry['key'])) ?></p>
                         <h2 id="<?= h($entry['key']) ?>-heading"><?= h($collection['title']) ?></h2>
                         <p><?= h($collection['description']) ?></p>
                     </div>

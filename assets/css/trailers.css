@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     color: #222;
 }
 
@@ -11,7 +11,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 30px 20px;
+    padding: 42px 20px;
 }
 
 @media (max-width: 640px) {
@@ -20,12 +20,33 @@ body {
     }
 }
 
+.trailers-shell {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 42px 20px;
+}
+
+@media (max-width: 640px) {
+
+    .trailers-shell {
+        width: min(100% - 24px, 1100px);
+        padding-top: 18px;
+    }
+}
+
+.trailers-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
 .container h1 {
     margin-bottom: 5px;
 }
 
 .subtitle {
-    color: #666;
     margin-bottom: 30px;
 }
 
@@ -114,7 +135,7 @@ body {
     padding: 15px;
 }
 
-.trailer-title {
+.title {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 6px;
@@ -144,12 +165,11 @@ body {
 }
 
 .overview {
-    font-size: 14px;
-    line-height: 1.45;
     display: -webkit-box;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    font-size: 14px;
 }
 
 .actions {

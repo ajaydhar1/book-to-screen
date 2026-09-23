@@ -54,8 +54,7 @@
 
 .detail-note,
 .detail-excerpt {
-    line-height: 1.65;
-    color: #5d5146;
+    margin: 0 0 18px;
 }
 
 .detail-source {
@@ -120,7 +119,7 @@
 .detail-card-meta {
     margin-top: 16px;
     color: #8a5a32;
-    font-size: .75rem;
+    font-size: .78rem;
     font-weight: 700;
     letter-spacing: .08em;
     text-transform: uppercase;
@@ -135,8 +134,6 @@
 .detail-card p {
     margin-top: 10px;
     margin-bottom: 18px;
-    color: #5d5146;
-    line-height: 1.45;
 }
 
 @media (max-width: 800px) {
