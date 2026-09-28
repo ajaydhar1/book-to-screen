@@ -138,6 +138,11 @@ $metaCanonical = 'https://booktoscreen.org/acclaimed-overlap.php';
                         $adaptation = $result['adaptation'];
                         $poster = acclaimed_public_poster_url($adaptation['poster_path'] ?? null);
                         $trailerKey = trim((string) ($adaptation['trailer_youtube_key'] ?? ''));
+                        $bookItem = reset($result['memberships']);
+                        $bookUrl = barnes_and_noble_search_url(
+                            $bookItem['source_title'] ?? $adaptation['title'] ?? null,
+                            $bookItem['author'] ?? $adaptation['source_author'] ?? null
+                        );
                         ?>
                         <article class="acclaimed-movie-card overlap-film">
                             <div class="acclaimed-movie-card__poster-wrap">
@@ -161,9 +166,10 @@ $metaCanonical = 'https://booktoscreen.org/acclaimed-overlap.php';
                                         <span><?= h($datasets[$collectionKey]['short_title']) ?><?php if ($context !== ''): ?> <b><?= h($context) ?></b><?php endif; ?></span>
                                     <?php endforeach; ?>
                                 </div>
-                                <?php if ($trailerKey !== ''): ?>
+                                <?php if ($trailerKey !== '' || $bookUrl !== null): ?>
                                     <div class="acclaimed-movie-card__actions">
-                                        <button class="acclaimed-movie-card__trailer trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($adaptation['title']) ?>">Watch Trailer</button>
+                                        <?php if ($trailerKey !== ''): ?><button class="acclaimed-movie-card__trailer trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($adaptation['title']) ?>">Watch Trailer</button><?php endif; ?>
+                                        <?php if ($bookUrl !== null): ?><a class="acclaimed-movie-card__book" href="<?= h($bookUrl) ?>" target="_blank" rel="noopener">Find the Book</a><?php endif; ?>
                                     </div>
                                 <?php endif; ?>
                             </div>
