@@ -143,6 +143,7 @@
     .wizard-actions { flex-direction: column; align-items: stretch; }
     .wizard-submit { width: 100%; min-width: 0; }
     .wizard-restart { margin-left: 0; text-align: center; }
+    .wizard-result__footer .wizard-restart { display: block; margin-top: 18px; }
     .wizard-result__card { grid-template-columns: 1fr; }
     .wizard-result__poster-button img, .wizard-result__poster, .wizard-result__empty { min-height: 260px; }
     .wizard-result__body { padding: 18px; }
