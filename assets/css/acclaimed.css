@@ -9,6 +9,14 @@ body { margin: 0; color: #222; font-family: system-ui, -apple-system, BlinkMacSy
 .acclaimed-view-all, .acclaimed-back-link { color: #2b2118; font-size: .9rem; font-weight: 800; text-decoration: none; white-space: nowrap; }
 .acclaimed-view-all { padding: 9px 11px; border: 1px solid #c9b79e; border-radius: 6px; background: #fff; }
 .acclaimed-view-all:hover, .acclaimed-back-link:hover { color: #7a5c3e; text-decoration: underline; text-underline-offset: 3px; }
+.acclaimed-overlap-feature { display: flex; justify-content: space-between; gap: 28px; align-items: center; margin: 0 0 36px; padding: 24px 28px; border: 1px solid #cfbfaa; border-radius: 8px; background: #fbf8f3; }
+.acclaimed-overlap-feature__copy { max-width: 790px; }
+.acclaimed-overlap-feature__copy .eyebrow { margin: 0 0 8px; }
+.acclaimed-overlap-feature__copy h2 { margin: 0 0 9px; color: #2b2118; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.12; }
+.acclaimed-overlap-feature__copy > p:last-child { margin: 0; color: #5d5144; line-height: 1.55; }
+.acclaimed-overlap-feature__link { display: inline-flex; flex: 0 0 auto; gap: 8px; align-items: center; padding: 10px 13px; border: 1px solid #2b2118; border-radius: 6px; background: #2b2118; color: #fff; font-size: .9rem; font-weight: 800; text-decoration: none; }
+.acclaimed-overlap-feature__link:hover { background: #4a392b; }
+.acclaimed-overlap-feature__link:focus-visible { outline: 3px solid #7a5c3e; outline-offset: 3px; }
 .acclaimed-view-all__count { color: #7a5c3e; }
 .acclaimed-poster-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
 .acclaimed-poster-card { min-width: 0; }
@@ -44,4 +52,4 @@ body { margin: 0; color: #222; font-family: system-ui, -apple-system, BlinkMacSy
 .acclaimed-pagination a:last-child { text-align: right; }
 .acclaimed-pagination span { color: #756553; font-size: .9rem; text-align: center; }
 @media (max-width: 820px) { .acclaimed-poster-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .acclaimed-cluster__heading { flex-direction: column; gap: 14px; } }
-@media (max-width: 560px) { .acclaimed-shell { padding: 28px 14px 48px; } .acclaimed-cluster--flagship { padding: 18px; } .acclaimed-poster-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } .acclaimed-movie-card { grid-template-columns: 104px minmax(0, 1fr); } .acclaimed-movie-card__poster-button img, .acclaimed-movie-card__poster { min-height: 156px; } .acclaimed-movie-card__body { padding: 14px; } .acclaimed-movie-card__body h2 { font-size: 1.1rem; } .acclaimed-movie-card__overview { display: none; } }
+@media (max-width: 560px) { .acclaimed-shell { padding: 28px 14px 48px; } .acclaimed-cluster--flagship { padding: 18px; } .acclaimed-overlap-feature { align-items: flex-start; flex-direction: column; gap: 18px; margin-bottom: 30px; padding: 20px 18px; } .acclaimed-poster-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } .acclaimed-movie-card { grid-template-columns: 104px minmax(0, 1fr); } .acclaimed-movie-card__poster-button img, .acclaimed-movie-card__poster { min-height: 156px; } .acclaimed-movie-card__body { padding: 14px; } .acclaimed-movie-card__body h2 { font-size: 1.1rem; } .acclaimed-movie-card__overview { display: none; } }

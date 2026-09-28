@@ -1,0 +1,21 @@
+.acclaimed-overlap-page { max-width: 1120px; }
+.overlap-filter { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin: 0 0 22px; padding: 20px 0; border-top: 1px solid #ded8cf; border-bottom: 1px solid #ded8cf; }
+.overlap-filter__collections { min-width: 0; margin: 0; padding: 0; border: 0; }
+.overlap-filter__collections legend { margin-bottom: 4px; color: #2b2118; font-size: 1rem; font-weight: 800; }
+.overlap-filter__hint { margin: 0 0 12px; color: #756553; font-size: .88rem; }
+.overlap-filter__options { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.overlap-filter__option { display: inline-flex; min-height: 36px; gap: 8px; align-items: center; color: #392e24; font-size: .9rem; cursor: pointer; }
+.overlap-filter__option input { width: 17px; height: 17px; margin: 0; accent-color: #7a5c3e; }
+.overlap-filter__submit { flex: 0 0 auto; min-height: 42px; padding: 9px 15px; border: 1px solid #2b2118; border-radius: 6px; background: #2b2118; color: #fff; font: inherit; font-size: .9rem; font-weight: 800; cursor: pointer; }
+.overlap-filter__submit:hover { background: #4a392b; }
+.overlap-filter__submit:focus-visible, .overlap-filter__option input:focus-visible { outline: 3px solid #7a5c3e; outline-offset: 3px; }
+.overlap-status { margin: 0 0 16px; color: #5d5144; font-size: .92rem; }
+.overlap-empty { padding: 24px 0; border-top: 1px solid #ded8cf; color: #5d5144; }
+.overlap-film__memberships { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+.overlap-film__memberships span { display: inline-flex; flex-wrap: wrap; gap: 5px; align-items: baseline; padding: 5px 8px; border: 1px solid #ded8cf; border-radius: 4px; background: #fbf8f3; color: #514334; font-size: .78rem; line-height: 1.35; }
+.overlap-film__memberships b { color: #7a5c3e; font-size: .74rem; }
+@media (max-width: 640px) {
+    .overlap-filter { align-items: stretch; flex-direction: column; gap: 16px; }
+    .overlap-filter__submit { align-self: flex-start; }
+    .overlap-filter__options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 12px; }
+}

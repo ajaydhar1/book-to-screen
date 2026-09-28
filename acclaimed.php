@@ -50,6 +50,15 @@ $metaCanonical = 'https://booktoscreen.org/acclaimed.php';
             <p class="page-intro">Editorial film lists and landmark collections, viewed through the stories that made their way from page to screen.</p>
         </header>
 
+        <section class="acclaimed-overlap-feature" aria-labelledby="acclaimed-overlap-heading">
+            <div class="acclaimed-overlap-feature__copy">
+                <p class="eyebrow">Explore the collections</p>
+                <h2 id="acclaimed-overlap-heading">Where great adaptations overlap</h2>
+                <p>Which films appear across B2S 100, AFI 100, Best Picture, Sight &amp; Sound and the National Film Registry? Compare collections and discover the films they have in common.</p>
+            </div>
+            <a class="acclaimed-overlap-feature__link" href="/acclaimed-overlap.php">Explore the overlap <span aria-hidden="true">&rarr;</span></a>
+        </section>
+
         <?php foreach ($collections as $index => $entry): ?>
             <?php $collection = $entry['collection']; ?>
             <section class="acclaimed-cluster<?= $index === 0 ? ' acclaimed-cluster--flagship' : '' ?>" aria-labelledby="<?= h($entry['key']) ?>-heading">

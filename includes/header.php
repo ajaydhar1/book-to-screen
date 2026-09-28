@@ -15,7 +15,7 @@ function navActive(string $page, string $currentPage): string
 
 function acclaimedNavActive(string $currentPage): string
 {
-    return in_array($currentPage, ['acclaimed.php', 'acclaimed-collection.php'], true)
+    return in_array($currentPage, ['acclaimed.php', 'acclaimed-collection.php', 'acclaimed-overlap.php'], true)
         ? ' is-active'
         : '';
 }
