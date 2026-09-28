@@ -144,6 +144,25 @@ function wizard_step_number(string $questionKey): int
     return array_search($questionKey, WIZARD_QUESTION_ORDER, true) + 1;
 }
 
+/**
+ * Splits an option label into a primary phrase and an optional supporting
+ * phrase for display only. Does not affect option values or logic.
+ */
+function wizard_split_option_label(string $label): array
+{
+    if (str_contains($label, ' — ')) {
+        [$primary, $secondary] = explode(' — ', $label, 2);
+
+        return ['primary' => trim($primary), 'secondary' => ucfirst(trim($secondary))];
+    }
+
+    if (preg_match('/^(.+?)\s\(([^)]+)\)$/', $label, $matches)) {
+        return ['primary' => trim($matches[1]), 'secondary' => ucfirst(trim($matches[2]))];
+    }
+
+    return ['primary' => $label, 'secondary' => null];
+}
+
 // --------------------------------------------------
 // ACCLAIMED MEMBERSHIP (reuses includes/acclaimed-public.php)
 // --------------------------------------------------
@@ -609,9 +628,19 @@ $metaCanonical = 'https://booktoscreen.org/recommendation-wizard.php';
         </header>
 
         <?php if ($currentQuestion !== null): ?>
-            <?php $question = WIZARD_QUESTIONS[$currentQuestion]; ?>
+            <?php
+            $question = WIZARD_QUESTIONS[$currentQuestion];
+            $stepNumber = wizard_step_number($currentQuestion);
+            $totalSteps = count(WIZARD_QUESTION_ORDER);
+            $submitLabel = $stepNumber === $totalSteps ? 'See my recommendation →' : 'Continue →';
+            ?>
             <form class="wizard-question" method="get" action="/recommendation-wizard.php">
-                <p class="wizard-progress">Question <?= wizard_step_number($currentQuestion) ?> of <?= count(WIZARD_QUESTION_ORDER) ?></p>
+                <div class="wizard-progress-track" aria-hidden="true">
+                    <?php for ($segment = 1; $segment <= $totalSteps; $segment++): ?>
+                        <span class="wizard-progress-segment<?= $segment <= $stepNumber ? ' wizard-progress-segment--done' : '' ?>"></span>
+                    <?php endfor; ?>
+                </div>
+                <p class="wizard-progress">Question <?= $stepNumber ?> of <?= $totalSteps ?></p>
                 <h2 class="wizard-question__title"><?= h($question['title']) ?></h2>
 
                 <?php foreach ($answers as $key => $value): ?>
@@ -620,20 +649,26 @@ $metaCanonical = 'https://booktoscreen.org/recommendation-wizard.php';
 
                 <div class="wizard-options">
                     <?php foreach ($question['options'] as $optionValue => $optionLabel): ?>
+                        <?php $optionParts = wizard_split_option_label($optionLabel); ?>
                         <label class="wizard-option">
                             <input type="radio" name="<?= h($currentQuestion) ?>" value="<?= h($optionValue) ?>" required>
-                            <span><?= h($optionLabel) ?></span>
+                            <span class="wizard-option__text">
+                                <span class="wizard-option__primary"><?= h($optionParts['primary']) ?></span>
+                                <?php if ($optionParts['secondary'] !== null): ?>
+                                    <span class="wizard-option__secondary"><?= h($optionParts['secondary']) ?></span>
+                                <?php endif; ?>
+                            </span>
                         </label>
                     <?php endforeach; ?>
                 </div>
 
-                <button class="wizard-submit" type="submit">
-                    <?= wizard_step_number($currentQuestion) === count(WIZARD_QUESTION_ORDER) ? 'See my recommendation' : 'Next' ?>
-                </button>
+                <div class="wizard-actions">
+                    <button class="wizard-submit" type="submit"><?= h($submitLabel) ?></button>
 
-                <?php if ($answers !== []): ?>
-                    <a class="wizard-restart" href="/recommendation-wizard.php">Start over</a>
-                <?php endif; ?>
+                    <?php if ($answers !== []): ?>
+                        <a class="wizard-restart" href="/recommendation-wizard.php">Start over</a>
+                    <?php endif; ?>
+                </div>
             </form>
         <?php elseif ($noMatches): ?>
             <div class="wizard-empty">
