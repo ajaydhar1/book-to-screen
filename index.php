@@ -373,6 +373,25 @@ $metaCanonical = 'https://booktoscreen.org/';
             </section>
         <?php endif; ?>
 
+        <section class="section discovery-section">
+            <div class="discovery-feature">
+                <p class="eyebrow">Find Your Next Adaptation</p>
+                <h2>Not sure what to watch?</h2>
+                <p class="body-copy">
+                    Tell us what you're looking for and discover a book-to-screen
+                    adaptation from the B2S collection.
+                </p>
+                <div class="discovery-feature-actions">
+                    <a class="button button-primary" href="/recommendation-wizard.php">
+                        Find a movie →
+                    </a>
+                    <a class="button button-secondary" href="/recommendation-wizard.php?discovery=surprise&amp;era=any&amp;rating=any&amp;language=open">
+                        Surprise me →
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <?php if ($b2sPreviewItems !== []): ?>
             <section class="section b2s-feature-section" aria-labelledby="b2s-feature-heading">
                 <div class="section-heading b2s-feature-heading">

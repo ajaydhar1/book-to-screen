@@ -224,11 +224,13 @@ a {
 
 .button-primary {
     background: #2b2118;
+    border: 2px solid #2b2118;
     color: #fffaf3;
 }
 
 .button-primary:hover {
     background: #443326;
+    border-color: #443326;
 }
 
 .shimmer-button {
@@ -496,6 +498,57 @@ button.released-title-link,
     .released-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* ========================================
+   HOMEPAGE DISCOVERY FEATURE (RECOMMENDATION WIZARD ENTRY POINT)
+======================================== */
+
+.discovery-section {
+    margin-top: 16px;
+    padding-top: 34px;
+    padding-bottom: 34px;
+    border-top: 1px solid #ded2c2;
+}
+
+.discovery-feature {
+    background: #fffaf3;
+    border: 1px solid #ded2c2;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(36, 28, 21, 0.05);
+    padding: 28px 32px;
+    max-width: 680px;
+}
+
+.discovery-feature h2 {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.discovery-feature .body-copy {
+    max-width: 560px;
+}
+
+.discovery-feature-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+
+.discovery-feature .button {
+    margin-top: 0;
+}
+
+.button-secondary {
+    background: transparent;
+    color: #222;
+    border: 2px solid #d7c8b8;
+}
+
+.button-secondary:hover {
+    background: #f2ece3;
 }
 
 /* ========================================
