@@ -730,6 +730,42 @@ button.released-title-link,
     }
 }
 
+#latest-announcements .card {
+    padding: 16px;
+}
+
+#latest-announcements .card-image {
+    width: calc(100% + 32px);
+    margin: -16px -16px 14px;
+}
+
+#latest-announcements .card-meta {
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+#latest-announcements .card h3 {
+    font-size: 1.2rem;
+    line-height: 1.25;
+}
+
+#latest-announcements .card p {
+    margin: 10px 0 12px;
+}
+
+#latest-announcements .card .book-author {
+    margin: 5px 0 12px;
+}
+
+#latest-announcements .card-footer {
+    padding-top: 12px;
+    gap: 8px;
+}
+
+#latest-announcements .card-actions {
+    gap: 10px;
+}
+
 /* ========================================
    HOMEPAGE ABOUT PANEL
 ======================================== */
@@ -768,7 +804,7 @@ button.released-title-link,
 
 .discover-feature-image {
     width: 100%;
-    aspect-ratio: 16 / 7;
+    aspect-ratio: 16 / 6;
     overflow: hidden;
     background: #f2ece3;
 }
@@ -781,14 +817,14 @@ button.released-title-link,
 }
 
 .discover-feature-content {
-    padding: 30px 32px 32px;
+    padding: 24px 26px 26px;
 }
 
 .discover-feature-content h3 {
     margin: 0;
     max-width: 850px;
-    font-size: clamp(1.9rem, 4vw, 2.8rem);
-    line-height: 1.08;
+    font-size: clamp(1.75rem, 3vw, 2.35rem);
+    line-height: 1.12;
 }
 
 .discover-feature-content .based-on {
@@ -810,7 +846,7 @@ button.released-title-link,
 .discover-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px;
+    gap: 18px;
 }
 
 .discover-card {
@@ -825,7 +861,7 @@ button.released-title-link,
 
 .discover-card-image {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 7;
     overflow: hidden;
     background: #f2ece3;
 }
@@ -841,31 +877,36 @@ button.released-title-link,
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: 24px;
+    padding: 18px;
+}
+
+.discover-card-content .card-meta {
+    margin-bottom: 10px;
 }
 
 .discover-card-content h3 {
     margin: 0;
-    font-size: 1.55rem;
+    font-size: 1.3rem;
     line-height: 1.18;
 }
 
 .discover-card-content .based-on {
-    margin: 12px 0 0;
+    margin: 8px 0 0;
     color: #5d5146;
 }
 
 .discover-card-content .book-author {
-    margin: 7px 0 16px;
+    margin: 5px 0 12px;
 }
 
 .discover-card-content .card-summary {
     margin-top: 0;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .discover-card-content .card-footer {
     margin-top: auto;
+    padding-top: 12px;
 }
 
 
@@ -1038,6 +1079,10 @@ button.released-title-link,
     }
 
     .discover-feature-image {
+        aspect-ratio: 16 / 9;
+    }
+
+    .discover-card-image {
         aspect-ratio: 16 / 9;
     }
 
