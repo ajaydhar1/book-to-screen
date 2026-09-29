@@ -1,0 +1,219 @@
+[30-Aug-2026 23:38:03 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "ep-curly-mode-awekn99n-pooler.c-12.us-east-1.aws.neon.tech" (34.232.160.223) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "ep-curly-mode-awekn99n-pooler.c-12.us-east-1.aws.neon.tech" (44.206.211.72) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "ep-curly-mode-awekn99n-pooler.c-12.us-east-1.aws.neon.tech" (52.204.15.108) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Network is unreachable
+	Is the server running on host "ep-curly-mode-awekn99n-pooler.c-12.us-east-1.aws.neon.tech" (2600:1f18:53d9:42b:b373:7b90:93f:d0b8) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Network is unreachable
+	Is the server running on host "ep-curly-mode-awekn99n-pooler.c-12.us-east-1.aws.neon.tech" (2600:1f18:53d9:41e:6ec:89cc:8031:58f) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Network is unreachable
+	Is the server running on host "ep-curly-mode-awekn99n-pooler.c-12.us-east-1.aws.neon.tech" (2600:1f18:53d9:409:7207:fb94:f3a5:f630) and accepting
+	TCP/IP connections on port 5432? in /home/booknwoc/public_html/includes/db.php:17
+Stack trace:
+#0 /home/booknwoc/public_html/includes/db.php(17): PDO->__construct()
+#1 /home/booknwoc/public_html/index.php(7): get_db()
+#2 {main}
+  thrown in /home/booknwoc/public_html/includes/db.php on line 17
+[30-Aug-2026 23:54:00 America/New_York] PHP Fatal error:  Uncaught Error: Undefined constant "DB_PATH" in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[30-Aug-2026 23:54:02 America/New_York] PHP Fatal error:  Uncaught Error: Undefined constant "DB_PATH" in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[30-Aug-2026 23:54:03 America/New_York] PHP Fatal error:  Uncaught Error: Undefined constant "DB_PATH" in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[30-Aug-2026 23:54:36 America/New_York] PHP Fatal error:  Uncaught Error: Undefined constant "DB_PATH" in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[30-Aug-2026 23:56:09 America/New_York] PHP Fatal error:  Uncaught Error: Undefined constant "DB_PATH" in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[30-Aug-2026 23:56:10 America/New_York] PHP Fatal error:  Uncaught Error: Undefined constant "DB_PATH" in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[30-Aug-2026 23:56:12 America/New_York] PHP Fatal error:  Uncaught Error: Undefined constant "DB_PATH" in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[30-Aug-2026 23:56:20 America/New_York] PHP Fatal error:  Uncaught Error: Undefined constant "DB_PATH" in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[30-Aug-2026 23:56:22 America/New_York] PHP Fatal error:  Uncaught Error: Undefined constant "DB_PATH" in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[30-Aug-2026 23:56:37 America/New_York] PHP Fatal error:  Uncaught Error: Undefined constant "DB_PATH" in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[03-Sep-2026 22:33:10 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/database/../../vendor/autoload.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php on line 7
+[03-Sep-2026 22:33:10 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/database/../../vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php:7
+Stack trace:
+#0 /home/booknwoc/public_html/includes/db.php(8): require_once()
+#1 /home/booknwoc/public_html/index.php(5): require_once('/home/booknwoc/...')
+#2 {main}
+  thrown in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php on line 7
+[03-Sep-2026 22:33:14 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/database/../../vendor/autoload.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php on line 7
+[03-Sep-2026 22:33:14 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/database/../../vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php:7
+Stack trace:
+#0 /home/booknwoc/public_html/includes/db.php(8): require_once()
+#1 /home/booknwoc/public_html/index.php(5): require_once('/home/booknwoc/...')
+#2 {main}
+  thrown in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php on line 7
+[03-Sep-2026 22:34:15 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/database/../../vendor/autoload.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php on line 7
+[03-Sep-2026 22:34:15 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/database/../../vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php:7
+Stack trace:
+#0 /home/booknwoc/public_html/includes/db.php(8): require_once()
+#1 /home/booknwoc/public_html/index.php(5): require_once('/home/booknwoc/...')
+#2 {main}
+  thrown in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php on line 7
+[03-Sep-2026 22:35:19 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/database/../../vendor/autoload.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php on line 7
+[03-Sep-2026 22:35:19 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/database/../../vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php:7
+Stack trace:
+#0 /home/booknwoc/public_html/includes/db.php(8): require_once()
+#1 /home/booknwoc/public_html/index.php(5): require_once('/home/booknwoc/...')
+#2 {main}
+  thrown in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php on line 7
+[03-Sep-2026 22:41:56 America/New_York] PHP Warning:  stream_socket_client(): Unable to connect to tls://cpzfflsqdk.g1.sqlite.cloud:8860 (Connection refused) in /home/booknwoc/public_html/vendor/sqlitecloud/sqlitecloud/src/SQLiteCloudClient.php on line 140
+[09-Sep-2026 06:56:50 America/New_York] PHP Fatal error:  Uncaught RuntimeException: SQLite Cloud query failed. in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php:141
+Stack trace:
+#0 /home/booknwoc/public_html/includes/database/SQLiteCloudStatement.php(71): SQLiteCloudDatabase->executeRaw()
+#1 /home/booknwoc/public_html/adaptation-announcements.php(213): SQLiteCloudStatement->execute()
+#2 {main}
+  thrown in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php on line 141
+[12-Sep-2026 17:23:42 America/New_York] PHP Warning:  stream_socket_client(): Unable to connect to tls://cpzfflsqdk.g1.sqlite.cloud:8860 (Connection timed out) in /home/booknwoc/public_html/vendor/sqlitecloud/sqlitecloud/src/SQLiteCloudClient.php on line 140
+[12-Sep-2026 17:23:42 America/New_York] PHP Fatal error:  Uncaught RuntimeException: Could not connect to SQLite Cloud. in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php:24
+Stack trace:
+#0 /home/booknwoc/public_html/includes/db.php(31): SQLiteCloudDatabase->__construct()
+#1 /home/booknwoc/public_html/includes/db.php(12): get_sqlite_cloud_db()
+#2 /home/booknwoc/public_html/index.php(7): get_db()
+#3 {main}
+  thrown in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php on line 24
+[12-Sep-2026 17:42:32 America/New_York] PHP Warning:  stream_socket_client(): SSL: Handshake timed out in /home/booknwoc/public_html/vendor/sqlitecloud/sqlitecloud/src/SQLiteCloudClient.php on line 140
+[12-Sep-2026 17:42:32 America/New_York] PHP Warning:  stream_socket_client(): Failed to enable crypto in /home/booknwoc/public_html/vendor/sqlitecloud/sqlitecloud/src/SQLiteCloudClient.php on line 140
+[12-Sep-2026 17:42:32 America/New_York] PHP Warning:  stream_socket_client(): Unable to connect to tls://cpzfflsqdk.g1.sqlite.cloud:8860 (Unknown error) in /home/booknwoc/public_html/vendor/sqlitecloud/sqlitecloud/src/SQLiteCloudClient.php on line 140
+[12-Sep-2026 17:42:32 America/New_York] PHP Fatal error:  Uncaught RuntimeException: Could not connect to SQLite Cloud. in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php:24
+Stack trace:
+#0 /home/booknwoc/public_html/includes/db.php(31): SQLiteCloudDatabase->__construct()
+#1 /home/booknwoc/public_html/includes/db.php(12): get_sqlite_cloud_db()
+#2 /home/booknwoc/public_html/index.php(7): get_db()
+#3 {main}
+  thrown in /home/booknwoc/public_html/includes/database/SQLiteCloudDatabase.php on line 24
+[29-Sep-2026 00:12:45 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:12:45 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:12:53 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function h() in /home/booknwoc/public_html/adaptation.php:170
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/adaptation.php on line 170
+[29-Sep-2026 00:12:56 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function h() in /home/booknwoc/public_html/adaptation.php:170
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/adaptation.php on line 170
+[29-Sep-2026 00:13:12 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:12 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:14 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:14 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:15 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:15 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:16 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:16 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:18 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:18 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:19 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:19 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:20 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:20 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:21 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:21 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:50 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:50 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:51 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:51 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:52 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:52 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:13:58 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/recommendation-wizard.php on line 18
+[29-Sep-2026 00:13:58 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/recommendation-wizard.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/recommendation-wizard.php on line 18
+[29-Sep-2026 00:15:03 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:15:03 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:17:06 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:17:06 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:20:42 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/trailers.php on line 18
+[29-Sep-2026 00:20:42 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/trailers.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/trailers.php on line 18
+[29-Sep-2026 00:20:46 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/trailers.php on line 18
+[29-Sep-2026 00:20:46 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/trailers.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/trailers.php on line 18
+[29-Sep-2026 00:20:47 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/trailers.php on line 18
+[29-Sep-2026 00:20:47 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/trailers.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/trailers.php on line 18
+[29-Sep-2026 00:20:57 America/New_York] PHP Warning:  require_once(/home/booknwoc/public_html/includes/acclaimed-matching.php): Failed to open stream: No such file or directory in /home/booknwoc/public_html/index.php on line 7
+[29-Sep-2026 00:20:57 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/booknwoc/public_html/includes/acclaimed-matching.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/booknwoc/public_html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/booknwoc/public_html/index.php on line 7

@@ -274,6 +274,65 @@
             }
         }
 
+        /* Desktop: tighten spacing and cap sizes so the player fits within one viewport. */
+        @media (min-width: 701px) {
+            .score-page {
+                min-height: 100dvh;
+            }
+
+            .score-shell {
+                padding: clamp(12px, 3dvh, 48px) 0 clamp(12px, 2dvh, 32px);
+            }
+
+            .score-header {
+                margin-bottom: clamp(12px, 2.5dvh, 28px);
+            }
+
+            .score-header h1 {
+                font-size: clamp(36px, 6dvh, 72px);
+            }
+
+            .score-description {
+                margin: clamp(8px, 1.5dvh, 14px) auto 0;
+            }
+
+            .score-player {
+                padding: clamp(12px, 2dvh, 18px);
+            }
+
+            .score-video {
+                max-width: min(100%, 74dvh);
+                margin: 0 auto;
+            }
+
+            .score-meta {
+                padding: clamp(10px, 2dvh, 18px) 4px clamp(6px, 1dvh, 10px);
+            }
+
+            .score-controls {
+                gap: 8px;
+            }
+
+            .score-btn {
+                min-height: clamp(44px, 6dvh, 54px);
+            }
+
+            .score-progress {
+                padding: clamp(8px, 1.5dvh, 14px) 6px 2px;
+            }
+
+            .score-footer {
+                margin-top: clamp(10px, 2dvh, 20px);
+            }
+        }
+
+        /* Tablet portrait (e.g. iPad): the taller top padding pushed the centered composition down; even it out. */
+        @media (min-width: 701px) and (max-width: 1024px) and (orientation: portrait) {
+            .score-shell {
+                padding-top: clamp(12px, 2dvh, 32px);
+            }
+        }
+
         @media (prefers-reduced-motion: reduce) {
 
             *,
