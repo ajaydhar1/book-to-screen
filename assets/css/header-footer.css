@@ -20,8 +20,9 @@ body {
     z-index: 1000;
 
     width: 100%;
-    border-bottom: 1px solid rgba(232, 232, 232, 0.9);
-    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid #ded2c2;
+    background: rgba(255, 250, 243, 0.97);
+    box-shadow: 0 4px 14px rgba(36, 28, 21, 0.04);
 
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -41,11 +42,11 @@ body {
 }
 
 .site-brand {
-    color: #111;
-    font-size: 1.05rem;
+    color: #2b2118;
+    font-size: 1.18rem;
     font-weight: 700;
     text-decoration: none;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
 
     white-space: nowrap;
     flex-shrink: 0;
@@ -88,15 +89,25 @@ body {
     padding: 7px 10px;
     border: 1px solid #d7c7b2;
     border-radius: 6px;
-    background: #fff;
-    color: #222;
+    background: #fffdf9;
+    color: #2b2118;
     font: inherit;
     font-size: 0.85rem;
+    height: 36px;
+    box-sizing: border-box;
 }
 
-.site-search__input:focus {
-    outline: 2px solid #7a5c3e;
-    outline-offset: 1px;
+.site-brand:focus-visible,
+.site-nav__link:focus-visible,
+.site-search__button:focus-visible {
+    outline: 2px solid #8a5a32;
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+.site-search__input:focus-visible {
+    outline: 2px solid #8a5a32;
+    outline-offset: 2px;
 }
 
 .site-search__button {
@@ -107,6 +118,9 @@ body {
     color: #fff;
     font: inherit;
     font-size: 0.85rem;
+    font-weight: 700;
+    height: 36px;
+    box-sizing: border-box;
     cursor: pointer;
 }
 
@@ -118,7 +132,7 @@ body {
     position: relative;
     padding: 4px 0;
 
-    color: #555;
+    color: #5d5146;
     font-size: 0.95rem;
     font-weight: 500;
     text-decoration: none;
@@ -127,11 +141,11 @@ body {
 }
 
 .site-nav__link:hover {
-    color: #111;
+    color: #2b2118;
 }
 
 .site-nav__link.is-active {
-    color: #111;
+    color: #2b2118;
 }
 
 .site-nav__link.is-active::after {
@@ -143,7 +157,7 @@ body {
 
     height: 2px;
     border-radius: 2px;
-    background: currentColor;
+    background: #8a5a32;
 }
 
 /* Mobile styles */
@@ -192,7 +206,7 @@ body {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 368px) {
     body {
         padding-top: 188px;
     }
