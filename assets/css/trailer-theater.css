@@ -22,9 +22,13 @@
 }
 
 .trailer-theater-dialog {
+    --theater-header-h: 64px;
     position: relative;
     z-index: 1;
-    width: min(1100px, 100%);
+    /* Bound width by the 1100px design cap, the available viewport width, and
+       the width that keeps a 16:9 screen (plus header) within the available
+       viewport height, so the dialog never grows taller than the viewport. */
+    width: min(1100px, 100%, calc((100vh - 48px - var(--theater-header-h)) * 16 / 9));
     background: #17130f;
     border: 1px solid #40372f;
     border-radius: 18px;
@@ -37,7 +41,9 @@
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    padding: 16px 20px;
+    height: var(--theater-header-h);
+    padding: 0 20px;
+    box-sizing: border-box;
     color: #fffaf3;
 }
 
@@ -56,6 +62,7 @@
 }
 
 .trailer-theater-screen {
+    width: 100%;
     aspect-ratio: 16 / 9;
     background: #000;
 }
