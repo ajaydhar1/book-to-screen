@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/acclaimed-matching.php';
 require_once __DIR__ . '/includes/acclaimed-public.php';
 
 $datasets = require __DIR__ . '/includes/acclaimed-datasets.php';
@@ -143,6 +144,8 @@ $metaCanonical = 'https://booktoscreen.org/acclaimed-overlap.php';
                             $bookItem['source_title'] ?? $adaptation['title'] ?? null,
                             $bookItem['author'] ?? $adaptation['source_author'] ?? null
                         );
+                        $soundtrackYear = acclaimed_release_year($adaptation['release_date'] ?? null) ?? acclaimed_item_year($bookItem);
+                        $soundtrackUrl = youtube_soundtrack_search_url($adaptation['title'] ?? null, $soundtrackYear);
                         ?>
                         <article class="acclaimed-movie-card overlap-film">
                             <div class="acclaimed-movie-card__poster-wrap">
@@ -166,10 +169,11 @@ $metaCanonical = 'https://booktoscreen.org/acclaimed-overlap.php';
                                         <span><?= h($datasets[$collectionKey]['short_title']) ?><?php if ($context !== ''): ?> <b><?= h($context) ?></b><?php endif; ?></span>
                                     <?php endforeach; ?>
                                 </div>
-                                <?php if ($trailerKey !== '' || $bookUrl !== null): ?>
+                                <?php if ($trailerKey !== '' || $bookUrl !== null || $soundtrackUrl !== null): ?>
                                     <div class="acclaimed-movie-card__actions">
                                         <?php if ($trailerKey !== ''): ?><button class="acclaimed-movie-card__trailer trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($adaptation['title']) ?>">Watch Trailer</button><?php endif; ?>
                                         <?php if ($bookUrl !== null): ?><a class="acclaimed-movie-card__book" href="<?= h($bookUrl) ?>" target="_blank" rel="noopener">Find the Book</a><?php endif; ?>
+                                        <?php if ($soundtrackUrl !== null): ?><a class="acclaimed-movie-card__soundtrack" href="<?= h($soundtrackUrl) ?>" target="_blank" rel="noopener">Find the Soundtrack</a><?php endif; ?>
                                     </div>
                                 <?php endif; ?>
                             </div>

@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/acclaimed-matching.php';
 require_once __DIR__ . '/includes/acclaimed-public.php';
 
 $datasets = require __DIR__ . '/includes/acclaimed-datasets.php';
@@ -683,6 +684,10 @@ $metaCanonical = 'https://booktoscreen.org/recommendation-wizard.php';
                 $result['title'] ?? null,
                 $result['source_author'] ?? null
             );
+            $soundtrackUrl = youtube_soundtrack_search_url(
+                $result['title'] ?? null,
+                acclaimed_release_year($result['release_date'] ?? null)
+            );
             $nextSeenIds = [...$seenIds, (int) $result['tmdb_id']];
             ?>
             <section class="wizard-result">
@@ -732,6 +737,9 @@ $metaCanonical = 'https://booktoscreen.org/recommendation-wizard.php';
                             <?php endif; ?>
                             <?php if ($bookUrl !== null): ?>
                                 <a class="wizard-result__book" href="<?= h($bookUrl) ?>" target="_blank" rel="noopener">Find the Book</a>
+                            <?php endif; ?>
+                            <?php if ($soundtrackUrl !== null): ?>
+                                <a class="wizard-result__soundtrack" href="<?= h($soundtrackUrl) ?>" target="_blank" rel="noopener">Find the Soundtrack</a>
                             <?php endif; ?>
                         </div>
                     </div>

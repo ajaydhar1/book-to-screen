@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/acclaimed-matching.php';
 require_once __DIR__ . '/includes/acclaimed-public.php';
 
 $db = get_db();
@@ -222,6 +223,11 @@ $metaCanonical = 'https://booktoscreen.org/';
                             $movie['source_author'] ?? null
                         );
 
+                        $soundtrackUrl = youtube_soundtrack_search_url(
+                            $movie['title'] ?? null,
+                            acclaimed_release_year($movie['release_date'] ?? null)
+                        );
+
                         $authorUrl = !empty($movie['source_author'])
                             ? '/trailers.php?author='
                             . urlencode($movie['source_author'])
@@ -349,6 +355,19 @@ $metaCanonical = 'https://booktoscreen.org/';
                                             rel="noopener noreferrer">
 
                                             Find the book →
+
+                                        </a>
+
+                                    <?php endif; ?>
+
+                                    <?php if ($soundtrackUrl): ?>
+
+                                        <a
+                                            href="<?= e($soundtrackUrl) ?>"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+
+                                            Find the soundtrack →
 
                                         </a>
 

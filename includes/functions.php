@@ -33,6 +33,21 @@ function barnes_and_noble_search_url(?string $bookTitle, ?string $bookAuthor): ?
     return 'https://www.barnesandnoble.com/search?q=' . urlencode($query);
 }
 
+function youtube_soundtrack_search_url(?string $movieTitle, ?int $releaseYear = null): ?string
+{
+    $title = trim($movieTitle ?? '');
+
+    if ($title === '') {
+        return null;
+    }
+
+    $query = $releaseYear !== null
+        ? sprintf('"%s" %d soundtrack', $title, $releaseYear)
+        : sprintf('"%s" soundtrack', $title);
+
+    return 'https://www.youtube.com/results?search_query=' . urlencode($query);
+}
+
 function status_class(string $status): string
 {
     return match ($status) {

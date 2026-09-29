@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/acclaimed-matching.php';
 require_once __DIR__ . '/includes/acclaimed-public.php';
 
 $datasets = require __DIR__ . '/includes/acclaimed-datasets.php';
@@ -102,6 +103,8 @@ if ($collectionKey === 'b2s-100') {
                     $item['source_title'] ?? $adaptation['title'] ?? null,
                     $item['author'] ?? $adaptation['source_author'] ?? null
                 );
+                $soundtrackYear = acclaimed_release_year($adaptation['release_date'] ?? null) ?? acclaimed_item_year($item);
+                $soundtrackUrl = youtube_soundtrack_search_url($adaptation['title'] ?? null, $soundtrackYear);
                 ?>
                 <article class="acclaimed-movie-card">
                     <div class="acclaimed-movie-card__poster-wrap">
@@ -121,10 +124,11 @@ if ($collectionKey === 'b2s-100') {
                         <p class="acclaimed-movie-card__meta">Release: <?= h((string) ($adaptation['release_date'] ?? $item['year'] ?? 'Unknown')) ?></p>
                         <?php if (isset($item['source_title'])): ?><p class="acclaimed-movie-card__source">Based on <strong><?= h($item['source_title']) ?></strong><?php if (isset($item['author'])): ?> by <?= h($item['author']) ?><?php endif; ?>.</p><?php elseif (!empty($adaptation['source_author'])): ?><p class="acclaimed-movie-card__source">Based on the book by <?= h($adaptation['source_author']) ?>.</p><?php endif; ?>
                         <?php if (!empty($adaptation['overview'])): ?><p class="acclaimed-movie-card__overview"><?= h($adaptation['overview']) ?></p><?php endif; ?>
-                        <?php if ($trailerKey !== '' || $bookUrl !== null): ?>
+                        <?php if ($trailerKey !== '' || $bookUrl !== null || $soundtrackUrl !== null): ?>
                             <div class="acclaimed-movie-card__actions">
                                 <?php if ($trailerKey !== ''): ?><button class="acclaimed-movie-card__trailer trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($adaptation['title']) ?>">Watch Trailer</button><?php endif; ?>
                                 <?php if ($bookUrl !== null): ?><a class="acclaimed-movie-card__book" href="<?= h($bookUrl) ?>" target="_blank" rel="noopener">Find the Book</a><?php endif; ?>
+                                <?php if ($soundtrackUrl !== null): ?><a class="acclaimed-movie-card__soundtrack" href="<?= h($soundtrackUrl) ?>" target="_blank" rel="noopener">Find the Soundtrack</a><?php endif; ?>
                             </div>
                         <?php endif; ?>
                     </div>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/acclaimed-matching.php';
 
 $search = trim(
     isset($_GET['q']) && is_string($_GET['q'])
@@ -182,6 +183,10 @@ $metaCanonical = 'https://booktoscreen.org/search.php';
                                     $movie['title'] ?? null,
                                     $movie['source_author'] ?? null
                                 );
+                                $soundtrackUrl = youtube_soundtrack_search_url(
+                                    $movie['title'] ?? null,
+                                    acclaimed_release_year($movie['release_date'] ?? null)
+                                );
                                 ?>
                                 <article class="search-movie-card">
                                     <?php if ($poster): ?><img class="search-movie-card__poster" src="<?= h($poster) ?>" alt="<?= h($movie['title'] ?? '') ?>" loading="lazy"><?php else: ?><div class="search-movie-card__poster search-movie-card__poster--empty">No poster</div><?php endif; ?>
@@ -190,10 +195,11 @@ $metaCanonical = 'https://booktoscreen.org/search.php';
                                         <p class="search-meta">Release: <?= h($movie['release_date'] ?? 'Unknown') ?></p>
                                         <?php if (!empty($movie['source_author'])): ?><p class="search-source">Based on the book by <?= h($movie['source_author']) ?></p><?php endif; ?>
                                         <p class="search-overview"><?= h($movie['overview'] ?? 'No overview available.') ?></p>
-                                        <?php if ($trailerKey !== '' || $bookUrl !== null): ?>
+                                        <?php if ($trailerKey !== '' || $bookUrl !== null || $soundtrackUrl !== null): ?>
                                             <div class="search-movie-card__actions">
                                                 <?php if ($trailerKey !== ''): ?><button class="search-trailer-button trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($movie['title'] ?? 'Untitled') ?>">Watch Trailer</button><?php endif; ?>
                                                 <?php if ($bookUrl !== null): ?><a class="search-book-button" href="<?= h($bookUrl) ?>" target="_blank" rel="noopener">Find the Book</a><?php endif; ?>
+                                                <?php if ($soundtrackUrl !== null): ?><a class="search-soundtrack-button" href="<?= h($soundtrackUrl) ?>" target="_blank" rel="noopener">Find the Soundtrack</a><?php endif; ?>
                                             </div>
                                         <?php endif; ?>
                                     </div>

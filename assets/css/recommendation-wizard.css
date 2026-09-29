@@ -129,9 +129,9 @@
 .wizard-result__trailer { padding: 8px 11px; border: 1px solid #2b2118; border-radius: 6px; background: #2b2118; color: #fff; font: inherit; font-size: .84rem; font-weight: 800; cursor: pointer; }
 .wizard-result__trailer:hover { background: #4a392b; }
 .wizard-result__trailer:focus-visible { outline: 3px solid #7a5c3e; outline-offset: 2px; }
-.wizard-result__book { padding: 8px 11px; border: 1px solid #cdbda8; border-radius: 6px; background: #fff; color: #2b2118; font-size: .84rem; font-weight: 800; text-decoration: none; }
-.wizard-result__book:hover { background: #f1ece6; }
-.wizard-result__book:focus-visible { outline: 3px solid #7a5c3e; outline-offset: 2px; }
+.wizard-result__book, .wizard-result__soundtrack { padding: 8px 11px; border: 1px solid #cdbda8; border-radius: 6px; background: #fff; color: #2b2118; font-size: .84rem; font-weight: 800; text-decoration: none; }
+.wizard-result__book:hover, .wizard-result__soundtrack:hover { background: #f1ece6; }
+.wizard-result__book:focus-visible, .wizard-result__soundtrack:focus-visible { outline: 3px solid #7a5c3e; outline-offset: 2px; }
 
 .wizard-result__footer { margin-top: 22px; }
 

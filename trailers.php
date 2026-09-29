@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/acclaimed-matching.php';
 
 $db = get_db();
 
@@ -551,6 +552,11 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
                         $movie['source_author'] ?? null
                     );
 
+                    $soundtrackUrl = youtube_soundtrack_search_url(
+                        $movie['title'] ?? null,
+                        acclaimed_release_year($movie['release_date'] ?? null)
+                    );
+
                     $trailerKey = trim(
                         (string) ($movie['trailer_youtube_key'] ?? '')
                     );
@@ -670,6 +676,17 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
                                         target="_blank"
                                         rel="noopener">
                                         📖 Find the Book
+                                    </a>
+
+                                <?php endif; ?>
+
+                                <?php if ($soundtrackUrl): ?>
+
+                                    <a
+                                        href="<?= e($soundtrackUrl) ?>"
+                                        target="_blank"
+                                        rel="noopener">
+                                        🎵 Find the Soundtrack
                                     </a>
 
                                 <?php endif; ?>
