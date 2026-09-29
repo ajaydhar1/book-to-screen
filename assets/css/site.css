@@ -771,17 +771,30 @@ button.released-title-link,
 ======================================== */
 
 .about {
-    margin-top: 40px;
+    margin: 0;
     background: #2b2118;
     color: #fffaf3;
     border-radius: 24px;
-    padding: 34px;
+    padding: 44px 36px;
+}
+
+.about h2 {
+    margin: 0 0 12px;
+}
+
+.about .eyebrow {
+    margin-bottom: 14px;
 }
 
 .about p {
     max-width: 720px;
+    margin: 0 0 12px;
     line-height: 1.65;
     color: #eadfce;
+}
+
+.about p:last-child {
+    margin-bottom: 0;
 }
 
 
