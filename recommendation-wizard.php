@@ -702,7 +702,7 @@ $metaCanonical = 'https://booktoscreen.org/recommendation-wizard.php';
                 <div class="wizard-result__card">
                     <div class="wizard-result__poster-wrap">
                         <?php if ($poster !== null && $trailerKey !== ''): ?>
-                            <button class="wizard-result__poster-button trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($result['title']) ?>" aria-label="Watch trailer for <?= h($result['title']) ?>">
+                            <button class="wizard-result__poster-button trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($result['title']) ?>" data-tmdb-id="<?= h((string) $result['tmdb_id']) ?>" aria-label="Watch trailer for <?= h($result['title']) ?>">
                                 <img src="<?= h($poster) ?>" alt="<?= h($result['title']) ?> poster" loading="lazy">
                             </button>
                         <?php elseif ($poster !== null): ?>
@@ -733,7 +733,7 @@ $metaCanonical = 'https://booktoscreen.org/recommendation-wizard.php';
 
                         <div class="wizard-result__actions">
                             <?php if ($trailerKey !== ''): ?>
-                                <button class="wizard-result__trailer trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($result['title']) ?>">Watch Trailer</button>
+                                <button class="wizard-result__trailer trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($result['title']) ?>" data-tmdb-id="<?= h((string) $result['tmdb_id']) ?>">Watch Trailer</button>
                             <?php endif; ?>
                             <?php if ($bookUrl !== null): ?>
                                 <a class="wizard-result__book" href="<?= h($bookUrl) ?>" target="_blank" rel="noopener">Find the Book</a>
@@ -741,6 +741,7 @@ $metaCanonical = 'https://booktoscreen.org/recommendation-wizard.php';
                             <?php if ($soundtrackUrl !== null): ?>
                                 <a class="wizard-result__soundtrack" href="<?= h($soundtrackUrl) ?>" target="_blank" rel="noopener">Find the Soundtrack</a>
                             <?php endif; ?>
+                            <button class="b2s-save-button" type="button" data-save-tmdb-id="<?= h((string) $result['tmdb_id']) ?>" aria-pressed="false">Save</button>
                         </div>
                     </div>
                 </div>

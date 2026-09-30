@@ -195,11 +195,12 @@ $metaCanonical = 'https://booktoscreen.org/search.php';
                                         <p class="search-meta">Release: <?= h($movie['release_date'] ?? 'Unknown') ?></p>
                                         <?php if (!empty($movie['source_author'])): ?><p class="search-source">Based on the book by <?= h($movie['source_author']) ?></p><?php endif; ?>
                                         <p class="search-overview"><?= h($movie['overview'] ?? 'No overview available.') ?></p>
-                                        <?php if ($trailerKey !== '' || $bookUrl !== null || $soundtrackUrl !== null): ?>
+                                        <?php if ($trailerKey !== '' || $bookUrl !== null || $soundtrackUrl !== null || (int) $movie['tmdb_id'] > 0): ?>
                                             <div class="search-movie-card__actions">
-                                                <?php if ($trailerKey !== ''): ?><button class="search-trailer-button trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($movie['title'] ?? 'Untitled') ?>">Watch Trailer</button><?php endif; ?>
+                                                <?php if ($trailerKey !== ''): ?><button class="search-trailer-button trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($movie['title'] ?? 'Untitled') ?>" data-tmdb-id="<?= h((string) $movie['tmdb_id']) ?>">Watch Trailer</button><?php endif; ?>
                                                 <?php if ($bookUrl !== null): ?><a class="search-book-button" href="<?= h($bookUrl) ?>" target="_blank" rel="noopener">Find the Book</a><?php endif; ?>
                                                 <?php if ($soundtrackUrl !== null): ?><a class="search-soundtrack-button" href="<?= h($soundtrackUrl) ?>" target="_blank" rel="noopener">Find the Soundtrack</a><?php endif; ?>
+                                                <?php if ((int) $movie['tmdb_id'] > 0): ?><button class="b2s-save-button" type="button" data-save-tmdb-id="<?= h((string) $movie['tmdb_id']) ?>" aria-pressed="false">Save</button><?php endif; ?>
                                             </div>
                                         <?php endif; ?>
                                     </div>

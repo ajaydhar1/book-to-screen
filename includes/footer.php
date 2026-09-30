@@ -1,5 +1,6 @@
 <footer class="site-footer">
     &copy; <?= date('Y') ?> Book to Screen ·
+    <a href="/about/">About</a> ·
     <a href="/film-score-radio/" target="_blank">Film Score Radio ✦</a> ·
     <a href="/admin/">Editorial Administration</a>
     <span class="site-footer__social-links" aria-label="Book to Screen social media">
@@ -27,3 +28,4 @@
         </a>
     </span>
 </footer>
+<script src="/assets/js/my-list.js?v=<?= filemtime(__DIR__ . '/../assets/js/my-list.js') ?>"></script>

@@ -247,6 +247,7 @@ $metaCanonical = 'https://booktoscreen.org/';
                                         data-trailer-title="<?= e(
                                                                 $movie['title'] ?? 'Untitled'
                                                             ) ?>"
+                                        data-tmdb-id="<?= e((string) $movie['tmdb_id']) ?>"
                                         aria-label="Watch trailer for <?= e(
                                                                             $movie['title'] ?? 'Untitled'
                                                                         ) ?>">
@@ -286,7 +287,8 @@ $metaCanonical = 'https://booktoscreen.org/';
                                             data-trailer-key="<?= e($trailerKey) ?>"
                                             data-trailer-title="<?= e(
                                                                     $movie['title'] ?? 'Untitled'
-                                                                ) ?>">
+                                                                ) ?>"
+                                            data-tmdb-id="<?= e((string) $movie['tmdb_id']) ?>">
 
                                             <?= e($movie['title'] ?? 'Untitled') ?>
 
@@ -338,7 +340,8 @@ $metaCanonical = 'https://booktoscreen.org/';
                                             data-trailer-key="<?= e($trailerKey) ?>"
                                             data-trailer-title="<?= e(
                                                                     $movie['title'] ?? 'Untitled'
-                                                                ) ?>">
+                                                                ) ?>"
+                                            data-tmdb-id="<?= e((string) $movie['tmdb_id']) ?>">
 
                                             Watch trailer →
 
@@ -372,6 +375,8 @@ $metaCanonical = 'https://booktoscreen.org/';
                                         </a>
 
                                     <?php endif; ?>
+
+                                    <button class="b2s-save-button" type="button" data-save-tmdb-id="<?= e((string) $movie['tmdb_id']) ?>" aria-pressed="false">Save</button>
 
                                 </div>
 
@@ -440,6 +445,7 @@ $metaCanonical = 'https://booktoscreen.org/';
                                     type="button"
                                     data-trailer-key="<?= e($trailerKey) ?>"
                                     data-trailer-title="<?= e($movie['title'] ?? $item['title']) ?>"
+                                    data-tmdb-id="<?= e((string) $movie['tmdb_id']) ?>"
                                     aria-label="Watch trailer for <?= e($movie['title'] ?? $item['title']) ?>">
                                     <img src="<?= e($posterUrl) ?>" alt="<?= e($movie['title'] ?? $item['title']) ?> poster" loading="lazy" decoding="async">
                                 </button>

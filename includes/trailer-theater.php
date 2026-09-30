@@ -21,6 +21,14 @@
             </h2>
 
             <button
+                class="trailer-theater-save"
+                type="button"
+                data-theater-save
+                data-save-tmdb-id=""
+                aria-pressed="false"
+                hidden>Save</button>
+
+            <button
                 class="trailer-theater-close"
                 type="button"
                 data-theater-close

@@ -109,7 +109,7 @@ if ($collectionKey === 'b2s-100') {
                 <article class="acclaimed-movie-card">
                     <div class="acclaimed-movie-card__poster-wrap">
                         <?php if ($poster !== null && $trailerKey !== ''): ?>
-                            <button class="acclaimed-movie-card__poster-button trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($adaptation['title']) ?>" aria-label="Watch trailer for <?= h($adaptation['title']) ?>">
+                            <button class="acclaimed-movie-card__poster-button trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($adaptation['title']) ?>" data-tmdb-id="<?= h((string) $adaptation['tmdb_id']) ?>" aria-label="Watch trailer for <?= h($adaptation['title']) ?>">
                                 <img src="<?= h($poster) ?>" alt="<?= h($adaptation['title']) ?> poster" loading="lazy">
                             </button>
                         <?php elseif ($poster !== null): ?>
@@ -126,9 +126,10 @@ if ($collectionKey === 'b2s-100') {
                         <?php if (!empty($adaptation['overview'])): ?><p class="acclaimed-movie-card__overview"><?= h($adaptation['overview']) ?></p><?php endif; ?>
                         <?php if ($trailerKey !== '' || $bookUrl !== null || $soundtrackUrl !== null): ?>
                             <div class="acclaimed-movie-card__actions">
-                                <?php if ($trailerKey !== ''): ?><button class="acclaimed-movie-card__trailer trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($adaptation['title']) ?>">Watch Trailer</button><?php endif; ?>
+                                <?php if ($trailerKey !== ''): ?><button class="acclaimed-movie-card__trailer trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($adaptation['title']) ?>" data-tmdb-id="<?= h((string) $adaptation['tmdb_id']) ?>">Watch Trailer</button><?php endif; ?>
                                 <?php if ($bookUrl !== null): ?><a class="acclaimed-movie-card__book" href="<?= h($bookUrl) ?>" target="_blank" rel="noopener">Find the Book</a><?php endif; ?>
                                 <?php if ($soundtrackUrl !== null): ?><a class="acclaimed-movie-card__soundtrack" href="<?= h($soundtrackUrl) ?>" target="_blank" rel="noopener">Find the Soundtrack</a><?php endif; ?>
+                                <button class="b2s-save-button" type="button" data-save-tmdb-id="<?= h((string) $adaptation['tmdb_id']) ?>" aria-pressed="false">Save</button>
                             </div>
                         <?php endif; ?>
                     </div>

@@ -43,16 +43,17 @@ function acclaimedNavActive(string $currentPage): string
                 </a>
 
                 <a
+                    href="/my-list.php"
+                    class="site-nav__link<?= navActive('my-list.php', $currentPage); ?>">
+                    My List
+                </a>
+
+                <a
                     href="/acclaimed.php"
                     class="site-nav__link<?= acclaimedNavActive($currentPage); ?>">
                     Acclaimed
                 </a>
 
-                <a
-                    href="/about/"
-                    class="site-nav__link<?= str_starts_with($_SERVER['REQUEST_URI'], '/about/') ? ' is-active' : ''; ?>">
-                    About
-                </a>
             </nav>
 
             <form class="site-search" method="get" action="/search.php">

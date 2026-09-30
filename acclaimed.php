@@ -77,7 +77,7 @@ $metaCanonical = 'https://booktoscreen.org/acclaimed.php';
                         <?php $poster = acclaimed_public_poster_url($adaptation['poster_path'] ?? null); $trailerKey = trim((string) ($adaptation['trailer_youtube_key'] ?? '')); ?>
                         <article class="acclaimed-poster-card">
                             <?php if ($poster !== null && $trailerKey !== ''): ?>
-                                <button class="acclaimed-poster-card__button trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($adaptation['title']) ?>" aria-label="Watch trailer for <?= h($adaptation['title']) ?>">
+                                <button class="acclaimed-poster-card__button trailer-theater-trigger" type="button" data-trailer-key="<?= h($trailerKey) ?>" data-trailer-title="<?= h($adaptation['title']) ?>" data-tmdb-id="<?= h((string) $adaptation['tmdb_id']) ?>" aria-label="Watch trailer for <?= h($adaptation['title']) ?>">
                                     <img src="<?= h($poster) ?>" alt="<?= h($adaptation['title']) ?> poster" loading="lazy">
                                 </button>
                             <?php elseif ($poster !== null): ?>

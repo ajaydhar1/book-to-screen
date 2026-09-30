@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         return {
+            tmdbId: movie.tmdb_id,
             key: youtubeKey,
             title: movie.title || 'Trailer'
         };
@@ -83,7 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const openTheater = async (
         key,
         movieTitle = 'Trailer',
-        continuous = false
+        continuous = false,
+        tmdbId = null
     ) => {
 
         if (!key) {
@@ -93,6 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
         continuousMode = continuous;
 
         title.textContent = movieTitle;
+
+        if (window.B2SMyList) {
+            window.B2SMyList.setTheaterId(tmdbId);
+        }
 
         theater.classList.add('is-open');
         theater.setAttribute('aria-hidden', 'false');
@@ -175,6 +181,10 @@ document.addEventListener('DOMContentLoaded', () => {
             title.textContent =
                 movie.title;
 
+            if (window.B2SMyList) {
+                window.B2SMyList.setTheaterId(movie.tmdbId);
+            }
+
             continuousMode = true;
 
             player.loadVideoById(
@@ -225,25 +235,20 @@ document.addEventListener('DOMContentLoaded', () => {
      * Regular trailer cards:
      * play one trailer only.
      */
-    document
-        .querySelectorAll('.trailer-theater-trigger')
-        .forEach(button => {
+    document.addEventListener('click', event => {
+        const button = event.target.closest('.trailer-theater-trigger');
 
-            button.addEventListener(
-                'click',
-                () => {
+        if (!button) {
+            return;
+        }
 
-                    openTheater(
-                        button.dataset.trailerKey,
-                        button.dataset.trailerTitle ||
-                            'Trailer',
-                        false
-                    );
-
-                }
-            );
-
-        });
+        openTheater(
+            button.dataset.trailerKey,
+            button.dataset.trailerTitle || 'Trailer',
+            false,
+            button.dataset.tmdbId || null
+        );
+    });
 
 
     /*
@@ -309,7 +314,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         await openTheater(
                             movie.key,
                             movie.title,
-                            true
+                            true,
+                            movie.tmdbId
                         );
 
                     } catch (error) {
