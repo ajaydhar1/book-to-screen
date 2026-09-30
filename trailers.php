@@ -55,6 +55,53 @@ $totalPages = 1;
 
 
 // --------------------------------------------------
+// SORT
+// --------------------------------------------------
+
+// Weighted rating (IMDB-style Bayesian average) keeps low-vote-count
+// titles from dominating "Highest Rated" with an unrepresentative 10/10.
+// C = overall mean vote_average across tmdb_adaptations; m = minimum
+// votes for a title's own rating to be trusted (chosen from the data:
+// titles need ~20 votes before their rating stops looking like noise).
+const RATING_PRIOR_MEAN = 6.34;
+const RATING_PRIOR_VOTES = 20;
+
+const SORT_OPTIONS = [
+    'newest' => [
+        'label' => 'Newest',
+        'order_by' => 'release_date DESC, tmdb_id DESC',
+    ],
+    'oldest' => [
+        'label' => 'Oldest',
+        'order_by' => 'release_date ASC, tmdb_id ASC',
+    ],
+    'rating' => [
+        'label' => 'Highest Rated',
+        'order_by' => '
+            ((vote_average * vote_count) + (' . RATING_PRIOR_MEAN . ' * ' . RATING_PRIOR_VOTES . '))
+            / (vote_count + ' . RATING_PRIOR_VOTES . ') DESC,
+            vote_count DESC,
+            tmdb_id DESC
+        ',
+    ],
+    'popularity' => [
+        'label' => 'Most Popular',
+        'order_by' => 'popularity DESC, tmdb_id DESC',
+    ],
+];
+
+const DEFAULT_SORT = 'newest';
+
+$sort = (string) ($_GET['sort'] ?? DEFAULT_SORT);
+
+if (!isset(SORT_OPTIONS[$sort])) {
+    $sort = DEFAULT_SORT;
+}
+
+$orderByClause = SORT_OPTIONS[$sort]['order_by'];
+
+
+// --------------------------------------------------
 // FETCH MOVIES
 // --------------------------------------------------
 
@@ -102,7 +149,7 @@ try {
         ";
         } else {
             $sql .= "
-            ORDER BY release_date DESC, tmdb_id DESC
+            ORDER BY {$orderByClause}
         ";
         }
 
@@ -251,7 +298,7 @@ try {
         }
 
         $sql .= "
-        ORDER BY release_date DESC, tmdb_id DESC
+        ORDER BY {$orderByClause}
         LIMIT :limit
         OFFSET :offset
     ";
@@ -458,6 +505,43 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
 
         <div class="trailer-controls">
 
+            <form
+                class="sort-control"
+                method="get"
+                action="trailers.php">
+
+                <?php if ($hasAuthorFilter): ?>
+                    <input type="hidden" name="author" value="<?= e($author) ?>">
+                <?php endif; ?>
+
+                <?php if ($hasSearch): ?>
+                    <input type="hidden" name="q" value="<?= e($search) ?>">
+                <?php endif; ?>
+
+                <label class="sort-control__label" for="sort-select">
+                    Sort by
+                </label>
+
+                <select
+                    id="sort-select"
+                    class="sort-control__select"
+                    name="sort"
+                    onchange="this.form.submit()">
+
+                    <?php foreach (SORT_OPTIONS as $sortKey => $sortOption): ?>
+
+                        <option
+                            value="<?= e($sortKey) ?>"
+                            <?= $sort === $sortKey ? 'selected' : '' ?>>
+                            <?= e($sortOption['label']) ?>
+                        </option>
+
+                    <?php endforeach; ?>
+
+                </select>
+
+            </form>
+
             <button
                 class="shuffle-link vibe-button shimmer-button"
                 type="button"
@@ -474,6 +558,9 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
                                     : null,
                                 'q' => $hasSearch
                                     ? $search
+                                    : null,
+                                'sort' => $sort !== DEFAULT_SORT
+                                    ? $sort
                                     : null,
                                 'shuffle' => 1,
                             ])
@@ -492,6 +579,9 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
                                         : null,
                                     'q' => $hasSearch
                                         ? $search
+                                        : null,
+                                    'sort' => $sort !== DEFAULT_SORT
+                                        ? $sort
                                         : null,
                                 ])
                             ) ?>">
@@ -555,6 +645,9 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
                                             'q' => $hasSearch
                                                 ? $search
                                                 : null,
+                                            'sort' => $sort !== DEFAULT_SORT
+                                                ? $sort
+                                                : null,
                                             'page' => $page - 1,
                                         ])
                                     ) ?>">
@@ -573,6 +666,9 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
                                         array_filter([
                                             'q' => $hasSearch
                                                 ? $search
+                                                : null,
+                                            'sort' => $sort !== DEFAULT_SORT
+                                                ? $sort
                                                 : null,
                                             'page' => $page + 1,
                                         ])

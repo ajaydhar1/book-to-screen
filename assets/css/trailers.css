@@ -372,6 +372,53 @@ body {
     color: #fff;
 }
 
+.sort-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.sort-control__label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2b2118;
+    white-space: nowrap;
+}
+
+.sort-control__select {
+    padding: 9px 10px;
+    border: 1px solid #d7c7b2;
+    border-radius: 999px;
+    background: #fff;
+    color: #2b2118;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    cursor: pointer;
+    appearance: auto;
+    -webkit-appearance: auto;
+}
+
+.sort-control__select:focus {
+    outline: none;
+    border-color: #7a5c3e;
+    box-shadow: 0 0 0 2px rgba(122, 92, 62, 0.12);
+}
+
+@media (max-width: 768px) {
+    .sort-control {
+        flex: 1 1 100%;
+        order: -1;
+    }
+
+    .sort-control__select {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
 .vibe-button {
     cursor: pointer;
     appearance: none;
