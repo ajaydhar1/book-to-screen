@@ -504,32 +504,32 @@ function wizard_why_this_pick(
             $membershipKeys
         );
 
-        $reasons[] = 'Part of ' . implode(' and ', $names) . '.';
+        $reasons[] = ['text' => 'Part of ' . implode(' and ', $names) . '.'];
     }
 
     $year = null;
 
     if (!empty($candidate['release_date'])) {
         $year = substr((string) $candidate['release_date'], 0, 4);
-        $reasons[] = 'Released in ' . $year . '.';
+        $reasons[] = ['text' => 'Released in ' . $year . '.'];
     }
 
     if ($candidate['vote_average'] !== null && $candidate['vote_count'] !== null) {
-        $reasons[] = sprintf(
+        $reasons[] = ['text' => sprintf(
             'Rated %.1f/10 on TMDb from %s votes.',
             (float) $candidate['vote_average'],
             number_format((int) $candidate['vote_count'])
-        );
+        )];
     }
 
     if (isset($activeFilters['discovery'])) {
         $style = $answers['discovery'] ?? null;
 
         if ($style === 'popular' && $popularityThresholds['p75'] !== null) {
-            $reasons[] = 'In the top 25% of our catalog by TMDb popularity.';
+            $reasons[] = ['text' => 'In the top 25% of our catalog by TMDb popularity.'];
         } elseif ($style === 'less_obvious' && $popularityThresholds['p50'] !== null) {
-            $reasons[] = 'In the lower half of our catalog by TMDb popularity, with at least '
-                . WIZARD_LESS_OBVIOUS_MIN_VOTE_COUNT . ' TMDb votes.';
+            $reasons[] = ['text' => 'In the lower half of our catalog by TMDb popularity, with at least '
+                . WIZARD_LESS_OBVIOUS_MIN_VOTE_COUNT . ' TMDb votes.'];
         }
     }
 
@@ -537,11 +537,11 @@ function wizard_why_this_pick(
 
     if ($language !== '' && $language !== 'en' && ($answers['language'] ?? 'open') === 'open') {
         $languageName = WIZARD_LANGUAGE_NAMES[$language] ?? strtoupper($language);
-        $reasons[] = 'Originally in ' . $languageName . '.';
+        $reasons[] = ['text' => 'Originally in ' . $languageName . '.'];
     }
 
     if (!empty($candidate['source_author'])) {
-        $reasons[] = 'Based on the book by ' . $candidate['source_author'] . '.';
+        $reasons[] = ['text' => 'Based on the book by ' . $candidate['source_author'] . '.', 'author' => $candidate['source_author']];
     }
 
     return $reasons;
@@ -725,7 +725,11 @@ $metaCanonical = 'https://booktoscreen.org/recommendation-wizard.php';
                                 <p class="wizard-result__why-title">Why this pick</p>
                                 <ul>
                                     <?php foreach ($whyReasons as $reason): ?>
-                                        <li><?= h($reason) ?></li>
+                                        <?php if (!empty($reason['author'])): ?>
+                                            <li>Based on the book by <a class="author-link" href="/trailers.php?author=<?= urlencode($reason['author']) ?>"><?= h($reason['author']) ?></a>.</li>
+                                        <?php else: ?>
+                                            <li><?= h($reason['text']) ?></li>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>

@@ -193,7 +193,7 @@ $metaCanonical = 'https://booktoscreen.org/search.php';
                                     <div class="search-movie-card__body">
                                         <h3><?= h($movie['title'] ?? 'Untitled') ?></h3>
                                         <p class="search-meta">Release: <?= h($movie['release_date'] ?? 'Unknown') ?></p>
-                                        <?php if (!empty($movie['source_author'])): ?><p class="search-source">Based on the book by <?= h($movie['source_author']) ?></p><?php endif; ?>
+                                        <?php if (!empty($movie['source_author'])): ?><p class="search-source">Based on the book by <a class="author-link" href="/trailers.php?author=<?= urlencode($movie['source_author']) ?>"><?= h($movie['source_author']) ?></a></p><?php endif; ?>
                                         <p class="search-overview"><?= h($movie['overview'] ?? 'No overview available.') ?></p>
                                         <?php if ($trailerKey !== '' || $bookUrl !== null || $soundtrackUrl !== null || (int) $movie['tmdb_id'] > 0): ?>
                                             <div class="search-movie-card__actions">

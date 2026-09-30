@@ -105,6 +105,9 @@ if ($collectionKey === 'b2s-100') {
                 );
                 $soundtrackYear = acclaimed_release_year($adaptation['release_date'] ?? null) ?? acclaimed_item_year($item);
                 $soundtrackUrl = youtube_soundtrack_search_url($adaptation['title'] ?? null, $soundtrackYear);
+                $authorUrl = !empty($adaptation['source_author'])
+                    ? '/trailers.php?author=' . urlencode($adaptation['source_author'])
+                    : null;
                 ?>
                 <article class="acclaimed-movie-card">
                     <div class="acclaimed-movie-card__poster-wrap">
@@ -122,7 +125,7 @@ if ($collectionKey === 'b2s-100') {
                         <p class="acclaimed-movie-card__context"><?= h(acclaimed_public_item_context($item, $collectionKey)) ?></p>
                         <h2><?= h($item['title']) ?></h2>
                         <p class="acclaimed-movie-card__meta">Release: <?= h((string) ($adaptation['release_date'] ?? $item['year'] ?? 'Unknown')) ?></p>
-                        <?php if (isset($item['source_title'])): ?><p class="acclaimed-movie-card__source">Based on <strong><?= h($item['source_title']) ?></strong><?php if (isset($item['author'])): ?> by <?= h($item['author']) ?><?php endif; ?>.</p><?php elseif (!empty($adaptation['source_author'])): ?><p class="acclaimed-movie-card__source">Based on the book by <?= h($adaptation['source_author']) ?>.</p><?php endif; ?>
+                        <?php if (isset($item['source_title'])): ?><p class="acclaimed-movie-card__source">Based on <strong><?= h($item['source_title']) ?></strong><?php if (isset($item['author'])): ?> by <?php if ($authorUrl !== null): ?><a class="author-link" href="<?= h($authorUrl) ?>"><?= h($item['author']) ?></a><?php else: ?><?= h($item['author']) ?><?php endif; ?><?php endif; ?>.</p><?php elseif ($authorUrl !== null): ?><p class="acclaimed-movie-card__source">Based on the book by <a class="author-link" href="<?= h($authorUrl) ?>"><?= h($adaptation['source_author']) ?></a>.</p><?php endif; ?>
                         <?php if (!empty($adaptation['overview'])): ?><p class="acclaimed-movie-card__overview"><?= h($adaptation['overview']) ?></p><?php endif; ?>
                         <?php if ($trailerKey !== '' || $bookUrl !== null || $soundtrackUrl !== null): ?>
                             <div class="acclaimed-movie-card__actions">
