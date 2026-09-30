@@ -341,9 +341,12 @@ $metaCanonical = 'https://booktoscreen.org/';
                                             data-trailer-title="<?= e(
                                                                     $movie['title'] ?? 'Untitled'
                                                                 ) ?>"
-                                            data-tmdb-id="<?= e((string) $movie['tmdb_id']) ?>">
+                                            data-tmdb-id="<?= e((string) $movie['tmdb_id']) ?>"
+                                            aria-label="Watch trailer for <?= e(
+                                                                                $movie['title'] ?? 'Untitled'
+                                                                            ) ?>">
 
-                                            Watch trailer →
+                                            Watch
 
                                         </button>
 
@@ -355,9 +358,12 @@ $metaCanonical = 'https://booktoscreen.org/';
                                         <a
                                             href="<?= e($bookUrl) ?>"
                                             target="_blank"
-                                            rel="noopener noreferrer">
+                                            rel="noopener noreferrer"
+                                            aria-label="Find the book for <?= e(
+                                                                                $movie['title'] ?? 'Untitled'
+                                                                            ) ?>">
 
-                                            Find the book →
+                                            Read
 
                                         </a>
 
@@ -368,9 +374,12 @@ $metaCanonical = 'https://booktoscreen.org/';
                                         <a
                                             href="<?= e($soundtrackUrl) ?>"
                                             target="_blank"
-                                            rel="noopener noreferrer">
+                                            rel="noopener noreferrer"
+                                            aria-label="Find the soundtrack for <?= e(
+                                                                                    $movie['title'] ?? 'Untitled'
+                                                                                ) ?>">
 
-                                            Find the soundtrack →
+                                            Listen
 
                                         </a>
 
