@@ -513,41 +513,38 @@ button.released-title-link,
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 4px;
     margin-top: 4px;
 }
 
 .released-actions a,
 .released-actions button,
 .released-actions .b2s-save-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 auto;
-    text-align: center;
-
-    padding: 5px 6px;
-    border: 1px solid #cdbda8;
-    border-radius: 6px;
-    background: #fff;
+    display: inline;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
 
     color: #7a5c3e;
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     line-height: 1.2;
     white-space: nowrap;
 }
 
-/* Reserve room for "Saved" so toggling doesn't change the button's width. */
-.released-actions .b2s-save-button {
-    min-width: calc(5ch + 12px);
+/* Separate each visible action with a "|", skipping the first item so there's no leading separator. */
+.released-actions a:not(:first-child)::before,
+.released-actions button:not(:first-child)::before {
+    content: "|";
+    margin: 0 8px;
+    color: #cdbda8;
+    font-weight: 400;
 }
 
 .released-actions a:hover,
 .released-actions button:hover {
-    background: #f1ece6;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 .released-actions a:focus-visible,
