@@ -43,6 +43,12 @@ function acclaimedNavActive(string $currentPage): string
                 </a>
 
                 <a
+                    href="/video-feed.php"
+                    class="site-nav__link<?= navActive('video-feed.php', $currentPage); ?>">
+                    Video Feed
+                </a>
+
+                <a
                     href="/my-list.php"
                     class="site-nav__link<?= navActive('my-list.php', $currentPage); ?>">
                     My List
