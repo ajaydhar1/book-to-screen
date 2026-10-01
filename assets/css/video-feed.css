@@ -121,10 +121,10 @@
 }
 
 .video-feed-item {
-    background: var(--b2s-card);
-    border: 1px solid var(--b2s-border);
+    /* background: var(--b2s-card); */
+    /* border: 1px solid var(--b2s-border); */
     border-radius: 20px;
-    box-shadow: 0 12px 28px var(--b2s-shadow);
+    /* box-shadow: 0 12px 28px var(--b2s-shadow); */
     overflow: hidden;
 }
 
@@ -261,6 +261,10 @@
     align-items: center;
     justify-content: center;
     min-height: 32px;
+
+    .video-feed-item__save {
+        text-align: center;
+    }
     padding: 7px 12px;
     border: 1px solid #cdbda8;
     border-radius: 6px;
@@ -315,6 +319,7 @@
     .video-feed-item__save {
         flex: 1 1 calc(50% - 8px);
         justify-content: center;
+        text-align: center;
     }
 }
 

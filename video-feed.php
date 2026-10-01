@@ -159,7 +159,8 @@ $metaCanonical = 'https://booktoscreen.org/video-feed.php';
                                     type="button"
                                     class="video-feed-item__more"
                                     aria-expanded="false"
-                                    aria-controls="desc-<?= $tmdbId ?>">
+                                    aria-controls="desc-<?= $tmdbId ?>"
+                                    hidden>
                                     More
                                 </button>
                             </div>

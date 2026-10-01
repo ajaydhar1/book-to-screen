@@ -58,11 +58,42 @@
         button.setAttribute('aria-expanded', String(!isExpanded));
     };
 
+    const updateDescriptionToggleVisibility = description => {
+        const button = description.closest('.video-feed-item__description-wrap')
+            ?.querySelector('.video-feed-item__more');
+
+        if (!button) {
+            return;
+        }
+
+        const wasCollapsed = description.classList.contains('video-feed-item__description--collapsed');
+
+        if (!wasCollapsed) {
+            description.classList.add('video-feed-item__description--collapsed');
+        }
+
+        button.hidden = description.scrollHeight <= description.clientHeight;
+
+        if (!wasCollapsed) {
+            description.classList.remove('video-feed-item__description--collapsed');
+        }
+    };
+
+    const observedDescriptions = new WeakSet();
+    const descriptionResizeObserver = typeof ResizeObserver === 'function'
+        ? new ResizeObserver(entries => {
+            entries.forEach(entry => updateDescriptionToggleVisibility(entry.target));
+        })
+        : null;
+
     const bindDescriptionControls = () => {
-        document.querySelectorAll('.video-feed-item__more').forEach(button => {
-            button.addEventListener('click', () => {
-                updateDescriptionToggle(button);
-            });
+        document.querySelectorAll('[data-description]').forEach(description => {
+            updateDescriptionToggleVisibility(description);
+
+            if (descriptionResizeObserver && !observedDescriptions.has(description)) {
+                descriptionResizeObserver.observe(description);
+                observedDescriptions.add(description);
+            }
         });
     };
 
@@ -325,7 +356,7 @@
 
         const description = (item.overview || '').trim();
         const descriptionHtml = description
-            ? `<div class="video-feed-item__description-wrap"><div id="desc-${item.tmdb_id}" class="video-feed-item__description video-feed-item__description--collapsed" data-description>${description.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div><button type="button" class="video-feed-item__more" aria-expanded="false" aria-controls="desc-${item.tmdb_id}">More</button></div>`
+            ? `<div class="video-feed-item__description-wrap"><div id="desc-${item.tmdb_id}" class="video-feed-item__description video-feed-item__description--collapsed" data-description>${description.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div><button type="button" class="video-feed-item__more" aria-expanded="false" aria-controls="desc-${item.tmdb_id}" hidden>More</button></div>`
             : '';
 
         const actions = `
@@ -427,6 +458,20 @@
 
     bindDescriptionControls();
     syncSoundToggle();
+
+    feed.addEventListener('click', event => {
+        const target = event.target;
+
+        if (!(target instanceof Element)) {
+            return;
+        }
+
+        const descriptionButton = target.closest('.video-feed-item__more');
+
+        if (descriptionButton && feed.contains(descriptionButton)) {
+            updateDescriptionToggle(descriptionButton);
+        }
+    });
 
     document.addEventListener('click', event => {
         const target = event.target;
