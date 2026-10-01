@@ -58,6 +58,71 @@ body {
     margin-bottom: 25px;
 }
 
+.author-discovery {
+    margin-bottom: 25px;
+    padding: 16px 18px;
+
+    background: #fffaf3;
+    border: 1px solid #ded2c2;
+    border-radius: 10px;
+}
+
+.author-discovery__heading {
+    margin: 0 0 4px;
+    font-size: 1.1rem;
+    color: #2b2118;
+}
+
+.author-discovery__intro {
+    margin: 0 0 12px;
+    font-size: 0.85rem;
+    color: #5d5146;
+}
+
+.author-discovery__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.author-discovery__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 8px 14px;
+    border: 1px solid #d7c7b2;
+    border-radius: 999px;
+
+    background: #fff;
+    color: #2b2118;
+
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+}
+
+.author-discovery__chip:hover,
+.author-discovery__chip:focus-visible {
+    background: #2b2118;
+    border-color: #2b2118;
+    color: #fff;
+}
+
+.author-discovery__count {
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+@media (max-width: 640px) {
+    .author-discovery__chip {
+        flex: 1 1 calc(50% - 8px);
+        justify-content: center;
+        text-align: center;
+    }
+}
+
 .trailer-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

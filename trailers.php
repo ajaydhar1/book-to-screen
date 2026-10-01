@@ -343,6 +343,22 @@ try {
 
 
 // --------------------------------------------------
+// AUTHOR DISCOVERY
+// --------------------------------------------------
+
+$discoveryAuthors = [];
+
+if ($hasAuthorFilter) {
+    try {
+        $authorProfiles = author_adaptation_profiles($db);
+        $discoveryAuthors = author_discovery_recommendations($authorProfiles, $author);
+    } catch (Throwable $e) {
+        $discoveryAuthors = [];
+    }
+}
+
+
+// --------------------------------------------------
 // HELPERS
 // --------------------------------------------------
 
@@ -599,6 +615,38 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
             <?php endif; ?>
 
         </div>
+
+        <?php if ($hasAuthorFilter && !empty($discoveryAuthors)): ?>
+
+            <section class="author-discovery" aria-label="Discover more authors">
+
+                <h2 class="author-discovery__heading">Discover More Authors</h2>
+
+                <p class="author-discovery__intro">
+                    Explore writers with a similar screen-adaptation era.
+                </p>
+
+                <div class="author-discovery__chips">
+
+                    <?php foreach ($discoveryAuthors as $recommendation): ?>
+
+                        <a
+                            class="author-discovery__chip"
+                            href="trailers.php?author=<?= urlencode($recommendation['author']) ?>">
+                            <?= e($recommendation['author']) ?>
+                            <span class="author-discovery__count">
+                                · <?= $recommendation['trailer_count'] ?>
+                                adaptation<?= $recommendation['trailer_count'] === 1 ? '' : 's' ?>
+                            </span>
+                        </a>
+
+                    <?php endforeach; ?>
+
+                </div>
+
+            </section>
+
+        <?php endif; ?>
 
         <?php if ($hasSearch && empty($movies)): ?>
 
