@@ -23,16 +23,35 @@ $initialSeenIds = array_map(
     $initialItems
 );
 
-$pageTitle = 'Video Feed';
-$pageDescription = 'A modern vertical video feed of Book to Screen trailers.';
+$metaTitle = 'Video Feed | Book to Screen';
+$metaDescription = 'A modern vertical video feed of Book to Screen trailers.';
+$metaCanonical = 'https://booktoscreen.org/video-feed.php';
 ?>
 <!doctype html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRF3X9CMCT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-LRF3X9CMCT');
+    </script>
+
     <meta charset="UTF-8">
+
+    <?php require __DIR__ . '/includes/meta.php'; ?>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?= h($pageDescription) ?>">
-    <title><?= h($pageTitle) ?> | Book to Screen</title>
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+
     <link rel="stylesheet" href="/assets/css/site.css?v=<?= filemtime(__DIR__ . '/assets/css/site.css') ?>">
     <link rel="stylesheet" href="/assets/css/header-footer.css?v=<?= filemtime(__DIR__ . '/assets/css/header-footer.css') ?>">
     <link rel="stylesheet" href="/assets/css/video-feed.css?v=<?= filemtime(__DIR__ . '/assets/css/video-feed.css') ?>">
