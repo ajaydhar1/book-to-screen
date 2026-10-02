@@ -68,6 +68,32 @@ function video_feed_release_year(?string $releaseDate): ?int
     return null;
 }
 
+function video_feed_recency_bonus(?string $releaseDate, int $baseScore): int
+{
+    $releaseDate = trim((string) $releaseDate);
+
+    if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $releaseDate) !== 1) {
+        return 0;
+    }
+
+    $releasedAt = strtotime($releaseDate . ' 00:00:00');
+
+    if ($releasedAt === false) {
+        return 0;
+    }
+
+    $ageDays = (time() - $releasedAt) / 86400;
+
+    if ($ageDays < 0 || $ageDays >= 730) {
+        return 0;
+    }
+
+    $recency = 1 - $ageDays / 730;
+    $headroom = max(0.0, min(1.0, (84 - $baseScore) / 24));
+
+    return (int) floor(14 * $recency * $headroom);
+}
+
 function video_feed_b2s_items(array $seenIds = [], int $limit = 12): array
 {
     require_once __DIR__ . '/db.php';
@@ -146,6 +172,7 @@ function video_feed_b2s_items(array $seenIds = [], int $limit = 12): array
         $score = 0;
         $score += min((int) round((float) ($row['vote_average'] ?? 0) * 8), 60);
         $score += min((int) round((float) ($row['popularity'] ?? 0) / 6), 24);
+        $score += video_feed_recency_bonus($row['release_date'] ?? null, $score);
         $score += random_int(0, 18);
 
         $ranked[] = ['item' => $row, 'score' => $score, 'index' => $index];
