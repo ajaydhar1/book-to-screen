@@ -197,6 +197,8 @@ $metaCanonical = 'https://booktoscreen.org/video-feed.php';
             <?php endforeach; ?>
 
             <div id="video-feed-sentinel" class="video-feed__sentinel" aria-hidden="true"></div>
+
+            <div class="video-feed__status" data-video-feed-status aria-live="polite" hidden></div>
         </div>
     </div>
 </main>

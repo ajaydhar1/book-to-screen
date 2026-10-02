@@ -25,6 +25,8 @@
         autoplayUnlocked: false,
         playbackWatchdogTimeoutId: null,
         playbackWatchdogTmdbId: null,
+        loadMoreObserver: null,
+        awaitingRetry: false,
     };
 
     // How long we give a Sound-ON playback attempt to reach PLAYING before falling back to muted autoplay.
@@ -550,14 +552,56 @@
 
         bindDescriptionControls();
         updateActiveVideo();
+
+        if (window.B2SMyList && typeof window.B2SMyList.refresh === 'function') {
+            window.B2SMyList.refresh();
+        }
+    };
+
+    const getLoadMoreStatusEl = () => document.querySelector('[data-video-feed-status]');
+
+    const setLoadMoreStatus = (mode, label) => {
+        const status = getLoadMoreStatusEl();
+
+        if (!status) {
+            return;
+        }
+
+        if (mode === null) {
+            status.hidden = true;
+            status.className = 'video-feed__status';
+            status.innerHTML = '';
+            return;
+        }
+
+        status.hidden = false;
+        status.className = `video-feed__status video-feed__status--${mode}`;
+
+        if (mode === 'loading') {
+            status.innerHTML = '<span class="video-feed__status-spinner" aria-hidden="true"></span>'
+                + `<span class="video-feed__status-label">${label}</span>`;
+        } else if (mode === 'error') {
+            status.innerHTML = `<span class="video-feed__status-label">${label}</span>`
+                + '<button type="button" class="video-feed__status-retry" data-video-feed-retry>Retry</button>';
+        } else {
+            status.innerHTML = `<span class="video-feed__status-label">${label}</span>`;
+        }
+    };
+
+    const stopLoadMoreObserver = () => {
+        if (state.loadMoreObserver) {
+            state.loadMoreObserver.disconnect();
+            state.loadMoreObserver = null;
+        }
     };
 
     const loadMoreItems = async () => {
-        if (state.loading || !state.hasMore) {
+        if (state.loading || !state.hasMore || state.awaitingRetry) {
             return;
         }
 
         state.loading = true;
+        setLoadMoreStatus('loading', 'Loading more trailers\u2026');
 
         try {
             const url = new URL('/video-feed-data.php', window.location.origin);
@@ -579,8 +623,17 @@
             const nextItems = Array.isArray(payload.items) ? payload.items : [];
             state.hasMore = !!payload.has_more;
             renderMoreItems(nextItems);
+
+            if (state.hasMore) {
+                setLoadMoreStatus(null);
+            } else {
+                stopLoadMoreObserver();
+                setLoadMoreStatus('done', "You\u2019re all caught up");
+            }
         } catch (error) {
             console.error(error);
+            state.awaitingRetry = true;
+            setLoadMoreStatus('error', "Couldn\u2019t load more trailers.");
         } finally {
             state.loading = false;
         }
@@ -593,7 +646,12 @@
             return;
         }
 
-        const observer = new IntersectionObserver(entries => {
+        if (!state.hasMore) {
+            setLoadMoreStatus('done', "You\u2019re all caught up");
+            return;
+        }
+
+        state.loadMoreObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     loadMoreItems();
@@ -605,7 +663,7 @@
             threshold: 0.1,
         });
 
-        observer.observe(sentinel);
+        state.loadMoreObserver.observe(sentinel);
     };
 
     bindDescriptionControls();
@@ -659,6 +717,14 @@
 
         if (playerHost) {
             state.manualPlaybackUntil = Date.now() + 1500;
+            return;
+        }
+
+        const retryButton = target.closest('[data-video-feed-retry]');
+
+        if (retryButton) {
+            state.awaitingRetry = false;
+            loadMoreItems();
         }
     });
 
