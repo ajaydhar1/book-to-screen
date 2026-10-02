@@ -87,6 +87,15 @@ $metaCanonical = 'https://booktoscreen.org/video-feed.php';
             <span class="video-feed-sound-toggle__label">Sound Off</span>
         </button>
 
+        <button
+            type="button"
+            class="video-feed-start-toggle"
+            data-video-feed-start-toggle
+            hidden>
+            <span class="video-feed-start-toggle__icon" aria-hidden="true">▶</span>
+            <span class="video-feed-start-toggle__label">Start videos</span>
+        </button>
+
         <div
             class="video-feed"
             data-video-feed

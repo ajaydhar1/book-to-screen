@@ -22,7 +22,13 @@
         youtubeReady: null,
         playerMap: new Map(),
         feedSoundEnabled: false,
+        autoplayUnlocked: false,
+        playbackWatchdogTimeoutId: null,
+        playbackWatchdogTmdbId: null,
     };
+
+    // How long we give a Sound-ON playback attempt to reach PLAYING before falling back to muted autoplay.
+    const SOUND_ON_PLAYBACK_WATCHDOG_MS = 900;
 
     const classifyVideoItem = item => {
         const rect = item.getBoundingClientRect();
@@ -156,9 +162,15 @@
     };
 
     const applyFeedSoundPreference = () => {
-        state.playerMap.forEach(player => {
-            applyFeedSoundPreferenceToPlayer(player);
-        });
+        if (state.feedSoundEnabled) {
+            // Sound ON must only ever unmute the currently active player.
+            const activePlayer = state.playerMap.get(String(state.activeId));
+            applyFeedSoundPreferenceToPlayer(activePlayer);
+        } else {
+            state.playerMap.forEach(player => {
+                applyFeedSoundPreferenceToPlayer(player);
+            });
+        }
 
         syncSoundToggle();
     };
@@ -166,6 +178,122 @@
     const setFeedSoundEnabled = enabled => {
         state.feedSoundEnabled = Boolean(enabled);
         applyFeedSoundPreference();
+    };
+
+    const showStartVideosToggle = () => {
+        if (state.autoplayUnlocked) {
+            return;
+        }
+
+        const toggle = document.querySelector('[data-video-feed-start-toggle]');
+
+        if (toggle) {
+            toggle.hidden = false;
+        }
+    };
+
+    const hideStartVideosToggle = () => {
+        const toggle = document.querySelector('[data-video-feed-start-toggle]');
+
+        if (toggle) {
+            toggle.hidden = true;
+        }
+    };
+
+    const markAutoplayUnlocked = () => {
+        if (state.autoplayUnlocked) {
+            return;
+        }
+
+        state.autoplayUnlocked = true;
+        hideStartVideosToggle();
+    };
+
+    const clearPlaybackWatchdog = reason => {
+        if (state.playbackWatchdogTimeoutId === null) {
+            return;
+        }
+
+        window.clearTimeout(state.playbackWatchdogTimeoutId);
+        state.playbackWatchdogTimeoutId = null;
+        state.playbackWatchdogTmdbId = null;
+    };
+
+    // Sound ON failed to reach PLAYING for the active player; recover continuous autoplay by falling back to muted.
+    const fallBackToMutedPlayback = (tmdbId, player) => {
+        if (String(state.activeId) !== String(tmdbId)) {
+            return;
+        }
+
+        state.feedSoundEnabled = false;
+        syncSoundToggle();
+
+        try {
+            if (typeof player.mute === 'function') {
+                player.mute();
+            }
+        } catch (error) {
+            // Ignore mute errors; still attempt the muted retry.
+        }
+
+        try {
+            player.playVideo();
+        } catch (error) {
+            // Browser autoplay restrictions may block the muted retry too.
+        }
+    };
+
+    const startPlaybackWatchdog = (tmdbId, player) => {
+        clearPlaybackWatchdog('restarting watchdog for a new playback attempt');
+
+        state.playbackWatchdogTmdbId = tmdbId;
+
+        state.playbackWatchdogTimeoutId = window.setTimeout(() => {
+            state.playbackWatchdogTimeoutId = null;
+
+            if (String(state.activeId) !== String(tmdbId)) {
+                return;
+            }
+
+            const currentState = typeof player.getPlayerState === 'function' ? player.getPlayerState() : null;
+
+            if (currentState === YT.PlayerState.PLAYING) {
+                return;
+            }
+
+            fallBackToMutedPlayback(tmdbId, player);
+        }, SOUND_ON_PLAYBACK_WATCHDOG_MS);
+    };
+
+    // Preserve the Sound ON preference by default; only the watchdog falls back to muted on failure.
+    const beginPlaybackAttempt = (tmdbId, player) => {
+        if (!player || typeof player.playVideo !== 'function') {
+            return;
+        }
+
+        if (state.feedSoundEnabled) {
+            applyFeedSoundPreferenceToPlayer(player);
+
+            const currentState = typeof player.getPlayerState === 'function' ? player.getPlayerState() : null;
+
+            if (currentState !== YT.PlayerState.PLAYING) {
+                startPlaybackWatchdog(tmdbId, player);
+            }
+        } else {
+            try {
+                if (typeof player.mute === 'function') {
+                    player.mute();
+                }
+            } catch (error) {
+                // Ignore mute errors; still attempt playback.
+            }
+        }
+
+        try {
+            player.playVideo();
+        } catch (error) {
+            // Browser autoplay restrictions may block the automatic start.
+        }
     };
 
     const ensurePlayer = async item => {
@@ -196,21 +324,38 @@
             events: {
                 onReady: event => {
                     const playerInstance = event.target;
-                    applyFeedSoundPreferenceToPlayer(playerInstance);
 
                     if (String(state.activeId) === String(tmdbId)) {
-                        try {
-                            playerInstance.playVideo();
-                        } catch (error) {
-                            // Browser autoplay restrictions may block the automatic start.
-                        }
+                        beginPlaybackAttempt(tmdbId, playerInstance);
                     }
                 },
                 onStateChange: event => {
                     const currentPlayer = event.target;
 
                     if (event.data === YT.PlayerState.PLAYING && String(state.activeId) !== String(tmdbId)) {
+                        try {
+                            if (typeof currentPlayer.mute === 'function') {
+                                currentPlayer.mute();
+                            }
+                        } catch (error) {
+                            // Ignore mute errors; still attempt to pause.
+                        }
+
                         currentPlayer.pauseVideo();
+                        return;
+                    }
+
+                    if (event.data === YT.PlayerState.PLAYING && String(state.activeId) === String(tmdbId)) {
+                        markAutoplayUnlocked();
+
+                        if (state.playbackWatchdogTmdbId === tmdbId) {
+                            clearPlaybackWatchdog('active player reached PLAYING');
+                        }
+                    }
+                },
+                onAutoplayBlocked: event => {
+                    if (String(state.activeId) === String(tmdbId)) {
+                        showStartVideosToggle();
                     }
                 },
             },
@@ -223,7 +368,24 @@
     const pausePlayer = id => {
         const player = state.playerMap.get(String(id));
 
-        if (!player || typeof player.pauseVideo !== 'function') {
+        if (!player) {
+            return;
+        }
+
+        if (state.playbackWatchdogTmdbId === String(id)) {
+            clearPlaybackWatchdog('player paused/deactivated');
+        }
+
+        // Invariant: a player must never stay unmuted once it is no longer the active player.
+        try {
+            if (typeof player.mute === 'function') {
+                player.mute();
+            }
+        } catch (error) {
+            // Ignore mute errors; still attempt to pause.
+        }
+
+        if (typeof player.pauseVideo !== 'function') {
             return;
         }
 
@@ -244,18 +406,14 @@
         if (state.activeId === tmdbId) {
             const player = state.playerMap.get(String(tmdbId));
 
-            if (player && typeof player.playVideo === 'function') {
-                applyFeedSoundPreferenceToPlayer(player);
-
-                try {
-                    player.playVideo();
-                } catch (error) {
-                    // Ignore play errors so the page remains usable if autoplay is blocked.
-                }
+            if (player) {
+                beginPlaybackAttempt(tmdbId, player);
             }
 
             return;
         }
+
+        clearPlaybackWatchdog('active video changed');
 
         if (state.activeId !== null) {
             pausePlayer(state.activeId);
@@ -265,17 +423,11 @@
 
         const player = await ensurePlayer(item);
 
-        if (!player || typeof player.playVideo !== 'function') {
+        if (!player) {
             return;
         }
 
-        applyFeedSoundPreferenceToPlayer(player);
-
-        try {
-            player.playVideo();
-        } catch (error) {
-            // Browser autoplay restrictions may block the automatic start.
-        }
+        beginPlaybackAttempt(tmdbId, player);
     };
 
     const selectBestVisibleItem = () => {
@@ -484,6 +636,22 @@
 
         if (soundToggle) {
             setFeedSoundEnabled(!state.feedSoundEnabled);
+            return;
+        }
+
+        const startToggle = target.closest('[data-video-feed-start-toggle]');
+
+        if (startToggle) {
+            const player = state.playerMap.get(String(state.activeId));
+
+            if (player && typeof player.playVideo === 'function') {
+                try {
+                    player.playVideo();
+                } catch (error) {
+                    // Ignore play errors so the page remains usable if autoplay is blocked.
+                }
+            }
+
             return;
         }
 

@@ -114,6 +114,51 @@
     white-space: nowrap;
 }
 
+/* Shown only when the browser actually blocks autoplay (e.g. iOS gesture requirement) */
+.video-feed-start-toggle {
+    position: fixed;
+    left: 50%;
+    top: max(18px, env(safe-area-inset-top));
+    transform: translateX(-50%);
+    z-index: 950;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 11px 20px;
+    border-radius: 999px;
+    border: 1px solid var(--b2s-accent);
+    background: #2b2118;
+    color: #fffaf3;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 4px 18px rgba(36, 28, 21, 0.28), 0 1px 3px rgba(36, 28, 21, 0.16);
+}
+
+.video-feed-start-toggle[hidden] {
+    display: none;
+}
+
+.video-feed-start-toggle:active {
+    transform: translateX(-50%) scale(0.97);
+}
+
+.video-feed-start-toggle__icon {
+    display: inline-block;
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+.video-feed-start-toggle__label {
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
 .video-feed {
     display: flex;
     flex-direction: column;
