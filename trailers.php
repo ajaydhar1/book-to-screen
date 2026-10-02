@@ -100,6 +100,34 @@ if (!isset(SORT_OPTIONS[$sort])) {
 
 $orderByClause = SORT_OPTIONS[$sort]['order_by'];
 
+$hasPageState = isset($_GET['page'])
+    && (is_string($_GET['page']) || is_int($_GET['page']))
+    && filter_var(
+        $_GET['page'],
+        FILTER_VALIDATE_INT,
+        ['options' => ['min_range' => 1]]
+    ) !== false;
+
+$hasExplicitSortState = isset($_GET['sort'])
+    && is_string($_GET['sort'])
+    && isset(SORT_OPTIONS[$_GET['sort']]);
+
+$showDiscoveryChips = !$hasAuthorFilter;
+
+$discoveryChips = [
+    ['term' => 'Stephen King', 'parameter' => 'author'],
+    ['term' => 'Mystery', 'parameter' => 'q'],
+    ['term' => 'Jane Austen', 'parameter' => 'author'],
+    ['term' => 'True Story', 'parameter' => 'q'],
+    ['term' => 'Agatha Christie', 'parameter' => 'author'],
+    ['term' => 'Crime', 'parameter' => 'q'],
+    ['term' => 'Sherlock Holmes', 'parameter' => 'q'],
+    ['term' => 'Romance', 'parameter' => 'q'],
+    ['term' => 'Frankenstein', 'parameter' => 'q'],
+    ['term' => 'Christmas', 'parameter' => 'q'],
+    ['term' => 'Dracula', 'parameter' => 'q'],
+];
+
 
 // --------------------------------------------------
 // FETCH MOVIES
@@ -638,6 +666,32 @@ $metaCanonical = 'https://booktoscreen.org/trailers.php';
                                 · <?= $recommendation['trailer_count'] ?>
                                 adaptation<?= $recommendation['trailer_count'] === 1 ? '' : 's' ?>
                             </span>
+                        </a>
+
+                    <?php endforeach; ?>
+
+                </div>
+
+            </section>
+
+        <?php endif; ?>
+
+        <?php if ($showDiscoveryChips): ?>
+
+            <section class="author-discovery" aria-label="Discover trailers">
+
+                <h2 class="author-discovery__heading">Explore Trailers</h2>
+
+                <div class="author-discovery__chips">
+
+                    <?php foreach ($discoveryChips as $chip): ?>
+
+                        <a
+                            class="author-discovery__chip"
+                            href="trailers.php?<?= e(http_build_query([
+                                $chip['parameter'] => $chip['term'],
+                            ])) ?>">
+                            <?= e($chip['term']) ?>
                         </a>
 
                     <?php endforeach; ?>
