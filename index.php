@@ -844,6 +844,12 @@ $metaCanonical = 'https://booktoscreen.org/';
                 <?php endif; ?>
 
             <?php endif; ?>
+
+            <div class="released-more">
+                <a href="/adaptation-announcements.php">
+                    Browse all announcements →
+                </a>
+            </div>
         </section>
 
         <section class="section">

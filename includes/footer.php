@@ -1,8 +1,34 @@
 <footer class="site-footer">
-    &copy; <?= date('Y') ?> Book to Screen ·
-    <a href="/about/">About</a> ·
-    <a href="/film-score-radio/" target="_blank">Film Score Radio ✦</a> ·
-    <a href="/admin/">Editorial Administration</a>
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <p class="site-footer__title">Book to Screen</p>
+            <p class="site-footer__tagline">Discover books, articles, podcasts, comics, and true stories being adapted into movies and television.</p>
+        </div>
+
+        <nav class="site-footer__col" aria-labelledby="footer-discover">
+            <h2 class="site-footer__heading" id="footer-discover">Discover</h2>
+            <ul>
+                <li><a href="/recommendation-wizard.php">Recommendation Wizard</a></li>
+                <li><a href="/releases.php">Release Browser</a></li>
+                <li><a href="/acclaimed-collection.php?collection=b2s-100">B2S 100 Greatest</a></li>
+                <li><a href="/acclaimed-overlap.php">Acclaimed Overlap Explorer</a></li>
+                <li><a href="/film-score-radio/" target="_blank">Film Score Radio ✦</a></li>
+            </ul>
+        </nav>
+
+        <nav class="site-footer__col" aria-labelledby="footer-more">
+            <h2 class="site-footer__heading" id="footer-more">More</h2>
+            <ul>
+                <li><a href="/adaptation-announcements.php">Announcements</a></li>
+                <li><a href="/my-list.php">My List</a></li>
+                <li><a href="/about/">About</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="site-footer__bottom">
+    <span>&copy; <?= date('Y') ?> Book to Screen</span>
+    <a class="site-footer__admin" href="/admin/">Editorial Administration</a>
     <span class="site-footer__social-links" aria-label="Book to Screen social media">
         <a href="https://www.instagram.com/booktoscreenorg/" target="_blank" rel="noopener noreferrer" aria-label="Book to Screen on Instagram">
             <svg class="site-footer__social-icon" aria-hidden="true" viewBox="0 0 24 24" focusable="false">
@@ -27,5 +53,6 @@
             </svg>
         </a>
     </span>
+    </div>
 </footer>
 <script src="/assets/js/my-list.js?v=<?= filemtime(__DIR__ . '/../assets/js/my-list.js') ?>"></script>

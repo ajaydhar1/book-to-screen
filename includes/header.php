@@ -31,12 +31,6 @@ function acclaimedNavActive(string $currentPage): string
         <div class="site-header__actions">
             <nav class="site-nav" aria-label="Main navigation">
                 <a
-                    href="/adaptation-announcements.php"
-                    class="site-nav__link<?= navActive('adaptation-announcements.php', $currentPage); ?>">
-                    Announcements
-                </a>
-
-                <a
                     href="/trailers.php"
                     class="site-nav__link<?= navActive('trailers.php', $currentPage); ?>">
                     Trailers
