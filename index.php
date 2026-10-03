@@ -167,7 +167,27 @@ $metaCanonical = 'https://booktoscreen.org/';
 
     <?php require_once __DIR__ . '/includes/header.php'; ?>
 
+    <script>
+        // Shared body offset is hard-coded but the stacked header's height varies (wrapping, text size); trim it to the measured height so no cream gap shows above the hero.
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header || !window.ResizeObserver) return;
+
+            function fit() {
+                document.body.style.paddingTop = '';
+                var offset = parseFloat(getComputedStyle(document.body).paddingTop) || 0;
+                var height = Math.floor(header.getBoundingClientRect().height);
+                if (height < offset) document.body.style.paddingTop = height + 'px';
+            }
+
+            fit();
+            new ResizeObserver(fit).observe(header);
+            addEventListener('resize', fit);
+        })();
+    </script>
+
     <main>
+        <div class="home-hero-band">
         <section class="hero home-hero">
             <p class="eyebrow">Adaptation Tracker</p>
 
@@ -194,6 +214,7 @@ $metaCanonical = 'https://booktoscreen.org/';
             </div>
 
         </section>
+        </div>
 
         <?php if (!empty($releasedMovies)): ?>
             <section class="section released-section">
@@ -845,8 +866,8 @@ $metaCanonical = 'https://booktoscreen.org/';
 
             <?php endif; ?>
 
-            <div class="released-more">
-                <a href="/adaptation-announcements.php">
+            <div class="released-more released-more--end">
+                <a class="button button-primary" href="/adaptation-announcements.php">
                     Browse all announcements →
                 </a>
             </div>

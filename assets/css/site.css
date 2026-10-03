@@ -406,6 +406,81 @@ a {
     border: 2px solid #d7c8b8;
 }
 
+/* Homepage cinematic charcoal prototype — delete this block and the .home-hero-band wrapper in index.php to revert. */
+.home-hero-band {
+    /* Phase 1: solid charcoal held below the buttons (includes the hero's own 56px padding). Phase 2: the fade. */
+    --hold-height: 0px;
+    --fade-height: 603px;
+    position: relative;
+    z-index: 0;
+    padding-bottom: 24px;
+    background:
+        radial-gradient(ellipse 70% 700px at 15% 0%, rgba(184, 146, 92, 0.12), transparent 70%),
+        #15181c;
+}
+
+/* Fade fills the band's bottom edge and ends in page tan, so the next section starts on plain #f7f2ea. */
+.home-hero-band::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--fade-height);
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(to bottom,
+            #15181c 0%,
+            #181a1d 10%,
+            #1e1d1e 20%,
+            #28231f 30%,
+            #392e25 40%,
+            #4e3f31 50%,
+            #67533f 59%,
+            #836d57 68%,
+            #a38f77 77%,
+            #c4b6a0 85%,
+            #dfd4c2 92%,
+            #efe8dc 97%,
+            #f7f2ea 100%);
+}
+
+@media (max-width: 900px) {
+    .home-hero-band {
+        --hold-height: 120px;
+        --fade-height: 260px;
+    }
+}
+
+@media (max-width: 600px) {
+    .home-hero-band {
+        --hold-height: 56px;
+        --fade-height: 170px;
+    }
+}
+
+.home-hero-band .home-hero h2 {
+    color: #f7f2ea;
+}
+
+.home-hero-band .home-hero p {
+    color: #d8cbb9;
+}
+
+.home-hero-band .home-hero p.eyebrow {
+    color: #c9a56a;
+}
+
+.home-hero-band .hero-button--primary {
+    background: #8a6743;
+    border-color: #8a6743;
+}
+
+.home-hero-band .hero-button--secondary {
+    color: #f7f2ea;
+    border-color: #a8916f;
+}
+
 @media (max-width: 600px) {
     .hero-actions {
         gap: 10px;
@@ -563,8 +638,21 @@ button.released-title-link,
     text-decoration: underline;
 }
 
+.released-more a.button-primary,
+.released-more a.button-primary:hover {
+    color: #fffaf3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .released-more {
     margin-top: 40px;
+}
+
+@media (min-width: 701px) {
+    .released-more--end {
+        text-align: right;
+    }
 }
 
 @media (max-width: 900px) {
