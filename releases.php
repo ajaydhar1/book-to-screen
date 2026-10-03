@@ -221,6 +221,7 @@ $metaCanonical = 'https://booktoscreen.org' . releases_month_url($ym);
             <div>
                 <p class="eyebrow">Book to Screen</p>
                 <h1 class="page-title">Release Browser</h1>
+                <p class="release-tagline">A time machine through adaptation history.</p>
                 <p class="page-intro">
                     Explore films adapted from books by when they were released.
                     Dates come from TMDb, and upcoming releases aren't tracked yet.
