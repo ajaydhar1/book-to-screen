@@ -12,6 +12,17 @@ $soundtrackUrl = youtube_soundtrack_search_url(
     acclaimed_release_year($movie['release_date'] ?? null)
 );
 $trailerKey = trim((string) ($movie['trailer_youtube_key'] ?? ''));
+
+// Optional: set $tmdbCardFriendlyDate / $tmdbCardShowId before including; defaults keep Trailers unchanged.
+$releaseLabel = (string) ($movie['release_date'] ?? 'Unknown');
+
+if ($tmdbCardFriendlyDate ?? false) {
+    $parsedRelease = DateTimeImmutable::createFromFormat('!Y-m-d', $releaseLabel);
+
+    if ($parsedRelease !== false) {
+        $releaseLabel = $parsedRelease->format('M j, Y');
+    }
+}
 ?>
 <div class="card" data-my-list-card="<?= h((string) $movieId) ?>">
     <?php if ($poster !== null): ?>
@@ -35,7 +46,7 @@ $trailerKey = trim((string) ($movie['trailer_youtube_key'] ?? ''));
     <div class="card-body">
         <div class="title"><?= h($movie['title'] ?? 'Untitled') ?></div>
         <div class="meta">
-            Release: <?= h($movie['release_date'] ?? 'Unknown') ?><br>
+            Release: <?= h($releaseLabel) ?><br>
             TMDB rating: <?= h(isset($movie['vote_average']) ? number_format((float) $movie['vote_average'], 1) : 'N/A') ?>
         </div>
 
@@ -70,6 +81,8 @@ $trailerKey = trim((string) ($movie['trailer_youtube_key'] ?? ''));
             <?php endif; ?>
         </div>
 
-        <div class="tmdb-id">TMDB ID: <?= h((string) $movieId) ?></div>
+        <?php if ($tmdbCardShowId ?? true): ?>
+            <div class="tmdb-id">TMDB ID: <?= h((string) $movieId) ?></div>
+        <?php endif; ?>
     </div>
 </div>

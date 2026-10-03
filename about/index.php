@@ -174,6 +174,18 @@ declare(strict_types=1);
                 </div>
 
                 <div class="team-member">
+                    <h3>Alexandra K.</h3>
+
+                    <p class="team-role">Adaptation Researcher</p>
+
+                    <p class="team-description">
+                        Alexandra researches adaptation news and announcements for Book to Screen,
+                        helping identify new projects and maintain the archive's coverage of
+                        books being developed for film and television.
+                    </p>
+                </div>
+
+                <div class="team-member">
                     <h3>Product Lead</h3>
 
                     <p class="team-role">Coming Soon</p>
@@ -187,6 +199,58 @@ declare(strict_types=1);
                         the experience for readers, contributors, and publishers
                         while helping Neurochip build the company behind the platform.
                     </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="faq-heading">
+            <div class="faq-card">
+                <p class="eyebrow">Frequently Asked Questions</p>
+
+                <h2 id="faq-heading">Questions about Book to Screen.</h2>
+
+                <div class="faq-list">
+                    <details class="faq-item">
+                        <summary>What is Book to Screen?</summary>
+                        <p>
+                            Book to Screen is a discovery and research platform dedicated to movies and television projects based on books. It brings together adaptation announcements, trailers, release information, and curated collections to help readers and movie fans follow stories from page to screen.
+                        </p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Where does Book to Screen get its information?</summary>
+                        <p>
+                            Book to Screen combines structured movie and television data with human editorial research. Our editorial team monitors entertainment-industry reporting to identify adaptation announcements and updates, while movie metadata and trailers help connect those projects to their screen releases.
+                        </p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>What counts as a book-to-screen adaptation?</summary>
+                        <p>
+                            The archive focuses on films and television projects based on published written works, including novels, nonfiction books, short stories, comics, and other literary source material. Each project is reviewed and classified before being added to the editorial archive.
+                        </p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>How often is Book to Screen updated?</summary>
+                        <p>
+                            Book to Screen is continually updated as new adaptations are announced, cast, developed, and released. New leads are researched and reviewed by the editorial team, while other parts of the site are refreshed as new movie and trailer information becomes available.
+                        </p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Can I use Book to Screen to find something to watch?</summary>
+                        <p>
+                            Absolutely. You can browse trailers, explore acclaimed adaptations, use the Recommendation Wizard, discover films through the Video Feed, or save interesting adaptations to My List.
+                        </p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Who runs Book to Screen?</summary>
+                        <p>
+                            Book to Screen was founded by Ajay Dhar and is developed and maintained with the help of an editorial team that researches and reviews adaptation news for the archive.
+                        </p>
+                    </details>
                 </div>
             </div>
         </section>

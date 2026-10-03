@@ -398,8 +398,12 @@ $metaCanonical = 'https://booktoscreen.org/';
                 </div>
 
                 <div class="released-more">
+                    <a href="/releases.php">
+                        Browse releases →
+                    </a>
+                    ·
                     <a href="/trailers.php">
-                        Browse all released adaptations →
+                        Browse trailers →
                     </a>
                 </div>
 
