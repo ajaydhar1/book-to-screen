@@ -22,6 +22,7 @@
                 <li><a href="/adaptation-announcements.php">Announcements</a></li>
                 <li><a href="/my-list.php">My List</a></li>
                 <li><a href="/about/">About</a></li>
+                <li><a href="https://databank.booktoscreen.org/?bank=neurochip" target="_blank" rel="noopener noreferrer">Explore the Neurochip Databank ↗</a></li>
             </ul>
         </nav>
     </div>
