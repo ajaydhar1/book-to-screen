@@ -406,14 +406,59 @@ a {
     border: 2px solid #d7c8b8;
 }
 
+.experience-teaser {
+    display: grid;
+    width: fit-content;
+    max-width: 100%;
+    gap: 5px;
+    margin-top: 24px;
+    padding: 2px 0 2px 14px;
+    border-left: 2px solid #c9a56a;
+    color: #f7f2ea;
+    text-decoration: none;
+}
+
+.experience-teaser__title {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.experience-teaser__title span {
+    display: inline-block;
+    margin-left: 4px;
+    color: #d4b783;
+    transition: transform .18s ease;
+}
+
+.experience-teaser__note {
+    color: #d8cbb9;
+    font-size: .9rem;
+    line-height: 1.45;
+}
+
+.experience-teaser:hover .experience-teaser__title,
+.experience-teaser:focus-visible .experience-teaser__title {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.experience-teaser:hover .experience-teaser__title span,
+.experience-teaser:focus-visible .experience-teaser__title span {
+    transform: translate(2px, -2px);
+}
+
+.experience-teaser:focus-visible {
+    outline: 2px solid #d4b783;
+    outline-offset: 5px;
+}
+
 /* Homepage cinematic charcoal prototype — delete this block and the .home-hero-band wrapper in index.php to revert. */
 .home-hero-band {
-    /* Phase 1: solid charcoal held below the buttons (includes the hero's own 56px padding). Phase 2: the fade. */
-    --hold-height: 0px;
-    --fade-height: 603px;
+    /* The fade is bottom-anchored; its height tracks the band padding to keep its top edge fixed. */
+    --fade-height: 696px;
     position: relative;
     z-index: 0;
-    padding-bottom: 24px;
+    padding-bottom: 48px;
     background:
         radial-gradient(ellipse 70% 700px at 15% 0%, rgba(184, 146, 92, 0.12), transparent 70%),
         #15181c;
@@ -447,15 +492,13 @@ a {
 
 @media (max-width: 900px) {
     .home-hero-band {
-        --hold-height: 120px;
-        --fade-height: 260px;
+        --fade-height: 284px;
     }
 }
 
 @media (max-width: 600px) {
     .home-hero-band {
-        --hold-height: 56px;
-        --fade-height: 170px;
+        --fade-height: 194px;
     }
 }
 
@@ -489,6 +532,7 @@ a {
     .hero-button {
         padding: 12px 18px;
     }
+
 }
 
 /* ========================================

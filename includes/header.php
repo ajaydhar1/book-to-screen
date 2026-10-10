@@ -25,7 +25,7 @@ function acclaimedNavActive(string $currentPage): string
     <div class="site-header__inner">
 
         <a href="/" class="site-brand">
-            Book to Screen
+            Book <span>to</span> Screen
         </a>
 
         <div class="site-header__actions">

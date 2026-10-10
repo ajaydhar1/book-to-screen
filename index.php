@@ -213,6 +213,11 @@ $metaCanonical = 'https://booktoscreen.org/';
                 </a>
             </div>
 
+            <a class="experience-teaser" href="experience-v1/">
+                <span class="experience-teaser__title">From Page to Picture <span aria-hidden="true">↗</span></span>
+                <span class="experience-teaser__note">Explore the journey from book to screen.</span>
+            </a>
+
         </section>
         </div>
 
