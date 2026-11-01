@@ -176,9 +176,13 @@ final class SQLiteCloudStatement implements DatabaseStatement
     private function compileSql(): string
     {
         return preg_replace_callback(
-            '/:[A-Za-z_][A-Za-z0-9_]*/',
+            '/\'(?:\'\'|[^\'])*\'|"(?:""|[^"])*"|`(?:``|[^`])*`|\[[^\]]*\]|--[^\r\n]*|\/\*[\s\S]*?\*\/|:[A-Za-z_][A-Za-z0-9_]*/',
             function (array $match): string {
                 $name = $match[0];
+
+                if (!str_starts_with($name, ':')) {
+                    return $name;
+                }
 
                 if (!array_key_exists($name, $this->bindings)) {
                     throw new RuntimeException(

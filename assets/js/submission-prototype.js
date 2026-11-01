@@ -232,6 +232,7 @@
             else button.removeAttribute('aria-current');
         }
         if (focusHeading) byId(`step-${step}-title`).focus();
+        flow.dispatchEvent(new CustomEvent('submission-step', { detail: step }));
     }
 
     function showStep(step) {
@@ -308,6 +309,22 @@
         });
     }
     byId('complete-demo').addEventListener('click', () => {
+        if (flow.dataset.mode === 'local-intake') {
+            if (!validateStep(1) || !validateStep(2)) return;
+            const fields = {};
+            for (const field of flow.querySelectorAll('input, select, textarea')) {
+                fields[field.id] = field.type === 'checkbox' ? field.checked : field.value;
+            }
+            fields.provenance = {};
+            for (const [field, origin] of origins) {
+                fields.provenance[field] = {
+                    provider: origin.provider,
+                    state: byId(field).value === origin.value ? 'suggested' : (byId(field).value.trim() ? 'edited' : 'removed'),
+                };
+            }
+            flow.dispatchEvent(new CustomEvent('local-submission', { detail: fields }));
+            return;
+        }
         byId('demo-complete').hidden = false;
         byId('demo-complete').focus();
     });
@@ -317,6 +334,7 @@
         origins.clear();
         for (const field of flow.querySelectorAll('input, select, textarea')) {
             if (field.tagName === 'SELECT') field.selectedIndex = 0;
+            else if (field.type === 'checkbox') field.checked = false;
             else field.value = '';
             field.removeAttribute('aria-invalid');
         }

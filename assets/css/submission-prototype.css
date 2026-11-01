@@ -229,6 +229,20 @@
     resize: vertical;
 }
 
+.submission-prototype input[type="checkbox"] {
+    width: auto;
+    min-height: 0;
+    margin-right: 8px;
+}
+
+.submission-honeypot {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
 .field-help,
 .field-origin {
     color: #665745;

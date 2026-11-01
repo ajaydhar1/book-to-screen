@@ -11,12 +11,20 @@ class ComposerStaticInit1fa8eb8b1896ccba1d89930e6ac0f5cc
         array (
             'SQLiteCloud\\' => 12,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'SQLiteCloud\\' => 
         array (
             0 => __DIR__ . '/..' . '/sqlitecloud/sqlitecloud/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
     );
 

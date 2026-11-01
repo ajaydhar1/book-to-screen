@@ -1,5 +1,6 @@
 {
     "require": {
-        "sqlitecloud/sqlitecloud": "^0.2.0"
+        "sqlitecloud/sqlitecloud": "^0.2.0",
+        "phpmailer/phpmailer": "^6.10"
     }
 }

@@ -3,13 +3,17 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/local-only.php';
+$localIntake = defined('B2S_LOCAL_INTAKE_VIEW') && B2S_LOCAL_INTAKE_VIEW === true;
+$turnstile = $localIntake ? SubmissionTurnstile::fromEnvironment() : null;
+$turnstileEnabled = $turnstile !== null && $turnstile->environment !== 'disabled';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     header('Allow: GET');
     http_response_code(405);
     exit('This prototype does not accept submissions.');
 }
-header("Content-Security-Policy: default-src 'self'; connect-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'");
+$challengeSource = $turnstileEnabled ? ' https://challenges.cloudflare.com' : '';
+header("Content-Security-Policy: default-src 'self'; connect-src 'self'; script-src 'self'{$challengeSource}; frame-src " . ($turnstileEnabled ? 'https://challenges.cloudflare.com' : "'none'") . "; style-src 'self'; img-src 'self'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'");
 ?>
 <!doctype html>
 <html lang="en">
@@ -22,6 +26,7 @@ header("Content-Security-Policy: default-src 'self'; connect-src 'self'; script-
     <link rel="stylesheet" href="../assets/css/site.css">
     <link rel="stylesheet" href="../assets/css/submission-prototype.css">
     <script src="../assets/js/submission-prototype.js" defer></script>
+    <?php if ($localIntake): ?><script src="../assets/js/submission-intake.js" defer></script><?php endif; ?>
 </head>
 <body class="submission-prototype">
     <a class="skip-link" href="#prototype-main">Skip to the prototype</a>
@@ -36,17 +41,24 @@ header("Content-Security-Policy: default-src 'self'; connect-src 'self'; script-
             <p class="page-intro">Try a simpler way to introduce your book for preliminary adaptation research. An ISBN can do some of the typing for you.</p>
         </div>
         <aside class="prototype-notice" aria-label="Demonstration notice">
+            <?php if ($localIntake): ?>
+            <strong>Local infrastructure test, not a public launch.</strong> Use sample data only.
+            The final action stores a private record in the explicitly configured local fixture.
+            Real email delivery is disabled. Only ISBNs are sent to metadata providers.
+            <?php if ($turnstileEnabled): ?>The final security check uses Cloudflare Turnstile; it does not receive your book, contact, pitch or rights fields from this application.<?php endif; ?>
+            <?php else: ?>
             <strong>A walkthrough, not a submission.</strong> Nothing you enter is saved or sent.
             Only an ISBN is sent for book lookup. Use sample contact details while testing.
             Leaving or reloading this page clears your work.
+            <?php endif; ?>
         </aside>
         <noscript><p class="prototype-notice">JavaScript is required for this demonstration. No submission can be made from this page.</p></noscript>
-        <div id="prototype-flow" hidden>
+        <div id="prototype-flow" hidden<?php if ($localIntake): ?> data-mode="local-intake" data-csrf="<?= htmlspecialchars($_SESSION['submission_csrf'], ENT_QUOTES, 'UTF-8') ?>"<?php endif; ?>>
             <nav aria-label="Submission progress">
                 <ol class="step-progress">
                     <li><button type="button" data-step-nav="1" aria-current="step"><span>1</span> Your Book</button></li>
                     <li><button type="button" data-step-nav="2"><span>2</span> Adaptation Details</button></li>
-                    <li><button type="button" data-step-nav="3"><span>3</span> Review &amp; Demo</button></li>
+                    <li><button type="button" data-step-nav="3"><span>3</span> <?= $localIntake ? 'Review &amp; Local Test' : 'Review &amp; Demo' ?></button></li>
                 </ol>
             </nav>
             <p id="validation-message" class="validation-message" role="alert" hidden></p>
@@ -100,7 +112,7 @@ header("Content-Security-Policy: default-src 'self'; connect-src 'self'; script-
                 <h3>Your connection to the book</h3>
                 <div class="field-grid">
                     <div class="field"><label for="submitter-name">Your name *</label><input id="submitter-name" type="text" required maxlength="200" autocomplete="off" placeholder="Use a sample name"></div>
-                    <div class="field"><label for="email">Your email *</label><input id="email" type="email" required maxlength="254" autocomplete="off" placeholder="reader@example.com" aria-describedby="email-help"><p id="email-help" class="field-help">For demonstration only. No email will be sent or verified.</p></div>
+                    <div class="field"><label for="email">Your email *</label><input id="email" type="email" required maxlength="254" autocomplete="off" placeholder="reader@example.com" aria-describedby="email-help"><p id="email-help" class="field-help"><?= $localIntake ? 'Sample email only. No real email is sent; confirmation uses the local mock mailbox.' : 'For demonstration only. No email will be sent or verified.' ?></p></div>
                     <div class="field"><label for="role">Your role *</label><select id="role" required><option value="">Choose your role</option><option value="author">Author / co-author</option><option value="agent">Agent</option><option value="rights-holder">Rights holder</option><option value="scout">Independent scout</option></select></div>
                     <div class="field"><label for="authorization">Claimed authorization *</label><select id="authorization" required><option value="">Choose what applies</option><option value="owner">I control the relevant screen rights</option><option value="representative">I am authorized by the rights controller</option><option value="recommendation">I am recommending only, without a mandate</option><option value="unknown">I am unsure of my authority</option></select></div>
                     <div class="field full-width" id="authority-details-field" hidden><label for="authority-details">Who authorized you, and in what capacity?</label><input id="authority-details" type="text" maxlength="500" autocomplete="off"><p class="field-help">Optional brief explanation. Do not paste contracts or private contact details.</p></div>
@@ -124,12 +136,31 @@ header("Content-Security-Policy: default-src 'self'; connect-src 'self'; script-
                 <div class="review-heading"><h3>Adaptation details &amp; your connection</h3><button type="button" class="text-button" data-back="2">Edit adaptation details</button></div>
                 <dl id="adaptation-review" class="review-list"></dl>
                 <div class="prototype-notice">
+                    <?php if ($localIntake): ?>
+                    <strong>Local test submission.</strong> This creates a private local record only. No real email is sent.
+                    <?php else: ?>
                     <strong>This is not a real submission.</strong> No information will be saved, emailed or submitted.
+                    <?php endif; ?>
                     Book to Screen does not guarantee representation, producer introductions, publication or adaptation opportunities.
                     Self-declared authority has not been verified.
                 </div>
-                <div class="step-actions"><button type="button" class="secondary-button" data-back="2">&larr; Back to adaptation details</button><button id="complete-demo" type="button" class="primary-button">Complete prototype demo &mdash; no submission</button></div>
+                <?php if ($localIntake): ?>
+                <div class="field"><label><input id="consent" type="checkbox"> I confirm the information reflects my knowledge and stated authority. I retain my rights and understand no representation, introductions or adaptation opportunity is promised.</label></div>
+                <div class="field"><label><input id="privacy" type="checkbox"> I agree to private local storage and staff review of this sample submission. No contracts, manuscripts or confidential third-party contacts are included.</label></div>
+                <div class="submission-honeypot" aria-hidden="true"><label for="company-website">Automation field: leave empty</label><input id="company-website" type="text" tabindex="-1" autocomplete="off" maxlength="200"></div>
+                <?php if ($turnstileEnabled): ?>
+                <div id="submission-security" class="field" data-site-key="<?= htmlspecialchars($turnstile->siteKey, ENT_QUOTES, 'UTF-8') ?>" data-action="<?= htmlspecialchars($turnstile->action, ENT_QUOTES, 'UTF-8') ?>">
+                    <h3>One quick security check</h3>
+                    <p class="field-help">Cloudflare checks browser signals to help prevent spam. Your form details stay here until you choose to record the local test.</p>
+                    <div id="turnstile-widget"></div>
+                    <p id="security-message" role="status" aria-live="polite">The security check starts when you reach this step.</p>
+                    <button id="retry-security" type="button" class="secondary-button">Retry security check</button>
+                </div>
+                <?php else: ?><p class="field-help">Anti-bot verification is disabled for this loopback fixture. Public intake remains unavailable.</p><?php endif; ?>
+                <?php endif; ?>
+                <div class="step-actions"><button type="button" class="secondary-button" data-back="2">&larr; Back to adaptation details</button><button id="complete-demo" type="button" class="primary-button"><?= $localIntake ? 'Record local test submission' : 'Complete prototype demo &mdash; no submission' ?></button></div>
                 <p id="demo-complete" class="demo-complete" role="status" tabindex="-1" hidden>Demo complete. Nothing was submitted, saved or emailed. Your details remain only on this page until you leave or reload it.</p>
+                <?php if ($localIntake): ?><button id="resend-verification" type="button" class="secondary-button" hidden>Retry local verification delivery</button><p id="receipt-link-container" hidden><a id="receipt-link">Keep this private receipt link to check status or retry after leaving this page</a></p><?php endif; ?>
             </section>
         </div>
     </main>

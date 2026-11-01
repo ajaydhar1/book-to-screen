@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'SQLiteCloud\\' => array($vendorDir . '/sqlitecloud/sqlitecloud/src'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
 );

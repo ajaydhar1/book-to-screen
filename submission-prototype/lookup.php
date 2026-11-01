@@ -29,7 +29,7 @@ if ((int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 0 || file_get_contents('php://inpu
     prototype_lookup_response(400, 'invalid_request', 'Lookup requests must not contain a request body.');
 }
 
-$result = book_metadata_lookup($_GET['isbn']);
+$result = isset($bookMetadataLookup) ? $bookMetadataLookup($_GET['isbn']) : book_metadata_lookup($_GET['isbn']);
 http_response_code(match ($result['status']) {
     'invalid_isbn' => 422,
     'api_error' => 502,
