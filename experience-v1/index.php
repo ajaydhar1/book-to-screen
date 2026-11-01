@@ -6,6 +6,7 @@
     <meta name="theme-color" content="#11110f">
     <meta name="description" content="Every great film begins with a story. Follow the journey from page to picture with Book to Screen.">
     <title>From Page to Picture — Version 1 | Book to Screen</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/experience-v1/experience.css">
     <script src="/experience-v1/experience.js" defer></script>
 </head>
