@@ -29,7 +29,9 @@ $bookMetadataLookup = static function (string $isbn): array {
         ]]], '');
     }
     try {
-        return submission_cached_book_lookup($isbn, dirname(getenv('B2S_SUBMISSIONS_DB')) . DIRECTORY_SEPARATOR . 'submissions-isbn-cache.json');
+        $directory = defined('B2S_HOSTED_STAGING') && B2S_HOSTED_STAGING === true
+            ? $GLOBALS['submissionBrowserConfig']['directory'] : dirname(getenv('B2S_SUBMISSIONS_DB'));
+        return submission_cached_book_lookup($isbn, $directory . DIRECTORY_SEPARATOR . 'submissions-isbn-cache.json');
     } catch (Throwable $e) {
         error_log('Local bibliographic cache/lookup unavailable.');
         return ['status' => 'api_error', 'metadata' => null, 'message' => 'Lookup is temporarily unavailable or busy. Retry shortly, or enter your book manually.'];

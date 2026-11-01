@@ -24,6 +24,7 @@ function submission_local_database(): Database
 
 function submission_local_base_url(): string
 {
+    if (defined('B2S_HOSTED_STAGING') && B2S_HOSTED_STAGING === true) return SUBMISSION_HOSTED_BASE;
     $url = rtrim(getenv('B2S_SUBMISSIONS_BASE_URL') ?: '', '/');
     $parts = parse_url($url);
     if (!is_array($parts) || !in_array($parts['host'] ?? '', ['127.0.0.1','localhost','[::1]'], true)

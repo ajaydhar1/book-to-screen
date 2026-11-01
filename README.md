@@ -325,6 +325,15 @@ Temporary harness/diagnostics and tests are source-only, excluded from Git
 archives by `.gitattributes`; other deployment methods must exclude them explicitly.
 Any further live testing requires new approval.
 
+The [private hosted synthetic-staging plan](docs/submissions-hosted-staging.md)
+prepares an isolated password-protected `__author-staging` package. It reuses
+only the pinned staging database/key and fictional staff fixture, with mock
+email. It is disabled by default; the operator reports that the protected
+Namecheap copy passes disabled-state checks. Live connectivity and hosted
+workflow acceptance have not yet been reported complete.
+The later hosted one-shot SMTP fixture requires separate approval and confirmed
+Terminal/SSH access; no browser SMTP switch or real intake is enabled.
+
 The minimal review area lists verified records, displays declarations and consent,
 warns about matching ISBN/title-author properties, and accepts CSRF-protected
 status/note updates. Optimistic revision checks prevent stale overwrites.

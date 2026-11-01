@@ -47,7 +47,7 @@ header("Content-Security-Policy: default-src 'self'; connect-src 'self'; script-
             <strong><?= $offlineBrowser ? 'OFFLINE MOCK browser test' : 'SQLite Cloud staging browser test' ?> — not a public launch.</strong>
             Use fictional data only: titles beginning [SYNTHETIC], author and submitter names beginning Invented, and example.com email addresses.
             Leave websites blank. Only mocked email is captured privately. Never enter real personal information or rights claims.
-            <?= $offlineBrowser ? 'ISBN and Turnstile providers are mocked offline.' : 'Only ISBNs go to metadata providers; the security check uses official Cloudflare development credentials.' ?>
+            <?= $offlineBrowser ? 'ISBN and Turnstile providers are mocked offline.' : ((defined('B2S_HOSTED_STAGING') && B2S_HOSTED_STAGING === true) ? 'Only ISBNs go to metadata providers; the final security check uses the existing Managed widget. Real author intake and real email are disabled.' : 'Only ISBNs go to metadata providers; the security check uses official Cloudflare development credentials.') ?>
             <?php elseif ($localIntake): ?>
             <strong>Local infrastructure test, not a public launch.</strong> Use sample data only.
             The final action stores a private record in the explicitly configured local fixture.

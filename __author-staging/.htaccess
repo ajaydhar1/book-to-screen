@@ -1,0 +1,5 @@
+Options -Indexes
+Require all denied
+
+RewriteEngine On
+RewriteRule ^ gateway.php [END]

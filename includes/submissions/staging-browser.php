@@ -51,6 +51,9 @@ function submission_browser_key(array $config): string
 
 function submission_browser_connection_string(array $config): string
 {
+    if (defined('B2S_HOSTED_STAGING') && B2S_HOSTED_STAGING === true && ($config['hosted'] ?? false) === true) {
+        return $config['hosted_connection'];
+    }
     if (PHP_SAPI === 'cli') {
         $local = submission_staging_local_config();
         if (!submission_staging_local_check($local)['hostname_confirmed']) throw new RuntimeException('Hostname confirmation missing.');
@@ -168,6 +171,11 @@ final class StagingBrowserOfflineClient extends \SQLiteCloud\SQLiteCloudClient
 
 function submission_browser_turnstile(array $config): SubmissionTurnstile
 {
+    if (defined('B2S_HOSTED_STAGING') && B2S_HOSTED_STAGING === true && ($config['hosted'] ?? false) === true) {
+        $widget = $config['hosted_widget'];
+        return new SubmissionTurnstile('production', $widget['site_key'], $widget['secret_key'],
+            $widget['hostname'], $widget['action']);
+    }
     $transport = $config['mode'] === 'offline'
         ? static fn(string $secret, string $token): array => ['success' => $token === 'XXXX.DUMMY.TOKEN.XXXX',
             'hostname' => 'localhost', 'action' => 'test']
@@ -254,7 +262,8 @@ function submission_browser_session(array $config, callable $operation, bool $in
         $baseline = $config['directory'] . DIRECTORY_SEPARATOR . 'browser-established.json';
         if (is_file($baseline)) {
             $proof = json_decode(file_get_contents($baseline), true, 8, JSON_THROW_ON_ERROR);
-            if (($proof['proof'] ?? null) !== $crypto->hash('browser-baseline', $config['mode'] . '|' . $config['base_url'])) {
+            $baselineBase = $config['baseline_base_url'] ?? $config['base_url'];
+            if (($proof['proof'] ?? null) !== $crypto->hash('browser-baseline', $config['mode'] . '|' . $baselineBase)) {
                 throw new RuntimeException('Browser baseline differs; stop.');
             }
         } elseif ($initial) {
