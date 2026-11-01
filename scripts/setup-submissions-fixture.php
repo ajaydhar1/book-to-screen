@@ -15,7 +15,7 @@ try {
         throw new RuntimeException('Set a local fixture admin password of at least 12 characters.');
     }
     $db = submission_local_database();
-    submission_migrate($db);
+    submission_migrate($db, new SubmissionCrypto(getenv('B2S_SUBMISSIONS_KEY') ?: ''));
     $db->exec("CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE,
         display_name TEXT NOT NULL, password_hash TEXT NOT NULL,

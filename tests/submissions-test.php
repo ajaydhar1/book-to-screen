@@ -125,7 +125,7 @@ function mock_token(MockSubmissionMailer $mail): string
 
 foreach (['sqlite', 'cloud-offline'] as $driver) {
     $db = $driver === 'sqlite' ? new LocalSqliteDatabase(':memory:') : fixture_cloud_db();
-    assert_submission(submission_migrate($db) === [1], $driver . ': version 1 applied');
+    assert_submission(submission_migrate($db) === [1,2], $driver . ': versions 1 and 2 applied');
     assert_submission(submission_migrate($db) === [], $driver . ': repeat migration no-op');
     expect_submission_exception(PDOException::class, static fn() => $db->exec("INSERT INTO submission_email_tokens(token_hash,submission_id,expires_at,created_at) VALUES ('orphan','missing',1,1)"), 'Token foreign key enforced');
     foreach (['leads','adaptations','tmdb_adaptations'] as $publicTable) {
@@ -188,7 +188,7 @@ foreach (['sqlite', 'cloud-offline'] as $driver) {
     assert_submission(count($service->queue()) === 1, 'Verified moves to private queue');
     $detail = $service->detail($stored['id']);
     assert_submission($detail['private']['email'] === 'reader@example.com' && $detail['book']['genres'] === ['Fantasy','Young Adult'], 'Admin sees decrypted declarations and corrected genres');
-    $service->review($stored['id'],'reviewing',"Internal O'Brien :note",1,0,10005);
+    $service->review($stored['id'],'reviewing',"Internal O'Brien :note",1,1,10005);
     expect_submission_exception(SubmissionInputException::class, static fn() => $service->review($stored['id'],'closed','unauthorized',2,1,10006), 'Service rejects editor reviewer');
     expect_submission_exception(SubmissionConflictException::class, static fn() => $service->review($stored['id'],'closed','stale',1,0,10006), 'Concurrent/stale review conflicts');
     $detail = $service->detail($stored['id']);

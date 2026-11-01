@@ -116,9 +116,38 @@ try {
     $detail=http_test_request('/admin/submissions.php?id='.$id);
     http_check($detail['code']===200&&str_contains($detail['body'],'reader@example.com'),'Authorized private detail');
     $reviewCsrf=page_csrf($detail['body']);
+    preg_match('/name="revision" value="(\d+)"/',$detail['body'],$revisionMatch);
+    $reviewRevision=$revisionMatch[1];
     http_check(http_test_request('/admin/submissions.php?id='.$id,['id'=>$id,'status'=>'reviewing','note'=>'Internal test note','revision'=>'0'],'bad',true)['code']===403,'Admin review CSRF enforced');
-    $review=http_test_request('/admin/submissions.php?id='.$id,['id'=>$id,'status'=>'reviewing','note'=>'Internal test note','revision'=>'0','csrf'=>$reviewCsrf],$reviewCsrf,true);
+    $review=http_test_request('/admin/submissions.php?id='.$id,['id'=>$id,'status'=>'reviewing','note'=>'Internal test note','revision'=>$reviewRevision,'csrf'=>$reviewCsrf],$reviewCsrf,true);
     http_check($review['code']===303&&$db->query('SELECT review_status FROM property_submissions')->fetchColumn()==='reviewing','Admin status update');
+    $currentRevision=(string)$db->query('SELECT revision FROM property_submissions')->fetchColumn();
+    $candidateBody=['id'=>$id,'status'=>'research_candidate','note'=>'Candidate note <script>alert(1)</script>',
+        'revision'=>$currentRevision,'csrf'=>$reviewCsrf,'evaluation'=>['premise'=>'A cinematic premise <b>sample</b>','rights_questions'=>'Still self-declared']];
+    $candidate=http_test_request('/admin/submissions.php?id='.$id,$candidateBody,$reviewCsrf,true);
+    http_check($candidate['code']===303&&$db->query('SELECT review_status FROM property_submissions')->fetchColumn()==='research_candidate','Research candidate action is private');
+    $candidateDetail=http_test_request('/admin/submissions.php?id='.$id);
+    http_check(str_contains($candidateDetail['body'],'&lt;script&gt;alert(1)&lt;/script&gt;')
+        && str_contains($candidateDetail['body'],'&lt;b&gt;sample&lt;/b&gt;')
+        && str_contains($candidateDetail['body'],'Local Reviewer'),'Notes evaluation output escaped with attribution');
+    $stale=http_test_request('/admin/submissions.php?id='.$id,$candidateBody,$reviewCsrf,true);
+    http_check($stale['code']===409&&str_contains($stale['body'],'Your attempted notes are shown below'),'Concurrent update rejected with recoverable attempted text');
+    $filtered=http_test_request('/admin/submissions.php',['dashboard'=>'1','status'=>'research_candidate','role'=>'author','genre'=>'Fantasy','search'=>'Sample','csrf'=>$reviewCsrf],$reviewCsrf,true);
+    http_check($filtered['code']===200&&str_contains($filtered['body'],'1 matching'),'Dashboard bound combined filters');
+    http_check(!str_contains($filtered['body'],'search=Sample') && str_contains($filtered['body'],'name="search"'),'Dashboard search does not travel in URLs');
+    http_check(http_test_request('/admin/submissions.php',['dashboard'=>'1','search'=>'Sample'],'bad',true)['code']===403,'Dashboard POST requires CSRF');
+    http_check(http_test_request('/admin/submissions.php?from=2026-02-30')['code']===422,'Invalid reviewer filter explicitly rejected');
+    $candidateBody['revision']=(string)$db->query('SELECT revision FROM property_submissions')->fetchColumn();
+    $candidateBody['status']='spam';
+    $spam=http_test_request('/admin/submissions.php?id='.$id,$candidateBody,$reviewCsrf,true);
+    $inbox=http_test_request('/admin/submissions.php');
+    $quarantine=http_test_request('/admin/submissions.php?status=spam&verification=all');
+    http_check($spam['code']===303&&!str_contains($inbox['body'],'Sample O&#039;Brien')
+        && str_contains($quarantine['body'],'Sample O&#039;Brien')
+        && (int)$db->query('SELECT COUNT(*) FROM property_submissions')->fetchColumn()===1,'Spam separated without deletion');
+    $candidateBody['revision']=(string)$db->query('SELECT revision FROM property_submissions')->fetchColumn();
+    $candidateBody['status']='reviewing';
+    http_check(http_test_request('/admin/submissions.php?id='.$id,$candidateBody,$reviewCsrf,true)['code']===303,'Reviewer can restore verified flagged submission');
     $db->exec('UPDATE users SET is_active = 0');
     http_check(http_test_request('/admin/submissions.php')['code']===403,'Revoked staff account immediately denied');
     $statusPage=http_test_request('/author-submissions/status.php');

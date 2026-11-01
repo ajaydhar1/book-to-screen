@@ -506,6 +506,115 @@ SQLite Cloud schema/data, real emails, navigation links or deployment are change
 
 Suggestions, bug reports, and pull requests are welcome.
 
+### Milestone 3: private literary review (local-only)
+
+The existing local staff login now opens a responsive literary review desk at
+`http://127.0.0.1:8084/admin/submissions.php`. It uses the same isolated fixture,
+session, active-admin checks, CSRF and no-store/CSP headers as Milestone 2.
+No public or production navigation link was added. The private navigation reuses
+admin styling but does not load the normal admin navigation's production-system
+links or inline script.
+
+The default inbox contains only verified `new`, `reviewing`, `needs_information`
+and `research_candidate` records, prioritized by status and oldest submission.
+Separate views show unverified, suspected spam, duplicate and closed records.
+Overall counts, bibliographic-only search (title/author/ISBN), status, UTC date
+range, exact case-normalized genre, role, verification, deterministic sorting
+and 20-record pagination are available. Inbox verification cannot be relaxed by
+query parameters. Search treats `%` and `_` literally. Other filters combine
+with AND. Role/genre are declared metadata, not verified identity classifications.
+Contact/pitch/rights payloads are never decrypted to search or list the queue.
+Search/filter forms and pagination use CSRF-protected POST so private search
+terms do not enter application-generated URLs or ordinary access logs. Filter
+state is carried in the returned form, not persisted in sessions/browser storage.
+This differs intentionally from existing public/admin GET searches for privacy.
+
+Detail pages show editable reviewer evaluations alongside the original metadata,
+separate genres/themes, pitch/format, contact, role, authority, rights declarations,
+arrangements, email/consent timestamps, duplicate links and paginated activity.
+Provenance is explicitly submitter-reported; provider suggestions and email
+confirmation do not establish identity, rights ownership or independently
+verified bibliographic facts.
+
+Administrators can begin review, mark needs-information or a research candidate,
+close, flag duplicate/spam, reopen verified records, and add encrypted internal
+notes. Needs-information is **an internal task only**, not an email request.
+Flags alone do not delete a record. Optional qualitative observations cover
+premise, conflict, characters, cinematic qualities, format, distinctiveness,
+information completeness and outstanding rights/authorization questions
+(1,000 characters per criterion). They can be edited or cleared, are encrypted
+at rest and have encrypted snapshots in the audit history. Notes are append-only
+activity entries, not overwritten by later evaluations. There are no commercial
+scores, rights approvals, referrals or publication actions.
+
+All updates use POST, CSRF and optimistic revisions, with staff attribution.
+On a validation/stale-update error, attempted text stays visible for comparison
+with the current history. Unverified records can receive notes or be closed/
+flagged but cannot enter actionable statuses. Later email confirmation preserves
+reviewer quarantine and increments revision to invalidate stale forms.
+The optional rejected-activity summary is intentionally omitted: existing HMAC
+rate buckets do not distinguish accepted from rejected activity reliably, and
+no additional spam payloads or personal analytics were introduced.
+
+#### Version 2 reviewer migration
+
+Version 1 remains unchanged and checksum-compatible. Version 2 transactionally
+rebuilds the submission/token/event tables to extend the status CHECK constraint
+with `research_candidate`; it copies all records, token hashes, encrypted payloads
+and audit IDs before removing old tables, with foreign-key cascades retained.
+It adds `submitter_role`, encrypted `evaluation_payload`, indexed
+`submission_genres` projections, and dashboard/date/role indexes. Existing roles/
+genres are backfilled in batches of 100 using the **original encryption key**.
+A missing/wrong key or corrupt payload aborts and rolls back version 2. No private
+payload is made searchable or published.
+
+Web routes do not migrate. With the same explicitly configured local fixture
+and original key, stop the test server, take a private fixture backup if needed,
+then run `php scripts\migrate-submissions-local.php` before restarting.
+For a new fixture, `scripts\setup-submissions-fixture.php` applies both versions.
+Do not run either script against production. Live SQLite Cloud table-renaming,
+foreign-key and transactional DDL behavior still require an approved staging test.
+
+#### Local review and validation
+
+Use the Milestone 2 environment/setup instructions above. Submit sample data
+locally, read the mock mailbox, explicitly confirm the sample email, then sign in
+as `local-reviewer`. Use the dashboard and detail pages to evaluate and review.
+Keep the mock mailbox/key/fixture outside the web root; real SMTP and public
+intake remain unavailable. Existing fixture retention cleanup is explicit,
+unscheduled and still requires policy approval; flagging in the reviewer UI
+never invokes cleanup.
+
+```powershell
+php -d display_errors=0 tests\submissions-review-test.php
+php -d display_errors=0 tests\submissions-test.php
+php -d display_errors=0 tests\submissions-antibot-test.php
+php -d display_errors=0 tests\book-metadata-test.php
+node tests\submissions-intake-js-test.js
+# With a fresh mock-enabled fixture/server, same key and fixture admin password:
+php -d display_errors=0 tests\submissions-http-test.php `
+  'http://127.0.0.1:8084' 'C:\private-local-tests\submissions-local.sqlite'
+```
+
+Reviewer tests cover populated version-1 upgrades, missing/wrong-key rollback,
+retained token/audit cascades, counts/filter/search/date/sort/pagination, transitions,
+encrypted evaluation/history, authorization/stale updates, spam quarantine and
+2,000 synthetic records per SQLite/offline-Cloud adapter. List queries have
+bounded result sets and do not decrypt whole-table private payloads; indexes
+support status/date/role/genre filters. Literal substring searches, global counts,
+genre options and priority sorting still require work proportional to matching
+volume for filtered views. The unfiltered priority inbox explicitly uses its
+partial expression index to avoid sorting the whole queue; other filters let
+SQLite choose their indexes. Production-scale measurements may justify approved FTS/keyset pagination
+later. No new dependency or public workflow was introduced.
+
+Live integration still requires approved nonproduction Cloud validation, production
+staff authorization/session integration, privacy/retention/backups/key recovery,
+SMTP/DNS delivery testing, real Managed Turnstile staging verification, and proxy/
+HTTPS review. Suggested next step: review the local UX and workflow labels first,
+then plan a separately authorized controlled staging exercise. This milestone
+does not begin activation work.
+
 ---
 
 ## License
