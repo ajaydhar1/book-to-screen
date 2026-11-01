@@ -617,6 +617,93 @@ does not begin activation work.
 
 ---
 
+### Milestone 4A: SQLite Cloud staging preparation
+
+See [the staging preparation and approval-gated validation plan](docs/submissions-sqlitecloud-staging.md)
+for isolated project/credential requirements, migration compatibility checks,
+encryption/backup considerations and the future read-only/write approval gates.
+The first separately approved read-only staging connection is complete;
+provisioning and Cloud migrations are not implemented by the preparation tools.
+
+`scripts\prepare-submissions-staging.php` accepts an external **nonsecret** JSON
+identity manifest and reports the existing migration checksums without loading
+application configuration, reading credentials, opening a database or running SQL.
+Its output validates configuration claims only, not effective Cloud isolation or
+permission to connect/write. Run its offline guards with:
+
+```powershell
+php tests\submissions-staging-test.php
+```
+
+The separately gated [read-only staging diagnostic](docs/submissions-staging-readonly.md)
+supports the exact reported `book-to-screen-staging` project and
+`author-submissions-staging.sqlite` database. It requires an external nonsecret
+manifest and a dedicated private environment URL, never production configuration.
+Default preparation uses `--offline`; a real connection requires both
+`--connect-readonly` and the documented explicit approval environment value.
+Further live runs need separate approval. Admin credentials are write-capable
+and require explicit risk acknowledgement; CloudSync keys are not assumed compatible.
+
+```powershell
+php -d display_errors=0 tests\submissions-staging-diagnostic-test.php
+```
+
+For private URL entry, the Git-ignored CLI-only
+`scripts\submissions-staging.local.php` template and
+`scripts\check-submissions-staging-config.php` provide offline hostname extraction.
+Follow the read-only guide's independent Connect-panel comparison before setting
+the confirmed hostname. No connection follows configuration; separate approval
+is still required. Never force-add the private file.
+
+The pre-migration diagnostic now recognizes only the exact documented, empty
+`_sqliteai_vector` table and its exact automatic index as reported extension
+metadata. Success means **no application schema/data**, not necessarily an empty
+schema. Modified/populated metadata and unknown objects remain blocked.
+See [the controlled staging migration validation procedure](docs/submissions-staging-migrations.md)
+for migration checksums, identity/FK/rollback checks, Free-plan recovery limitations
+and the separate empty-install approval. The dedicated
+`scripts\migrate-submissions-staging.php` runner is now implemented and offline-tested:
+`--offline` reports the plan without loading credentials or connecting;
+`--apply-empty-v1-v2` requires the exact migration-specific approval environment
+value and private local config. It uses a single verified staging connection,
+checks complete installed schema/ledger/FK/zero-row state and repeatability,
+and preserves the known vector metadata pair. No live migration or new Cloud
+connection was run while preparing/testing it.
+
+```powershell
+php -d display_errors=0 tests\submissions-staging-migration-test.php
+```
+
+The [three-property synthetic staging harness](docs/submissions-staging-synthetic.md)
+is prepared for a separately approved service-level submission/verification/
+review test. It uses a preserved private staging key, in-memory mock mail and
+an approved isolated fictional reviewer source (no Cloud users/schema changes).
+Repeat runs only verify a complete matching fixture set; partial/foreign states
+stop without cleanup. No live synthetic test was performed during preparation.
+
+The [isolated staging browser integration](docs/submissions-staging-browser.md)
+reuses the existing form and reviewer pages behind an allowlisted 127.0.0.1
+router. Offline mode uses local SQLite and mocked Cloud/ISBN/Turnstile responses;
+live mode requires separate exact approval, the original preserved staging key,
+and per-request identity/schema/fixture checks. Fictional staff credentials and
+encrypted mock emails remain outside Git. This does not enable public intake or
+establish production staff authentication. Browser integration was prepared and
+tested offline first. Subsequent separately authorized live validation completed
+the empty v1/v2 installation, three-property synthetic service test and manual
+browser submission of `[SYNTHETIC] The Last Signal from Europa`, mock verification,
+and a saved **Under review** status/internal research note. This was staging-only,
+not production deployment, real SMTP delivery or production staff authentication.
+
+```powershell
+php -d display_errors=0 tests\submissions-staging-browser-guards-test.php
+```
+
+See the browser integration guide for private fixture preparation, startup,
+authenticated mock-mail inspection, HTTP workflow tests and the live approval gate.
+See the [Milestone 4A final review](docs/milestone4a-final-review.md) for the complete
+commit inventory, manual browser outcome, security/compatibility findings,
+1,103 passing regression checks and remaining production/SMTP approval boundaries.
+
 ## License
 
 The MIT License applies to the source code only.

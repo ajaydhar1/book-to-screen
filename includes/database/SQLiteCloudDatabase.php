@@ -14,8 +14,13 @@ final class SQLiteCloudDatabase implements Database
     private SQLiteCloudClient $client;
     private bool $inTransaction = false;
 
-    public function __construct(string $connectionString)
+    public function __construct(string|SQLiteCloudClient $connectionString)
     {
+        // A supplied client is already connected; this adapter owns its eventual disconnect.
+        if ($connectionString instanceof SQLiteCloudClient) {
+            $this->client = $connectionString;
+            return;
+        }
         $this->client = new SQLiteCloudClient();
 
         $connected = $this->client->connectWithString($connectionString);

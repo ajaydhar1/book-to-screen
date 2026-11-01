@@ -7,6 +7,7 @@ submission_require_post_csrf();
 session_write_close();
 submission_json_action(static function () use ($submissionService): array {
     $input = submission_read_json();
+    if (defined('B2S_STAGING_BROWSER')) submission_browser_validate_fiction($input);
     $key = $input['request_key'] ?? '';
     if (!is_string($key)) {
         throw new SubmissionInputException(['request_key' => 'Invalid request identifier.']);

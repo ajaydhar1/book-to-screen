@@ -12,6 +12,7 @@ try {
     echo json_encode(['status' => 'api_error', 'metadata' => null, 'message' => $e->getMessage()]);
     exit;
 } catch (Throwable $e) {
+    if (defined('B2S_STAGING_BROWSER')) submission_browser_stop();
     error_log('Local submission lookup limit could not be checked.');
     http_response_code(503);
     header('Content-Type: application/json');
@@ -21,6 +22,12 @@ try {
 session_write_close();
 require_once __DIR__ . '/../includes/submissions/lookup-cache.php';
 $bookMetadataLookup = static function (string $isbn): array {
+    if (defined('B2S_STAGING_BROWSER') && $GLOBALS['submissionBrowserConfig']['mode'] === 'offline') {
+        return book_metadata_lookup($isbn, static fn(string $url): array => ['items' => [[
+            'volumeInfo' => ['title' => '[SYNTHETIC] Offline ISBN Lantern', 'authors' => ['Invented Author'],
+                'industryIdentifiers' => [['type' => 'ISBN_13', 'identifier' => $isbn]]],
+        ]]], '');
+    }
     try {
         return submission_cached_book_lookup($isbn, dirname(getenv('B2S_SUBMISSIONS_DB')) . DIRECTORY_SEPARATOR . 'submissions-isbn-cache.json');
     } catch (Throwable $e) {

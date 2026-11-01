@@ -78,6 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             http_response_code(409);
             $notice = $e->getMessage() . ' Your attempted notes are shown below. Compare them with the latest history before saving again.';
         } catch (Throwable $e) {
+            if (defined('B2S_STAGING_BROWSER')) {
+                submission_browser_stop();
+                http_response_code(503);
+                exit('Staging stopped after an unexpected failure. Do not retry or reset records.');
+            }
             error_log('Local submission review update failed.');
             http_response_code(503);
             $notice = 'Review could not be saved. Your attempted text is shown below; refresh and compare the latest history before retrying.';
@@ -109,6 +114,11 @@ try {
     http_response_code(422);
     $notice = $e->getMessage() . ' ' . implode(' ', $e->errors);
 } catch (Throwable $e) {
+    if (defined('B2S_STAGING_BROWSER')) {
+        submission_browser_stop();
+        http_response_code(503);
+        exit('Staging stopped after an unexpected failure. Do not retry or reset records.');
+    }
     error_log('Local submission review could not be read.');
     http_response_code(503);
     $notice = 'Private review information is unavailable. Check the local schema migration and configuration.';

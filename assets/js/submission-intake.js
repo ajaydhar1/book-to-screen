@@ -109,7 +109,7 @@
         securityMessage('Loading the security check...');
         const script = document.createElement('script');
         script.id = 'turnstile-script';
-        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        script.src = flow.dataset.securityScript || 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
         script.async = true;
         script.onload = () => {
             scriptLoading = false;

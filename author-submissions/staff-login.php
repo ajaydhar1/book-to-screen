@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $notice = 'Invalid local administrator credentials.';
         http_response_code(401);
     } catch (Throwable $e) {
+        if (defined('B2S_STAGING_BROWSER')) submission_browser_stop();
         error_log('Local submission staff login failed.');
         http_response_code(503);
         $notice = 'Local staff authentication is unavailable.';
@@ -56,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <title>Local staff login | Book to Screen</title><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/submission-prototype.css"></head>
 <body class="submission-prototype"><main class="prototype-shell"><section class="step-panel">
 <h1>Local submission staff login</h1><p>This uses only the isolated fixture's staff table, not the configured application database.</p>
+<?php if (defined('B2S_STAGING_BROWSER')): ?><p><strong>Fictional staging reviewer only.</strong> This does not establish production staff-authentication readiness.</p><?php endif; ?>
 <?php if ($notice !== ''): ?><p role="alert"><?= htmlspecialchars($notice, ENT_QUOTES, 'UTF-8') ?></p><?php endif; ?>
 <form method="post"><input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['submission_csrf'], ENT_QUOTES, 'UTF-8') ?>">
 <div class="field"><label for="username">Local username</label><input id="username" name="username" required maxlength="100" autocomplete="username"></div>

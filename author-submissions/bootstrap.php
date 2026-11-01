@@ -11,22 +11,28 @@ if (getenv('B2S_SUBMISSIONS_LOCAL') !== '1') {
     exit('Local submission testing is not enabled. The demonstration remains available.');
 }
 try {
-    $submissionDb = submission_local_database();
+    if (!defined('B2S_STAGING_BROWSER')) $submissionDb = submission_local_database();
     $base = parse_url(submission_local_base_url());
     $expectedHost = $base['host'] . (isset($base['port']) ? ':' . $base['port'] : '');
     if (strtolower($_SERVER['HTTP_HOST'] ?? '') !== strtolower($expectedHost)) {
         http_response_code(403);
         exit('Use the configured loopback URL.');
     }
-    $submissionService = submission_local_service($submissionDb);
+    if (!defined('B2S_STAGING_BROWSER')) $submissionService = submission_local_service($submissionDb);
 } catch (RuntimeException $e) {
+    if (defined('B2S_STAGING_BROWSER')) submission_browser_stop();
     error_log('Local submission configuration is incomplete.');
     http_response_code(503);
     exit('Local submission fixtures are not configured.');
 }
 
 ini_set('session.use_strict_mode', '1');
-session_name('B2S_LOCAL_SUBMISSIONS');
+if (defined('B2S_STAGING_BROWSER')) {
+    session_save_path(submission_browser_private_path($submissionBrowserConfig['directory'] . DIRECTORY_SEPARATOR . 'sessions'));
+}
+session_name(defined('B2S_STAGING_BROWSER')
+    ? 'B2S_STAGING_BROWSER_' . substr(hash('sha256', $submissionBrowserConfig['staff_db'] . '|' . $submissionBrowserConfig['base_url']), 0, 16)
+    : 'B2S_LOCAL_SUBMISSIONS');
 session_cache_limiter('');
 session_set_cookie_params([
     'lifetime' => 0, 'path' => '/', 'httponly' => true, 'samesite' => 'Strict',
@@ -89,9 +95,12 @@ function submission_json_action(callable $operation): never
         http_response_code(409);
         $result = ['message' => $e->getMessage()];
     } catch (Throwable $e) {
+        if (defined('B2S_STAGING_BROWSER')) submission_browser_stop();
         error_log('Local submission action failed.'); // Do not log private request bodies or tokens.
         http_response_code(503);
-        $result = ['message' => 'The request could not be completed. Please retry later with the same request.'];
+        $result = ['message' => defined('B2S_STAGING_BROWSER')
+            ? 'Staging stopped after an unexpected failure. Do not retry; inspect before another approved launch.'
+            : 'The request could not be completed. Please retry later with the same request.'];
     }
     echo json_encode($result, JSON_THROW_ON_ERROR | JSON_INVALID_UTF8_SUBSTITUTE);
     exit;
