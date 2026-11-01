@@ -301,6 +301,13 @@ attempts per 15 minutes. Account-level SMTP budgets count attempts, including
 failures, conservatively. IPs/emails are HMAC-keyed rather than stored in rate
 buckets. These local policies need traffic/proxy review before public use.
 
+Milestone 4B [Namecheap SMTP preparation](docs/submissions-smtp.md) reuses
+PHPMailer with private pinned port-465 SMTPS settings and a separate approval-gated
+one-recipient CLI test. One separately approved real test completed authenticated
+SMTP acceptance, operator-confirmed inbox delivery and browser email confirmation.
+Regression tests remain offline; local/staging browser mail remains mocked or
+disabled and public submissions stay disabled.
+
 The minimal review area lists verified records, displays declarations and consent,
 warns about matching ISBN/title-author properties, and accepts CSRF-protected
 status/note updates. Optimistic revision checks prevent stale overwrites.
