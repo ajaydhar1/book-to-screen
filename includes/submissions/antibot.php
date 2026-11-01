@@ -25,7 +25,8 @@ final class SubmissionTurnstile
         private string $secret = '',
         public readonly string $hostname = '',
         public readonly string $action = '',
-        private ?Closure $transport = null
+        private ?Closure $transport = null,
+        private ?Closure $observer = null
     ) {
         if (!in_array($environment, ['disabled', 'development', 'production'], true)) {
             throw new RuntimeException('Select a valid Turnstile environment.');
@@ -90,15 +91,17 @@ final class SubmissionTurnstile
             throw new SubmissionInputException(['verification' => 'Please complete the security check before continuing.']);
         }
         try {
-            $result = $this->transport === null ? $this->siteverify($token) : ($this->transport)($this->secret, $token);
+            $result = $this->transport === null ? $this->siteverify($token, $now) : ($this->transport)($this->secret, $token);
         } catch (SubmissionAntibotUnavailable $e) {
             error_log('Submission security check unavailable.');
             throw $e;
         }
         if (!is_array($result) || !is_bool($result['success'] ?? null)) {
+            $this->observeResult($result, $now);
             error_log('Submission security check returned an invalid response.');
             throw new SubmissionAntibotUnavailable('The security check is temporarily unavailable. Retry the check; your details remain on this page.');
         }
+        $this->observeResult($result, $now);
         if (!$result['success']) {
             $codes = $result['error-codes'] ?? [];
             if (is_array($codes) && array_intersect($codes, ['internal-error', 'invalid-input-secret', 'missing-input-secret'])) {
@@ -121,7 +124,24 @@ final class SubmissionTurnstile
         }
     }
 
-    private function siteverify(string $token): array
+    private function observeResult(mixed $result, int $now): void
+    {
+        if ($this->observer === null) return;
+        $codes = is_array($result) && is_array($result['error-codes'] ?? null) ? $result['error-codes'] : [];
+        $allowed = ['missing-input-secret', 'invalid-input-secret', 'missing-input-response',
+            'invalid-input-response', 'bad-request', 'timeout-or-duplicate', 'internal-error'];
+        $timestamp = is_array($result) && is_string($result['challenge_ts'] ?? null)
+            ? strtotime($result['challenge_ts']) : false;
+        ($this->observer)([
+            'success' => is_array($result) && is_bool($result['success'] ?? null) ? $result['success'] : null,
+            'error_codes' => array_values(array_unique(array_intersect($allowed, array_filter($codes, 'is_string')))),
+            'hostname_pass' => is_array($result) && ($result['hostname'] ?? null) === $this->hostname,
+            'action_pass' => is_array($result) && ($result['action'] ?? null) === $this->action,
+            'timestamp_pass' => $timestamp !== false && $timestamp >= $now - 300 && $timestamp <= $now + 60,
+        ]);
+    }
+
+    private function siteverify(string $token, int $now): array
     {
         $ch = curl_init('https://challenges.cloudflare.com/turnstile/v0/siteverify');
         $body = '';
@@ -138,10 +158,12 @@ final class SubmissionTurnstile
                 return strlen($chunk);
             },
         ]);
+        if ($this->observer !== null) ($this->observer)(['siteverify_made' => true]);
         $ok = curl_exec($ch);
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        if ($ok === false || $status !== 200) {
+        if ($this->observer !== null) ($this->observer)(['provider_http_status' => $status > 0 ? $status : null]);
+        if ($ok === false || ($status !== 200 && $this->observer === null)) {
             throw new SubmissionAntibotUnavailable('The security check is temporarily unavailable. Please retry the check.');
         }
         try {
@@ -151,6 +173,10 @@ final class SubmissionTurnstile
         }
         if (!is_array($result)) {
             throw new SubmissionAntibotUnavailable('The security check is temporarily unavailable. Please retry later.');
+        }
+        if ($status !== 200) {
+            $this->observeResult($result, $now);
+            throw new SubmissionAntibotUnavailable('The security check is temporarily unavailable. Please retry the check.');
         }
         return $result;
     }

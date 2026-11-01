@@ -1,0 +1,5 @@
+# Offline/test-only sources must not enter production Git archives.
+/__turnstile-validation export-ignore
+/includes/submissions/turnstile-challenge.php export-ignore
+/scripts/check-submissions-turnstile-config.php export-ignore
+/tests export-ignore

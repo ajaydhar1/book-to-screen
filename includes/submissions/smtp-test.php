@@ -4,27 +4,11 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/local.php';
 require_once __DIR__ . '/migrations.php';
+require_once __DIR__ . '/private-config.php';
 
 function submission_smtp_private_path(string $path): string
 {
-    $resolved = realpath($path);
-    $webRoot = realpath(__DIR__ . '/../../..');
-    $supplied = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
-    if ($resolved === false || is_link($path) || $webRoot === false
-        || str_starts_with(strtolower($resolved) . DIRECTORY_SEPARATOR, strtolower($webRoot) . DIRECTORY_SEPARATOR)
-        || str_starts_with(strtolower($supplied) . DIRECTORY_SEPARATOR, strtolower($webRoot) . DIRECTORY_SEPARATOR)) {
-        throw new RuntimeException('SMTP test files must exist outside the repository and its parent web directory.');
-    }
-    $documentRoot = realpath($_SERVER['DOCUMENT_ROOT'] ?? '');
-    if ($documentRoot !== false
-        && (str_starts_with(strtolower($resolved) . DIRECTORY_SEPARATOR, strtolower($documentRoot) . DIRECTORY_SEPARATOR)
-            || str_starts_with(strtolower($supplied) . DIRECTORY_SEPARATOR, strtolower($documentRoot) . DIRECTORY_SEPARATOR))) {
-        throw new RuntimeException('SMTP test files must be outside the active document root.');
-    }
-    if (DIRECTORY_SEPARATOR !== '\\' && (fileperms($resolved) & 0077) !== 0) {
-        throw new RuntimeException('Restrict SMTP test file permissions to the current user.');
-    }
-    return $resolved;
+    return submission_private_config_path($path);
 }
 
 function submission_namecheap_config(string $path): array

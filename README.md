@@ -308,6 +308,23 @@ SMTP acceptance, operator-confirmed inbox delivery and browser email confirmatio
 Regression tests remain offline; local/staging browser mail remains mocked or
 disabled and public submissions stay disabled.
 
+Milestone 4C [restricted-pilot readiness assessment](docs/submissions-production-readiness.md)
+documents Turnstile Managed configuration, separate-database staff identity,
+key/backup recovery, Namecheap compatibility and explicit launch approval gates.
+Source preparation and regressions are offline; production deployment and activation are NO-GO
+until the documented isolation, authentication, privacy and recovery blockers close.
+
+The [existing Managed Turnstile widget guide](docs/submissions-turnstile.md) covers
+private key entry and a nonactivating offline checker for the canonical
+`booktoscreen.org` hostname and `author_submission` action. Reuse the existing
+widget. The operator-confirmed controlled challenge test demonstrated fresh
+acceptance and identical-token duplicate rejection; the harness was disabled
+and removed. Earlier double-acceptance reports remain unexplained.
+See the [4C completion record and deployment exclusions](docs/submissions-turnstile-upload.md#milestone-4c-completion-review).
+Temporary harness/diagnostics and tests are source-only, excluded from Git
+archives by `.gitattributes`; other deployment methods must exclude them explicitly.
+Any further live testing requires new approval.
+
 The minimal review area lists verified records, displays declarations and consent,
 warns about matching ISBN/title-author properties, and accepts CSRF-protected
 status/note updates. Optimistic revision checks prevent stale overwrites.
