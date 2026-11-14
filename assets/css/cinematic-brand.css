@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&display=swap');
+
+.brand-name {
+    font-family: "DM Sans", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.brand-name .brand-name__connector {
+    color: var(--brass-bright);
+    font-size: .72em;
+    letter-spacing: .08em;
+}

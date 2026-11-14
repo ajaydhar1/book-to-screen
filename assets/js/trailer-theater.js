@@ -138,7 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     onReady: event => {
 
-                        event.target.playVideo();
+                        if (theater.classList.contains('is-open')) {
+                            event.target.playVideo();
+                        }
 
                     },
 
@@ -214,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         continuousMode = false;
 
-        if (player) {
+        if (player && typeof player.stopVideo === 'function') {
             player.stopVideo();
         }
 
